@@ -130,3 +130,4 @@ dmypy.json
 /face_recognition/libarcsoft_face.dll
 !/face_recognition/libarcsoft_face_engine.dll
 /face_recognition/testcamrea.ui
+/face_recognition/libarcsoft_face_engine.dll
