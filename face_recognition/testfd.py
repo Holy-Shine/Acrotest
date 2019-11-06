@@ -236,7 +236,6 @@ class Uiwindow(QtWidgets.QMainWindow, cameraui.Ui_Form):
 
 
     def showinfoface(self,index):
-
         if not index == -1:
             ret = self.faceinfolist[index]
             showImage = cv2.resize(ret['img'], (140, 105))

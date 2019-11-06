@@ -6,6 +6,8 @@ dllc=cdll.msvcrt
 ASF_DETECT_MODE_VIDEO = 0x00000000
 ASF_DETECT_MODE_IMAGE = 0xFFFFFFFF
 c_ubyte_p = POINTER(c_ubyte)
+
+
 #激活
 jihuo=dll.ASFActivation
 jihuo.restype = c_int32
@@ -20,6 +22,7 @@ chushihua.argtypes=(c_long,c_int32,c_int32,c_int32,c_int32,POINTER(c_void_p))
 shibie=dll.ASFDetectFaces
 shibie.restype=c_int32
 shibie.argtypes=(c_void_p,c_int32,c_int32,c_int32,POINTER(c_ubyte),POINTER(ASF_MultiFaceInfo))
+
 
 #特征提取
 tezheng=dll.ASFFaceFeatureExtract

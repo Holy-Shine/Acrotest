@@ -2,8 +2,7 @@ import face_dll,face_class
 from ctypes import *
 import cv2
 from io import BytesIO
-import math
-# from Main import *
+
 Handle=c_void_p()
 c_ubyte_p = POINTER(c_ubyte)
 # 激活函数

@@ -99,12 +99,10 @@ class FaceRecognition():
         for index in range (len(FeatueList)):
             item = FeatueList[index]
             rate = fun.BD(currentFeature, fun.process(item['feature']))
-
             #比对相似度找最大 且特征阈值大于0.75
             if rate[1]>max and rate[1]>0.75:
                 ret = index
                 max = rate[1]
-
         return ret
 
     def ConfrimFaceSDK(self,ret):
