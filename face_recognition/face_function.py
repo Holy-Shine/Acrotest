@@ -1,4 +1,5 @@
-import face_dll,face_class
+import face_recognition.face_dll as face_dll
+import  face_recognition.face_class as face_class
 from ctypes import *
 import cv2
 from io import BytesIO
