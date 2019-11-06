@@ -10,10 +10,16 @@ class logicNewUser(Ui_newUser, QDialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        # self.ctimes = ['1','2','3','4','5','6','7','8','9','10','11','12']
+        # self.days = ['1','2','3','4','5','6','7']
+        
+        # self.cb_days = self.cb_time.qCheckBox
+        # self.cb_ttimes = self.cb_time.qComboBox
 
         self.btn_insert.clicked.connect(self.on_pushButton_insert_clicked)
         self.btn_clear.clicked.connect(self.on_pushButton_clear_clicked)
         self.btn_newadd.clicked.connect(self.on_pushButton_clear_clicked)
+
     def on_pushButton_clear_clicked(self):
         self.edit_phone.clear()
         self.edit_name.clear()
@@ -27,14 +33,17 @@ class logicNewUser(Ui_newUser, QDialog):
         elif self.edit_phone.text() == '':
             QMessageBox.warning(self, '提示','新员工联系方式不能为空！', QMessageBox.Yes,QMessageBox.Yes)
         else:
-            sql = 'INSERT INTO mem_info (mem_name, mem_gender, mem_parent, mem_phone, mem_type) VALUES(\'{}\',\'{}\',\'{}\',\'{}\',{})'.format(
+            sql = 'INSERT INTO mem_info (mem_name, mem_gender, mem_parent, mem_phone, mem_type) VALUES(\'{}\',\'{}\',\'{}\',{},{})'.format(
                                     self.edit_name.text(), 
                                     self.cb_gender.currentText(), 
                                     self.edit_parent.text(), 
                                     self.edit_phone.text(),
-                                    self.cb_type.currentText()
+                                    self.cb_type.currentText(),
                                 )
-            hint = '姓名：{}\n性别：{}\n家长：{}\n联系方式：{}\n办卡类型：{}\n'.format(
+
+
+            
+            hint = '姓名：{}\n性别：{}\n家长：{}\n联系方式：{}\n办卡类型：{}'.format(
                                     self.edit_name.text(), 
                                     self.cb_gender.currentText(), 
                                     self.edit_parent.text(), 

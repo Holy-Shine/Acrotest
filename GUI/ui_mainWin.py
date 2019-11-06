@@ -19,9 +19,9 @@ class Ui_MainWindow(object):
         self.btn_add_user = QtWidgets.QPushButton(self.centralwidget)
         self.btn_add_user.setGeometry(QtCore.QRect(30, 230, 131, 28))
         self.btn_add_user.setObjectName("btn_add_user")
-        self.btn_search_update = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_search_update.setGeometry(QtCore.QRect(30, 290, 131, 28))
-        self.btn_search_update.setObjectName("btn_search_update")
+        self.btn_class_update = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_class_update.setGeometry(QtCore.QRect(30, 290, 131, 28))
+        self.btn_class_update.setObjectName("btn_class_update")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -34,4 +34,4 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.btn_add_user.setText(_translate("MainWindow", "新用户"))
-        self.btn_search_update.setText(_translate("MainWindow", "信息查询更改"))
+        self.btn_class_update.setText(_translate("MainWindow", "更新排课"))
