@@ -27,7 +27,7 @@
      <string>新用户</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_search_update">
+   <widget class="QPushButton" name="btn_class_update">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>信息查询更改</string>
+     <string>更新排课</string>
     </property>
    </widget>
   </widget>
