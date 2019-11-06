@@ -1,5 +1,6 @@
-import face_dll,face_class
-import face_function as fun
+import face_recognition.face_dll as face_dll
+import  face_recognition.face_class as face_class
+import face_recognition.face_function as fun
 import cv2
 
 
