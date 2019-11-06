@@ -131,3 +131,7 @@ dmypy.json
 !/face_recognition/libarcsoft_face_engine.dll
 /face_recognition/testcamrea.ui
 /face_recognition/libarcsoft_face_engine.dll
+/Qiandao/libarcsoft_face.dll
+/Qiandao/libarcsoft_face_engine.dll
+/Qiandao/freesdk_132512.dat
+/Qiandao/asf_install.dat

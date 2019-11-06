@@ -22,7 +22,6 @@ if __name__ == '__main__':
 
     if login.exec_()==QDialog.Accepted:
         mainWin = logicMainWin()
-        
         win_newuser  = logicNewUser()
         win_newuser.setWindowModality(Qt.ApplicationModal)
         btn = mainWin.btn_add_user
