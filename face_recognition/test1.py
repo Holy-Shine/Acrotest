@@ -2,6 +2,7 @@ import face_dll,face_class
 from ctypes import *
 import cv2
 import face_function as fun
+
 Appkey=b'2FzzVsnbAkk9q8eLx2s1Q7tft3dY1NZXdnLN8xK6UtXf'
 SDKey=b'DAEJTcePD4TWaWKej3xRpPxBhCWGkFf4nxdYnooLWDuP'
 # 激活

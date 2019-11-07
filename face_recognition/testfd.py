@@ -104,13 +104,16 @@ class Uiwindow(QtWidgets.QMainWindow, cameraui.Ui_Form):
 
         for item in items:
             newpath = os.path.join(path, item)
-            with open(newpath, 'rb') as rw:
-                data = pickle.load(rw)
-                # img = data['img']
-                # info = data['info']
-                # feature = fun.process(data['feature'])
-                # facemsg = FaceList(feature=feature, info=info, img=img)
-                self.faceinfolist.append(data)
+            try:
+                with open(newpath, 'rb') as rw:
+                    data = pickle.load(rw)
+                    # img = data['img']
+                    # info = data['info']
+                    # feature = fun.process(data['feature'])
+                    # facemsg = FaceList(feature=feature, info=info, img=img)
+                    self.faceinfolist.append(data)
+            except Exception as e:
+                print(e)
 
     def slot_init(self):
         self.opencamrea.clicked.connect(self.button_open_camera_click)
