@@ -54,14 +54,26 @@ def connect_db():
         mem_type INT NOT NULL);
 
     上课时间表
-    每个同学7条记录，day为0表示当天无课！
         CREATE TABLE mem_classtime
         (
         mem_phone INT NOT NULL,
         mem_name TEXT NOT NULL,
-        mem_day INT NOT NULL,
-        mem_time INT NOT NULL,
-        PRIMARY KEY(mem_phone,mem_name, mem_day));
+        mem_coa_name TEXT NOT NULL,
+        year INT NOT NULL,
+        week INT NOT NULL,
+        citme TEXT, NOT NULL,
+        PRIMARY KEY(mem_phone,mem_name, year, week));
+
+
+    教练表
+        CREATE TABLE coach
+        (
+            coa_phone INT NOT NULL,
+            coa_name TEXT NOT NULL,
+            coa_info TEXT,
+            coa_pic_path TEXT,
+            PRIMARY KEY(coa_phone)
+        )
 '''
 def sqlite_test():
     import sqlite3
@@ -69,15 +81,14 @@ def sqlite_test():
     print("Opened database successfully");
     c = conn.cursor()
     sql = '''
-        SELECT mem_phone, mem_name FROM mem_info mi WHERE NOT EXISTS(
-            SELECT * FROM mem_class  mc WHERE week=9
-        )
+        SELECT mi.mem_phone, mi.mem_name FROM mem_info mi WHERE NOT EXISTS(
+                SELECT mc.mem_phone, mc.mem_name FROM mem_class mc WHERE mi.mem_phone=mc.mem_phone and mi.mem_name=mc.mem_name and week=1)
     '''
     c.execute(sql)
 
     rst = c.fetchall()
-    for i,(mem_phone, mem_name) in enumerate(rst):
-        print(i, mem_phone, mem_phone)
+    for p,n in (rst):
+        print(p,n)
     print("Table created successfully")
     conn.commit()
     conn.close()

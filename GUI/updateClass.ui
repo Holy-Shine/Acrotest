@@ -126,7 +126,7 @@
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="cb_week">
        <item>
         <property name="text">
          <string>未选择</string>
@@ -199,51 +199,24 @@
    <property name="title">
     <string>当前周次未排课学生</string>
    </property>
-   <widget class="QTableWidget" name="cb_mem_table">
+   <widget class="QTableView" name="tv_show_mem">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>261</width>
-      <height>311</height>
+      <x>10</x>
+      <y>20</y>
+      <width>271</width>
+      <height>321</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <weight>75</weight>
-      <italic>false</italic>
-      <bold>true</bold>
-      <underline>false</underline>
-     </font>
-    </property>
-    <property name="cursor" stdset="0">
-     <cursorShape>ArrowCursor</cursorShape>
-    </property>
-    <property name="mouseTracking">
-     <bool>false</bool>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <column>
-     <property name="text">
-      <string>联系方式</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>姓名</string>
-     </property>
-    </column>
    </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
      <x>330</x>
-     <y>80</y>
+     <y>160</y>
      <width>301</width>
-     <height>181</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="title">
@@ -255,22 +228,10 @@
       <x>10</x>
       <y>20</y>
       <width>281</width>
-      <height>151</height>
+      <height>71</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,1">
-     <item row="1" column="1">
-      <widget class="QComboBox" name="cb_day"/>
-     </item>
-     <item row="0" column="1">
-      <widget class="QComboBox" name="cb_coach">
-       <item>
-        <property name="text">
-         <string>未选择</string>
-        </property>
-       </item>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
@@ -284,6 +245,18 @@
         <string>日期课时</string>
        </property>
       </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="cb_coach">
+       <item>
+        <property name="text">
+         <string>未选择</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="cb_day"/>
      </item>
     </layout>
    </widget>
@@ -324,6 +297,45 @@
     </property>
     <property name="text">
      <string>确认排课信息</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_5">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>80</y>
+     <width>301</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>当前选中</string>
+   </property>
+   <widget class="QLineEdit" name="le_choose_name">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="le_choose_phone">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>92</x>
+      <y>30</y>
+      <width>191</width>
+      <height>21</height>
+     </rect>
     </property>
    </widget>
   </widget>
