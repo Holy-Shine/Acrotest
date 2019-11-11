@@ -19,7 +19,7 @@ class logicMainWin(Ui_MainWindow, QMainWindow):
         self.class_update = logicUpdateClass()
         self.class_update.setWindowModality(Qt.ApplicationModal)
         #self.btn_search_update.clicked.connect(self.search_update.show)
-        self.btn_class_update.clicked.connect(self.class_update.show)
+        self.btn_class_update.clicked.connect(self.class_update.myshow)
 
         self.btn_add_user.clicked.connect(self.new_user.show)
     def closeEvent(self, event):

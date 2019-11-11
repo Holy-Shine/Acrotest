@@ -94,4 +94,4 @@ def sqlite_test():
     conn.close()
 
 
-sqlite_test()
+connect_db()
