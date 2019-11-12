@@ -139,3 +139,5 @@ dmypy.json
 /acrotest/libarcsoft_face_engine.dll
 /acroDLL/libarcsoft_face.dll
 /acroDLL/libarcsoft_face_engine.dll
+/face_recognition/fddata/1573117987.pkl
+/face_recognition/fddata/1573186948.pkl
