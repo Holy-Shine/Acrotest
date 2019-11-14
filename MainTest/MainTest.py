@@ -96,7 +96,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "FreeStyle轮滑体验馆管理系统"))
         self.pb_main_StudentSystem.setText(_translate("MainWindow", "学员系统"))
         self.pb_main_NewMemberSystem.setText(_translate("MainWindow", "录入系统"))
         self.pb_main_LessonSystem.setText(_translate("MainWindow", "排课系统"))
