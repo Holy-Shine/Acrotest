@@ -1,7 +1,9 @@
-from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
+from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication,QStackedWidget
 
 from MainTest import Ui_MainWindow
 from PyQt5 import QtCore,QtGui,QtWidgets
+from newMember.logic_Newmember import LogicNewMember
+from GUI.logic_updateClass import logicUpdateClass
 import os,sys
 
 
@@ -10,6 +12,34 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         super(LogicMain, self).__init__()
         self.setupUi(self)
         self.setFixedSize(self.width(), self.height())
+
+        self.init()
+        self.slot_init()
+
+    def init(self):
+        self.stackedWidget = QStackedWidget()
+        self.Layout.addWidget(self.stackedWidget)
+
+        #子界面
+        self.FormNewMember = LogicNewMember()
+        self.FormLesson = logicUpdateClass()
+
+        self.stackedWidget.addWidget(self.FormNewMember)
+        self.stackedWidget.addWidget(self.FormLesson)
+
+    def slot_init(self):
+        #新学员录入系统嵌入
+        self.pb_main_NewMemberSystem.clicked.connect(self.on_pb_main_NewMemberSystem_clicked)
+
+        #排课系统
+        self.pb_main_LessonSystem.clicked.connect(self.on_pb_main_LessonSystem_clicked)
+
+    def on_pb_main_NewMemberSystem_clicked(self):
+        self.stackedWidget.setCurrentIndex(0)
+
+    def on_pb_main_LessonSystem_clicked(self):
+        self.stackedWidget.setCurrentIndex(1)
+
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, '提示',

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1420</width>
-    <height>650</height>
+    <width>1291</width>
+    <height>651</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
   <widget class="QLabel" name="lb_head">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>420</x>
      <y>20</y>
      <width>401</width>
      <height>41</height>
@@ -35,7 +35,7 @@
   <widget class="QGroupBox" name="groupBox_imageInfo">
    <property name="geometry">
     <rect>
-     <x>670</x>
+     <x>620</x>
      <y>80</y>
      <width>461</width>
      <height>491</height>
@@ -197,7 +197,7 @@
   <widget class="QGroupBox" name="groupBox_BasicInfo">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>210</x>
      <y>80</y>
      <width>361</width>
      <height>491</height>
@@ -461,7 +461,7 @@
   <widget class="QPushButton" name="bt_confrim">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>480</x>
      <y>590</y>
      <width>91</width>
      <height>41</height>
@@ -474,7 +474,7 @@
   <widget class="QPushButton" name="bt_back">
    <property name="geometry">
     <rect>
-     <x>670</x>
+     <x>620</x>
      <y>590</y>
      <width>81</width>
      <height>41</height>

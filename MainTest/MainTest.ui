@@ -123,18 +123,16 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="lb_main_test">
+    <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>490</x>
-       <y>240</y>
-       <width>301</width>
-       <height>81</height>
+       <x>0</x>
+       <y>0</y>
+       <width>1291</width>
+       <height>651</height>
       </rect>
      </property>
-     <property name="text">
-      <string>测试嵌入样本</string>
-     </property>
+     <layout class="QVBoxLayout" name="Layout"/>
     </widget>
    </widget>
    <widget class="QFrame" name="fr_main_bottom">
