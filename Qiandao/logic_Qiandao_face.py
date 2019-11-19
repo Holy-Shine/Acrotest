@@ -30,7 +30,7 @@ class ShowFD(Process):
         return info
 
     def run(self):
-        if not self.count==10:
+        if not self.count==50:
             self.count = self.count+1
             return None
         else:
@@ -43,15 +43,15 @@ class ShowFD(Process):
 
 
 class LogicQiandaoFace(UIQiandaoFace,QDialog):
-    def __init__(self,cam,face_featureslist):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.timer_camera = QtCore.QTimer()
         self.cap = cv2.VideoCapture()
-        self.CAM_NUM = int(cam)
+        self.CAM_NUM = -1
 
         #传入特征序列
-        self.face_featureslist = face_featureslist
+        self.face_featureslist = []
 
         self.facerecognition = FaceRecognition(FaceInfo(Appkey=Appkey, SDKey=SDKey))
 
@@ -59,12 +59,31 @@ class LogicQiandaoFace(UIQiandaoFace,QDialog):
 
         self.slot_init()
 
-    def slot_init(self):
+
+    def setCamNum(self,cam):
+        self.CAM_NUM = int(cam)
+        self.getCamOpen()
+
+    def setFeaturesList(self,featureslist):
+        self.face_featureslist = featureslist
+
+    def getCamOpen(self):
         self.open_camera()
         self.timer_camera.timeout.connect(self.show_camera)
 
+    def getCamClose(self):
+        try:
+            self.label.clear()
+            if self.timer_camera.isActive() == True:
+                self.timer_camera.stop()
+                self.cap.release()
+                self.label.clear()
+        except Exception as e:
+            print(e)
+
+    def slot_init(self):
         self.bt_qiandao_confrim.clicked.connect(self.qiandao_confrim)
-        self.bt_trackback.clicked.connect(self.close)
+        # self.bt_trackback.clicked.connect(self.close)
 
         try:
             self.thread.getmsg(facelist=self.face_featureslist, function=self.facerecognition)
@@ -75,7 +94,7 @@ class LogicQiandaoFace(UIQiandaoFace,QDialog):
 
     #打开显示摄像头
     def open_camera(self):
-        if self.timer_camera.isActive() == False:
+        if self.timer_camera.isActive() == False and self.CAM_NUM>=0:
             flag = self.cap.open(self.CAM_NUM)
             if flag == False:
                 msg = QMessageBox.warning(self, u"Warning", u"请检测相机与电脑是否连接正确",
@@ -84,9 +103,10 @@ class LogicQiandaoFace(UIQiandaoFace,QDialog):
             else:
                 self.timer_camera.start(30)
 
+
     def show_camera(self):
         flag, self.image = self.cap.read()
-        show = cv2.resize(self.image, (280,210))
+        show = cv2.resize(self.image, (260,346))
         show = cv2.cvtColor(show, cv2.COLOR_BGR2RGB)
         # show = self.facerecognition.showMaxFace(show)
         showImage = QtGui.QImage(show.data, show.shape[1], show.shape[0], QtGui.QImage.Format_RGB888)
@@ -138,3 +158,11 @@ class LogicQiandaoFace(UIQiandaoFace,QDialog):
                 os._exit(0)
             except Exception as e:
                 print(e)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    login = LogicQiandaoFace()
+    login.setCamNum(0)
+    login.show()
+    sys.exit(app.exec_())

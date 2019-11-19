@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>UIQiandaoFace</class>
+ <widget class="QWidget" name="UIQiandaoFace">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -105,10 +105,10 @@ font: 14pt &quot;楷体&quot;;</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>10</y>
+      <x>330</x>
+      <y>30</y>
       <width>260</width>
-      <height>390</height>
+      <height>346</height>
      </rect>
     </property>
     <property name="styleSheet">

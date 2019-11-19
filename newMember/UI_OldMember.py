@@ -7,14 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-
-class myLabel(QLabel):
-    clicked = pyqtSignal()
-    def mouseReleaseEvent(self, QMouseEvent):
-        if QMouseEvent.button() == Qt.LeftButton:
-            self.clicked.emit()
+from  MyQSS import myLabel
 
 class Ui_OldMember(object):
     def setupUi(self, OldMember):
@@ -42,10 +35,10 @@ class Ui_OldMember(object):
         self.lb_age.setGeometry(QtCore.QRect(60, 150, 81, 21))
         self.lb_age.setStyleSheet("font: 10pt \"宋体\";")
         self.lb_age.setObjectName("lb_age")
-        self.et_name_2 = QtWidgets.QLineEdit(self.groupBox_BasicInfo)
-        self.et_name_2.setGeometry(QtCore.QRect(140, 150, 121, 21))
-        self.et_name_2.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.et_name_2.setObjectName("et_name_2")
+        self.et_age = QtWidgets.QLineEdit(self.groupBox_BasicInfo)
+        self.et_age.setGeometry(QtCore.QRect(140, 150, 121, 21))
+        self.et_age.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.et_age.setObjectName("et_age")
         self.lb_parent = QtWidgets.QLabel(self.groupBox_BasicInfo)
         self.lb_parent.setGeometry(QtCore.QRect(70, 210, 61, 21))
         self.lb_parent.setStyleSheet("font: 10pt \"宋体\";")
@@ -138,7 +131,7 @@ class Ui_OldMember(object):
 
     def retranslateUi(self, OldMember):
         _translate = QtCore.QCoreApplication.translate
-        OldMember.setWindowTitle(_translate("OldMember", "学员续卡系统"))
+        OldMember.setWindowTitle(_translate("OldMember", "Form"))
         self.lb_head.setText(_translate("OldMember", "学 员 续 卡 系 统"))
         self.groupBox_BasicInfo.setTitle(_translate("OldMember", "信息查询"))
         self.lb_name.setText(_translate("OldMember", "学员姓名"))
@@ -150,6 +143,6 @@ class Ui_OldMember(object):
         self.lb_money.setText(_translate("OldMember", "办卡金额(元)"))
         self.pb_query.setText(_translate("OldMember", "查询"))
         self.bt_confrim.setText(_translate("OldMember", "确认"))
-        self.bt_back.setText(_translate("OldMember", "返回"))
+        self.bt_back.setText(_translate("OldMember", "清空"))
         self.lb_toNew.setText(_translate("OldMember", "添加新学员"))
 

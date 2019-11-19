@@ -9,17 +9,17 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class UIQiandaoFace(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(1291, 651)
-        Form.setToolTipDuration(-1)
-        Form.setStyleSheet("background-color: rgb(232, 232, 232);")
-        self.lb_toplabel = QtWidgets.QLabel(Form)
+    def setupUi(self, UIQiandaoFace):
+        UIQiandaoFace.setObjectName("UIQiandaoFace")
+        UIQiandaoFace.resize(1291, 651)
+        UIQiandaoFace.setToolTipDuration(-1)
+        UIQiandaoFace.setStyleSheet("background-color: rgb(232, 232, 232);")
+        self.lb_toplabel = QtWidgets.QLabel(UIQiandaoFace)
         self.lb_toplabel.setGeometry(QtCore.QRect(440, 20, 401, 51))
         self.lb_toplabel.setStyleSheet("font: 75 28pt \"楷体\";")
         self.lb_toplabel.setTextFormat(QtCore.Qt.AutoText)
         self.lb_toplabel.setObjectName("lb_toplabel")
-        self.groupBox = QtWidgets.QGroupBox(Form)
+        self.groupBox = QtWidgets.QGroupBox(UIQiandaoFace)
         self.groupBox.setGeometry(QtCore.QRect(330, 80, 641, 531))
         self.groupBox.setStyleSheet("background-color: rgb(221, 221, 221);")
         self.groupBox.setObjectName("groupBox")
@@ -37,7 +37,7 @@ class UIQiandaoFace(object):
         self.lb_date.setStyleSheet("font: 14pt \"宋体\";")
         self.lb_date.setObjectName("lb_date")
         self.label = QtWidgets.QLabel(self.groupBox)
-        self.label.setGeometry(QtCore.QRect(340, 10, 260, 390))
+        self.label.setGeometry(QtCore.QRect(330, 30, 260, 346))
         self.label.setStyleSheet("background-color: rgb(172, 172, 172);")
         self.label.setText("")
         self.label.setObjectName("label")
@@ -71,22 +71,22 @@ class UIQiandaoFace(object):
 "font: 14pt \"楷体\";")
         self.lb_restinfo.setObjectName("lb_restinfo")
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(UIQiandaoFace)
+        QtCore.QMetaObject.connectSlotsByName(UIQiandaoFace)
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self, UIQiandaoFace):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        self.lb_toplabel.setText(_translate("Form", "学 生 签 到 系 统 "))
-        self.groupBox.setTitle(_translate("Form", "签到信息"))
-        self.lb_name.setText(_translate("Form", "学生姓名"))
-        self.lb_nameinfo.setText(_translate("Form", "暂无"))
-        self.lb_date.setText(_translate("Form", "上课时间"))
-        self.bt_trackback.setText(_translate("Form", "返回"))
-        self.bt_qiandao_confrim.setText(_translate("Form", "确认签到"))
-        self.lb_coach.setText(_translate("Form", "教练姓名"))
-        self.lb_rest.setText(_translate("Form", "剩余次数"))
-        self.lb_dateinfo.setText(_translate("Form", "暂无"))
-        self.lb_coach_info.setText(_translate("Form", "暂无"))
-        self.lb_restinfo.setText(_translate("Form", "暂无"))
+        UIQiandaoFace.setWindowTitle(_translate("UIQiandaoFace", "Form"))
+        self.lb_toplabel.setText(_translate("UIQiandaoFace", "学 生 签 到 系 统 "))
+        self.groupBox.setTitle(_translate("UIQiandaoFace", "签到信息"))
+        self.lb_name.setText(_translate("UIQiandaoFace", "学生姓名"))
+        self.lb_nameinfo.setText(_translate("UIQiandaoFace", "暂无"))
+        self.lb_date.setText(_translate("UIQiandaoFace", "上课时间"))
+        self.bt_trackback.setText(_translate("UIQiandaoFace", "返回"))
+        self.bt_qiandao_confrim.setText(_translate("UIQiandaoFace", "确认签到"))
+        self.lb_coach.setText(_translate("UIQiandaoFace", "教练姓名"))
+        self.lb_rest.setText(_translate("UIQiandaoFace", "剩余次数"))
+        self.lb_dateinfo.setText(_translate("UIQiandaoFace", "暂无"))
+        self.lb_coach_info.setText(_translate("UIQiandaoFace", "暂无"))
+        self.lb_restinfo.setText(_translate("UIQiandaoFace", "暂无"))
 

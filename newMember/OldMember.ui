@@ -95,7 +95,7 @@
      <string>学员年龄(岁)</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="et_name_2">
+   <widget class="QLineEdit" name="et_age">
     <property name="geometry">
      <rect>
       <x>140</x>

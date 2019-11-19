@@ -53,7 +53,7 @@
       <x>150</x>
       <y>60</y>
       <width>260</width>
-      <height>390</height>
+      <height>346</height>
      </rect>
     </property>
     <property name="palette">
@@ -299,7 +299,7 @@
      <string>女</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="et_name_2">
+   <widget class="QLineEdit" name="et_age">
     <property name="geometry">
      <rect>
       <x>140</x>

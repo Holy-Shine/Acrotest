@@ -7,14 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-
-class myLabel(QLabel):
-    clicked = pyqtSignal()
-    def mouseReleaseEvent(self, QMouseEvent):
-        if QMouseEvent.button() == Qt.LeftButton:
-            self.clicked.emit()
+from MyQSS import myLabel
 
 class Ui_NewMember(object):
     def setupUi(self, NewMember):
@@ -30,7 +23,7 @@ class Ui_NewMember(object):
         self.groupBox_imageInfo.setStyleSheet("background-color: rgb(221, 221, 221);")
         self.groupBox_imageInfo.setObjectName("groupBox_imageInfo")
         self.lb_cam = QtWidgets.QLabel(self.groupBox_imageInfo)
-        self.lb_cam.setGeometry(QtCore.QRect(150, 60, 260, 390))
+        self.lb_cam.setGeometry(QtCore.QRect(150, 60, 260, 346))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(200, 197, 198))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -99,10 +92,10 @@ class Ui_NewMember(object):
         self.rb_woman = QtWidgets.QRadioButton(self.groupBox_BasicInfo)
         self.rb_woman.setGeometry(QtCore.QRect(210, 110, 41, 21))
         self.rb_woman.setObjectName("rb_woman")
-        self.et_name_2 = QtWidgets.QLineEdit(self.groupBox_BasicInfo)
-        self.et_name_2.setGeometry(QtCore.QRect(140, 160, 121, 21))
-        self.et_name_2.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.et_name_2.setObjectName("et_name_2")
+        self.et_age = QtWidgets.QLineEdit(self.groupBox_BasicInfo)
+        self.et_age.setGeometry(QtCore.QRect(140, 160, 121, 21))
+        self.et_age.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.et_age.setObjectName("et_age")
         self.lb_parent = QtWidgets.QLabel(self.groupBox_BasicInfo)
         self.lb_parent.setGeometry(QtCore.QRect(70, 210, 61, 21))
         self.lb_parent.setStyleSheet("font: 10pt \"宋体\";")
@@ -176,6 +169,6 @@ class Ui_NewMember(object):
         self.lb_cichu.setText(_translate("NewMember", "课时次数(次)"))
         self.lb_money.setText(_translate("NewMember", "办卡金额(元)"))
         self.bt_confrim.setText(_translate("NewMember", "确认录入"))
-        self.bt_back.setText(_translate("NewMember", "返回"))
+        self.bt_back.setText(_translate("NewMember", "清空"))
         self.lb_toOld.setText(_translate("NewMember", "已经是老学员"))
 
