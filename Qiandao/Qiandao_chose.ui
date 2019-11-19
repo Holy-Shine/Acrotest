@@ -6,20 +6,23 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>150</height>
+    <width>443</width>
+    <height>182</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(232, 232, 232);</string>
+  </property>
   <widget class="QPushButton" name="bt_secletqiandao">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>50</y>
-     <width>91</width>
-     <height>51</height>
+     <x>70</x>
+     <y>60</y>
+     <width>121</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">
@@ -29,10 +32,10 @@
   <widget class="QPushButton" name="bt_faceqiandao">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>50</y>
-     <width>91</width>
-     <height>51</height>
+     <x>260</x>
+     <y>60</y>
+     <width>121</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="text">

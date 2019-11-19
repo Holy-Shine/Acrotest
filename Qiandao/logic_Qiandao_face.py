@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 from PyQt5 import QtCore,QtGui,QtWidgets
 from multiprocessing import Process
 import cv2
-from UI_Qiandao_face_Main import UI_Qiandao_face
+from UI_Qiandao_face_Main import UIQiandaoFace
 from Face_Util import FaceRecognition,FaceInfo
 import os,sys
 
@@ -42,7 +42,7 @@ class ShowFD(Process):
                 print(e)
 
 
-class LogicQiandaoFace(UI_Qiandao_face,QDialog):
+class LogicQiandaoFace(UIQiandaoFace,QDialog):
     def __init__(self,cam,face_featureslist):
         super().__init__()
         self.setupUi(self)

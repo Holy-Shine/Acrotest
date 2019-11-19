@@ -1,13 +1,13 @@
 from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 
-from UI_Qiandao_chose import Ui_qiandao_chose
+from UI_Qiandao_chose import UiQiandaoChose
 from logic_Qiandao_chaxun import LogicQiandaoChaxun
 from logic_qiandao_camera import LogicQiandaoCamrea
 
 from process_camera_info import Camera
 import os,sys
 
-class LogicQiandaoChose(Ui_qiandao_chose,QDialog):
+class LogicQiandaoChose(UiQiandaoChose,QDialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)

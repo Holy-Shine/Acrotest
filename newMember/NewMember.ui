@@ -484,6 +484,19 @@
     <string>返回</string>
    </property>
   </widget>
+  <widget class="QLabel" name="lb_toOld">
+   <property name="geometry">
+    <rect>
+     <x>910</x>
+     <y>600</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>已经是老学员</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -7,6 +7,14 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+
+class myLabel(QLabel):
+    clicked = pyqtSignal()
+    def mouseReleaseEvent(self, QMouseEvent):
+        if QMouseEvent.button() == Qt.LeftButton:
+            self.clicked.emit()
 
 class Ui_NewMember(object):
     def setupUi(self, NewMember):
@@ -141,6 +149,9 @@ class Ui_NewMember(object):
         self.bt_back = QtWidgets.QPushButton(NewMember)
         self.bt_back.setGeometry(QtCore.QRect(620, 590, 81, 41))
         self.bt_back.setObjectName("bt_back")
+        self.lb_toOld = myLabel(NewMember)
+        self.lb_toOld.setGeometry(QtCore.QRect(910, 600, 101, 21))
+        self.lb_toOld.setObjectName("lb_toOld")
 
         self.retranslateUi(NewMember)
         QtCore.QMetaObject.connectSlotsByName(NewMember)
@@ -166,4 +177,5 @@ class Ui_NewMember(object):
         self.lb_money.setText(_translate("NewMember", "办卡金额(元)"))
         self.bt_confrim.setText(_translate("NewMember", "确认录入"))
         self.bt_back.setText(_translate("NewMember", "返回"))
+        self.lb_toOld.setText(_translate("NewMember", "已经是老学员"))
 

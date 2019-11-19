@@ -13,6 +13,14 @@ class LogicNewMember(Ui_NewMember,QDialog):
         super().__init__()
         self.setupUi(self)
 
+    #     self.slot_init()
+    #
+    # def solt_init(self):
+    #     self.lb_toOld.clicked.connect(self.toOld)
+    #
+    #
+    # def toOld(self):
+
 
     #
     #     self.camera = Camera()

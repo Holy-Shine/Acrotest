@@ -22,7 +22,7 @@
   <widget class="QLabel" name="lb_toplabel">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>440</x>
      <y>20</y>
      <width>401</width>
      <height>51</height>
@@ -41,7 +41,7 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>410</x>
+     <x>330</x>
      <y>80</y>
      <width>641</width>
      <height>531</height>

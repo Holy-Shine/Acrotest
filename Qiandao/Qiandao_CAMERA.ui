@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(232, 232, 232);</string>
+  </property>
   <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
@@ -21,6 +24,9 @@
      <width>69</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">

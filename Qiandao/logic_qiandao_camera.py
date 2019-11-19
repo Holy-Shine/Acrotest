@@ -1,12 +1,15 @@
 from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 
 
-from UI_Qiandao_camera import UI_Qiandao_camera
+from UI_Qiandao_camera import UIQiandaoCamera
 from logic_Qiandao_face import LogicQiandaoFace
 import os,sys
 
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
-class LogicQiandaoCamrea(UI_Qiandao_camera,QDialog):
+
+class LogicQiandaoCamrea(UIQiandaoCamera,QDialog):
     mySignal = pyqtSignal(str)
     def __init__(self,cameranum):
         super().__init__()
