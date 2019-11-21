@@ -30,7 +30,7 @@ class ShowFD(Process):
         return info
 
     def run(self):
-        if not self.count==50:
+        if not self.count== 20:
             self.count = self.count+1
             return None
         else:

@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QStackedWidget, QWidget
 
+from Logic_StudentMain import LogicStudentMain
 from MainTest import Ui_MainWindow
 from PyQt5 import QtCore,QtGui,QtWidgets
 
@@ -39,6 +40,8 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         #子界面
         self.FormBlank = QWidget()  #空白界面
 
+        self.FormStudentMain = LogicStudentMain()
+
         self.FormLesson = logicUpdateClass()  # 排课系统
 
         self.FormNewMember = LogicNewMember(self.CameraNum) #新学员录入系统
@@ -59,9 +62,10 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.stackedWidget.addWidget(self.FormOldMember)
         self.stackedWidget.addWidget(self.FormChaxunQiandao)
         self.stackedWidget.addWidget(self.FormFaceQiandao)
+        self.stackedWidget.addWidget(self.FormStudentMain)
 
-        #初始设定为空白界面
-        self.stackedWidget.setCurrentWidget(self.FormBlank)
+        #初始设定为学生界面
+        self.stackedWidget.setCurrentWidget(self.FormStudentMain)
 
 
     def slot_init(self):
@@ -76,6 +80,13 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         #签到系统
         self.pb_main_QiandaoSystem.clicked.connect(self.on_pb_main_QiandaoSystem_clicked)
 
+        # 签到系统
+        self.pb_main_StudentSystem.clicked.connect(self.on_pb_main_StudentSystem_clicked)
+
+    #学员管理系统
+    def on_pb_main_StudentSystem_clicked(self):
+        self.FormFaceQiandao.getCamClose()
+        self.stackedWidget.setCurrentWidget(self.FormStudentMain)
 
     #新学员系统
     def on_pb_main_NewMemberSystem_clicked(self):
@@ -119,7 +130,6 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def open_face_qiandao(self):
         self.FormFaceQiandao.setCamNum(self.CamChose.comboBox.currentText())
-        self.FormFaceQiandao.getCamOpen()
         self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
         self.CamChose.close()
 
