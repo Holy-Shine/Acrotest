@@ -51,8 +51,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FormLesson = logicUpdateClass()  # 排课系统
 
-        self.ChaxunChose = LogicQiandaoChose() #选择签到方式
-        self.CamChose = LogicQiandaoCamrea(cameranum=self.CameraNum) #摄像头选择
+        self.ChaxunChose = LogicQiandaoChose(camnum=self.CameraNum) #选择签到方式
         self.FormFaceQiandao = LogicQiandaoFace()  # 人脸查询系统
 
 
@@ -116,22 +115,19 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormBlank)
         self.ChaxunChose.show()
-        self.ChaxunChose.bt_secletqiandao.clicked.connect(self.open_select_qiandao)
-        self.ChaxunChose.bt_faceqiandao.clicked.connect(self.open_cam_chose)
+        self.ChaxunChose.bt_confrim.clicked.connect(self.open_qiandao)
 
-    def open_select_qiandao(self):
-        self.ChaxunChose.close()
-        self.stackedWidget.setCurrentWidget(self.FormChaxunQiandao)
 
-    def open_cam_chose(self):
-        self.ChaxunChose.close()
-        self.CamChose.show()
-        self.CamChose.bt_confrim.clicked.connect(self.open_face_qiandao)
-
-    def open_face_qiandao(self):
-        self.FormFaceQiandao.setCamNum(self.CamChose.comboBox.currentText())
-        self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
-        self.CamChose.close()
+    def open_qiandao(self):
+        try:
+            self.FormFaceQiandao.setCamNum(cam=self.ChaxunChose.cb_cam.currentText(),
+                                           year=self.ChaxunChose.cb_year.currentText(),
+                                           week = self.ChaxunChose.cb_week.currentText(),
+                                           day = self.ChaxunChose.cb_day.currentText())
+            self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
+            self.ChaxunChose.close()
+        except Exception as e:
+            print(e)
 
 
 

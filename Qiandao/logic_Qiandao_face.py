@@ -60,7 +60,13 @@ class LogicQiandaoFace(UIQiandaoFace,QDialog):
         self.slot_init()
 
 
-    def setCamNum(self,cam):
+    def setCamNum(self,cam, year,week,day):
+        #便于查询
+        self.year = year
+        self.week = week
+        self.day = day
+
+        #打开摄像头
         self.CAM_NUM = int(cam)
         self.getCamOpen()
 

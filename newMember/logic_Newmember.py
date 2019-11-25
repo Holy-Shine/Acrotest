@@ -25,7 +25,9 @@ class LogicNewMember(Ui_NewMember,QDialog):
     def init(self):
         self.clearLineEdit()
         card = ["年卡","季卡","次卡"]
+        classitem  = ["平衡车", "轮滑"]
         self.cb_card.addItems(card)
+        self.cb_classitem.addItems(classitem)
 
 
     def clearLineEdit(self):

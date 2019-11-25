@@ -38,11 +38,11 @@
     <enum>Qt::AutoText</enum>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="GB_qiandao">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>80</y>
+     <x>530</x>
+     <y>70</y>
      <width>641</width>
      <height>531</height>
     </rect>
@@ -225,6 +225,32 @@ font: 14pt &quot;楷体&quot;;</string>
     </property>
     <property name="text">
      <string>暂无</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="GBstudent">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>70</y>
+     <width>411</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>391</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
   </widget>

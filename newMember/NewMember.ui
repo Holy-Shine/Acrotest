@@ -217,7 +217,7 @@
      <rect>
       <x>70</x>
       <y>60</y>
-      <width>61</width>
+      <width>71</width>
       <height>21</height>
      </rect>
     </property>
@@ -231,7 +231,7 @@
    <widget class="QLineEdit" name="et_name">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>180</x>
       <y>60</y>
       <width>121</width>
       <height>21</height>
@@ -246,7 +246,7 @@
      <rect>
       <x>70</x>
       <y>110</y>
-      <width>61</width>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
@@ -262,7 +262,7 @@
      <rect>
       <x>60</x>
       <y>160</y>
-      <width>81</width>
+      <width>101</width>
       <height>21</height>
      </rect>
     </property>
@@ -276,7 +276,7 @@
    <widget class="QRadioButton" name="rb_man">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>190</x>
       <y>110</y>
       <width>41</width>
       <height>21</height>
@@ -289,7 +289,7 @@
    <widget class="QRadioButton" name="rb_woman">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>260</x>
       <y>110</y>
       <width>41</width>
       <height>21</height>
@@ -302,8 +302,8 @@
    <widget class="QLineEdit" name="et_age">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>160</y>
+      <x>180</x>
+      <y>150</y>
       <width>121</width>
       <height>21</height>
      </rect>
@@ -317,7 +317,7 @@
      <rect>
       <x>70</x>
       <y>210</y>
-      <width>61</width>
+      <width>71</width>
       <height>21</height>
      </rect>
     </property>
@@ -331,8 +331,8 @@
    <widget class="QLineEdit" name="et_parent">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>210</y>
+      <x>180</x>
+      <y>200</y>
       <width>121</width>
       <height>21</height>
      </rect>
@@ -346,7 +346,7 @@
      <rect>
       <x>70</x>
       <y>260</y>
-      <width>61</width>
+      <width>81</width>
       <height>21</height>
      </rect>
     </property>
@@ -360,8 +360,8 @@
    <widget class="QLineEdit" name="et_phone">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>260</y>
+      <x>180</x>
+      <y>250</y>
       <width>121</width>
       <height>21</height>
      </rect>
@@ -374,8 +374,8 @@
     <property name="geometry">
      <rect>
       <x>70</x>
-      <y>310</y>
-      <width>61</width>
+      <y>300</y>
+      <width>101</width>
       <height>21</height>
      </rect>
     </property>
@@ -389,8 +389,8 @@
    <widget class="QComboBox" name="cb_card">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>310</y>
+      <x>200</x>
+      <y>300</y>
       <width>81</width>
       <height>22</height>
      </rect>
@@ -403,8 +403,8 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>360</y>
-      <width>81</width>
+      <y>390</y>
+      <width>101</width>
       <height>21</height>
      </rect>
     </property>
@@ -418,8 +418,8 @@
    <widget class="QLineEdit" name="et_cichu">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>360</y>
+      <x>180</x>
+      <y>390</y>
       <width>121</width>
       <height>21</height>
      </rect>
@@ -432,8 +432,8 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>410</y>
-      <width>81</width>
+      <y>440</y>
+      <width>111</width>
       <height>21</height>
      </rect>
     </property>
@@ -447,10 +447,39 @@
    <widget class="QLineEdit" name="et_money">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>410</y>
+      <x>180</x>
+      <y>440</y>
       <width>121</width>
       <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_classitem">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>350</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 10pt &quot;宋体&quot;;</string>
+    </property>
+    <property name="text">
+     <string>课程种类</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_classitem">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>350</y>
+      <width>81</width>
+      <height>22</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -474,7 +503,7 @@
   <widget class="QPushButton" name="bt_back">
    <property name="geometry">
     <rect>
-     <x>620</x>
+     <x>630</x>
      <y>590</y>
      <width>81</width>
      <height>41</height>

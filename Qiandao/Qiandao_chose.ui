@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>UiQiandaoChose</class>
+ <widget class="QWidget" name="UiQiandaoChose">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>443</width>
-    <height>182</height>
+    <width>413</width>
+    <height>151</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,31 +16,151 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(232, 232, 232);</string>
   </property>
-  <widget class="QPushButton" name="bt_secletqiandao">
+  <widget class="QPushButton" name="bt_back">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>60</y>
-     <width>121</width>
-     <height>61</height>
+     <x>230</x>
+     <y>100</y>
+     <width>81</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
-    <string>查询签到</string>
+    <string>返回</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="bt_faceqiandao">
+  <widget class="QPushButton" name="bt_confrim">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>60</y>
-     <width>121</width>
-     <height>61</height>
+     <x>90</x>
+     <y>100</y>
+     <width>81</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
-    <string>人脸签到</string>
+    <string>确认</string>
    </property>
+  </widget>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>361</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QComboBox" name="cb_year">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>20</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_day">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>50</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_year">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>年份</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_day">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>50</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>周内</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_cam">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>50</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>摄像头</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_week">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>20</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_week">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>20</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>周次</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_cam">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>50</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

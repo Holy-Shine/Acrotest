@@ -82,7 +82,7 @@
    <widget class="QLabel" name="lb_age">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>50</x>
       <y>150</y>
       <width>81</width>
       <height>21</height>
@@ -98,7 +98,7 @@
    <widget class="QLineEdit" name="et_age">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>160</x>
       <y>150</y>
       <width>121</width>
       <height>21</height>
@@ -113,7 +113,7 @@
      <rect>
       <x>70</x>
       <y>210</y>
-      <width>61</width>
+      <width>71</width>
       <height>21</height>
      </rect>
     </property>
@@ -127,7 +127,7 @@
    <widget class="QLineEdit" name="et_parent">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>160</x>
       <y>210</y>
       <width>121</width>
       <height>21</height>
@@ -171,7 +171,7 @@
      <rect>
       <x>70</x>
       <y>260</y>
-      <width>61</width>
+      <width>81</width>
       <height>21</height>
      </rect>
     </property>
@@ -185,7 +185,7 @@
    <widget class="QComboBox" name="cb_card">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>180</x>
       <y>260</y>
       <width>81</width>
       <height>22</height>
@@ -198,9 +198,9 @@
    <widget class="QLabel" name="lb_cichu">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>320</y>
-      <width>81</width>
+      <x>50</x>
+      <y>360</y>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
@@ -214,8 +214,8 @@
    <widget class="QLineEdit" name="et_cichu">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>320</y>
+      <x>160</x>
+      <y>360</y>
       <width>121</width>
       <height>21</height>
      </rect>
@@ -227,9 +227,9 @@
    <widget class="QLabel" name="lb_money">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>380</y>
-      <width>81</width>
+      <x>50</x>
+      <y>410</y>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
@@ -243,8 +243,8 @@
    <widget class="QLineEdit" name="et_money">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>380</y>
+      <x>160</x>
+      <y>410</y>
       <width>121</width>
       <height>21</height>
      </rect>
@@ -269,10 +269,10 @@
    <widget class="QLabel" name="lb_cam">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>100</y>
+      <x>340</x>
+      <y>120</y>
       <width>260</width>
-      <height>390</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="palette">
@@ -410,6 +410,35 @@
     </property>
     <property name="text">
      <string>添加新学员</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_classitem">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>310</y>
+      <width>81</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_classitem">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>310</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 10pt &quot;宋体&quot;;</string>
+    </property>
+    <property name="text">
+     <string>课程种类</string>
     </property>
    </widget>
   </widget>
