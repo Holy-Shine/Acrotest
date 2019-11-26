@@ -57,9 +57,9 @@
     <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>40</x>
        <y>20</y>
-       <width>251</width>
+       <width>221</width>
        <height>481</height>
       </rect>
      </property>
@@ -71,7 +71,7 @@
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>231</width>
+        <width>201</width>
         <height>451</height>
        </rect>
       </property>
@@ -408,7 +408,7 @@
           <attribute name="title">
            <string>周一</string>
           </attribute>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <property name="geometry">
             <rect>
              <x>30</x>
@@ -1321,64 +1321,83 @@
     </widget>
    </widget>
   </widget>
-  <widget class="QListWidget" name="listWidget">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
+  <widget class="QWidget" name="left_widget" native="true">
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>120</y>
-     <width>141</width>
-     <height>541</height>
+     <y>0</y>
+     <width>161</width>
+     <height>661</height>
     </rect>
    </property>
-   <property name="sizeIncrement">
-    <size>
-     <width>0</width>
-     <height>0</height>
-    </size>
+   <property name="styleSheet">
+    <string notr="true">background:#DDDDDD</string>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-    </font>
-   </property>
-   <item>
+   <widget class="QListWidget" name="listFunc">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>131</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QListWidget#listFunc{
+    outline: 0px;
+    border:0px;
+    min-width: 120px;
+    color: Black;
+    background: #DDDDDD;
+}
+
+QListWidget#listFunc::Item{
+     height:30px;
+}
+QListWidget#listFunc::Item:selected {
+    background: rgb(49, 194, 124);
+    border-radius:1.5px;
+   
+}
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>按照周次排课</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <selectedon>resource/calender.svg</selectedon>
+      </iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>更新排课信息</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <selectedon>resource/update.svg</selectedon>
+      </iconset>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>20</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 14pt &quot;黑体&quot;;</string>
+    </property>
     <property name="text">
-     <string>周次排课</string>
+     <string>菜单栏</string>
     </property>
-    <property name="font">
-     <font>
-      <weight>50</weight>
-      <bold>false</bold>
-      <underline>false</underline>
-      <strikeout>false</strikeout>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="textAlignment">
-     <set>AlignLeading|AlignVCenter</set>
-    </property>
-    <property name="icon">
-     <iconset>
-      <activeon>resource/calender.svg</activeon>
-     </iconset>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>更新排课</string>
-    </property>
-    <property name="textAlignment">
-     <set>AlignLeading|AlignVCenter</set>
-    </property>
-    <property name="icon">
-     <iconset>
-      <activeon>resource/update.svg</activeon>
-     </iconset>
-    </property>
-   </item>
+   </widget>
   </widget>
  </widget>
  <resources/>

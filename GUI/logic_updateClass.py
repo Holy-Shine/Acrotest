@@ -42,19 +42,15 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         self.cb_day_times = []
 
     def beatify(self):
-        with open('../GUI/left_list.qss','r') as f:
-            self.list_style = f.read()
+
+        self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)   # list和右边窗口index绑定
         
-        self.listWidget.setSpacing(10)
-        self.listWidget.setStyleSheet(self.list_style)
-        self.listWidget.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)   # list和右边窗口index绑定
-        
-        self.listWidget.setFrameShape(QListWidget.NoFrame)
 
     def myshow(self):
         self.setupItem()
 
         self.show()
+        self.listFunc.setCurrentRow(0)
 
     def on_button_confirm(self):
         if self.le_choose_phone.text()=='':
@@ -67,7 +63,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             if flag:
                 QMessageBox.warning(self, '提示','未选择排课日期!', QMessageBox.Yes, QMessageBox.Yes)
             
-            elif self.cb_coach.currentText=='未选择':
+            elif self.cb_coach.currentText()=='未选择':
                 QMessageBox.warning(self, '提示','未选择教练!', QMessageBox.Yes, QMessageBox.Yes)
             
             else:
@@ -104,10 +100,11 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                         )
 
                         conn = pymysql.connect(
-                            host='localhost',
-                            user='root',
-                            password='1230456',
+                            host='121.199.17.205',
+                            user='Jessie',
+                            password='Jessie.121406',
                             database = 'meminfo',
+                            port = 3306,
                             charset='utf8'
                         )
                         cursor = conn.cursor()
@@ -160,11 +157,13 @@ class logicUpdateClass(Ui_updateClass, QDialog):
     def setupItem(self):
         sql = 'SELECT coa_name FROM coach'
         try:
+
             conn = pymysql.connect(
-                host='localhost',
-                user='root',
-                password='1230456',
+                host='121.199.17.205',
+                user='Jessie',
+                password='Jessie.121406',
                 database = 'meminfo',
+                port = 3306,
                 charset='utf8'
             )
             cursor = conn.cursor()
@@ -201,11 +200,13 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 SELECT mc.mem_phone, mc.mem_name FROM mem_class mc WHERE mi.mem_phone=mc.mem_phone and mi.mem_name=mc.mem_name and week={})'''.format(week)
             print(sql)
             try:
+
                 conn = pymysql.connect(
-                    host='localhost',
-                    user='root',
-                    password='1230456',
+                    host='121.199.17.205',
+                    user='Jessie',
+                    password='Jessie.121406',
                     database = 'meminfo',
+                    port = 3306,
                     charset='utf8'
                 )
                 c = conn.cursor()   
@@ -220,7 +221,8 @@ class logicUpdateClass(Ui_updateClass, QDialog):
 
                 conn.commit()
                 conn.close()
-            except:
+            except Exception as e:
+                print(e)
                 QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)
 
             # 若未更新不为空，则确认按钮可用
