@@ -76,22 +76,31 @@ def connect_db():
         )
 '''
 def sqlite_test():
-    import sqlite3
-    conn = sqlite3.connect('meminfo.db')
-    print("Opened database successfully");
+
+    import pymysql
+    conn = pymysql.connect(
+        host='121.199.17.205',
+        user='Jessie',
+        password='Jessie.121406',
+        database = 'meminfo',
+        port = 3306,
+        charset='utf8'
+    )
     c = conn.cursor()
+    s = '高级'
     sql = '''
-        SELECT mi.mem_phone, mi.mem_name FROM mem_info mi WHERE NOT EXISTS(
-                SELECT mc.mem_phone, mc.mem_name FROM mem_class mc WHERE mi.mem_phone=mc.mem_phone and mi.mem_name=mc.mem_name and week=1)
-    '''
+        SELECT * FROM coach WHERE coa_name like \"%{}%\" or coa_phone like  \"%{}%\" or coa_rank like \"%{}%\"
+    '''.format(s,s,s)
     c.execute(sql)
 
+    print(sql)
     rst = c.fetchall()
-    for p,n in (rst):
-        print(p,n)
+    print(len(rst))
+    for x in (rst):
+        print(x)
     print("Table created successfully")
     conn.commit()
     conn.close()
 
 
-connect_db()
+sqlite_test()

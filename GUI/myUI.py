@@ -1,20 +1,18 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QComboBox,QLineEdit,QListWidget,QCheckBox,QListWidgetItem
 from PyQt5.QtCore import Qt
-from logic_classTime import logicClassTime
 from PyQt5.QtWidgets import *
 
 class ComboCheckBox(QComboBox):
-    def __init__(self,items, parent=None):#items==[str,str...]
+    def __init__(self, parent=None):#items==[str,str...]
         super(ComboCheckBox,self).__init__(parent)
-
+        self.items = ['周一','周二','周三','周四','周五','周六','周日']
         self.times = [10,11,12,13,14,15,16,17,18,19,20,21]
         self.ttimes = ['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00']
         self.day_time_lis = [0,0,0,0,0,0,0]  # 若某天被选中，则读取
 
-        self.daytime = logicClassTime()
-        self.daytime.setWindowModality(Qt.ApplicationModal)
-        self.items=items
+        # self.daytime = logicClassTime()
+        # self.daytime.setWindowModality(Qt.ApplicationModal)
         self.row_num=len(self.items)
         self.Selectedrow_num=0
         self.qCheckBox=[]
@@ -37,8 +35,23 @@ class ComboCheckBox(QComboBox):
         lyout = QGridLayout(widget)
         lyout.setContentsMargins(0, 0, 0, 0)
 
-        cb_daytime = QtWidgets.QComboBox(widget)
-        cb_daytime.addItems(self.ttimes)
+        # cb_daytime = QtWidgets.QComboBox(widget)
+        # cb_daytime.addItems(self.ttimes)
+        cb_daytime = QListWidget()
+
+        # 小型combobox
+        for j in range(len(self.ttimes)):
+            inner_time = QListWidgetItem(cb_daytime)
+            inner_w = QWidget()
+            i_lyout = QGridLayout(inner_w)
+            i_lyout.setContentsMargins(0, 0, 0, 0)
+            i_ttimes = QtWidgets.QCheckBox(inner_w)
+            i_ttimes.setText(self.ttimes[j])
+
+            cb_daytime.setItemWidget(inner_time, inner_w)
+            
+
+
         lyout.addWidget(cb_daytime, 0, 1, 1, 1)
 
         ck_day = QtWidgets.QCheckBox(widget)
