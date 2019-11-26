@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 
-from UI_Qiandao_camera import UI_Qiandao_camera
+from UI_Qiandao_camera import UIQiandaoCamera
 from PyQt5.QtCore import pyqtSignal
 import os,sys
 
-class LogicMemberCAMChose(UI_Qiandao_camera,QDialog):
+class LogicMemberCAMChose(UIQiandaoCamera,QDialog):
     mySignal = pyqtSignal(str)
     def __init__(self,cameranum):
         super().__init__()

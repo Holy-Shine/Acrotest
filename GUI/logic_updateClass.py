@@ -42,7 +42,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         self.cb_day_times = []
 
     def beatify(self):
-        with open('./left_list.qss','r') as f:
+        with open('../GUI/left_list.qss','r') as f:
             self.list_style = f.read()
         
         self.listWidget.setSpacing(10)

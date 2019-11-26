@@ -1,12 +1,15 @@
 from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 
 
-from UI_Qiandao_camera import UI_Qiandao_camera
+from UI_Qiandao_camera import UIQiandaoCamera
 from logic_Qiandao_face import LogicQiandaoFace
 import os,sys
 
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
 
-class LogicQiandaoCamrea(UI_Qiandao_camera,QDialog):
+
+class LogicQiandaoCamrea(UIQiandaoCamera,QDialog):
     mySignal = pyqtSignal(str)
     def __init__(self,cameranum):
         super().__init__()
@@ -15,24 +18,24 @@ class LogicQiandaoCamrea(UI_Qiandao_camera,QDialog):
 
         self.face = None
         self.init()
-        self.slot_init()
+        # self.slot_init()
 
     def init(self):
         for i in range(self.cameranum):
             self.comboBox.addItem(str(i))
 
-    def slot_init(self):
-        self.bt_confrim.clicked.connect(self.goto_face)
-
-
-    #选择摄像头，打开人脸签到界面
-    def goto_face(self):
-
-        #此处添加加载特征序列的代码（开子线程完成)
-        self.face_featurelist = []
-
-        self.face = LogicQiandaoFace(cam=self.comboBox.currentText(),face_featureslist=self.face_featurelist)
-        self.face.show()
-        self.close()
+    # def slot_init(self):
+    #     self.bt_confrim.clicked.connect(self.goto_face)
+    #
+    #
+    # #选择摄像头，打开人脸签到界面
+    # def goto_face(self):
+    #     #此处添加加载特征序列的代码（开子线程完成)
+    #     self.face_featurelist = []
+    #
+    #     self.face = LogicQiandaoFace()
+    #     self.face.setCamNum(0)
+    #     self.face.show()
+    #     self.close()
 
 

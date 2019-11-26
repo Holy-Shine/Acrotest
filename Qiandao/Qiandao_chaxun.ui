@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1418</width>
-    <height>650</height>
+    <width>1291</width>
+    <height>651</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,9 +19,9 @@
   <widget class="QTextEdit" name="textEdit">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>80</y>
-     <width>381</width>
+     <x>330</x>
+     <y>90</y>
+     <width>421</width>
      <height>31</height>
     </rect>
    </property>
@@ -40,7 +40,7 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="lb_topline">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>450</x>
      <y>20</y>
      <width>361</width>
      <height>41</height>
@@ -56,7 +56,7 @@ p, li { white-space: pre-wrap; }
   <widget class="QPushButton" name="bt_select">
    <property name="geometry">
     <rect>
-     <x>850</x>
+     <x>800</x>
      <y>80</y>
      <width>91</width>
      <height>41</height>
@@ -69,8 +69,8 @@ p, li { white-space: pre-wrap; }
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>130</y>
+     <x>300</x>
+     <y>140</y>
      <width>681</width>
      <height>491</height>
     </rect>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_Qiandao_CAMERA.ui'
+# Form implementation generated from reading ui file 'Qiandao_CAMERA.ui'
 #
 # Created by: PyQt5 UI code generator 5.6
 #
@@ -8,12 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class UI_Qiandao_camera(object):
+class UIQiandaoCamera(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(271, 65)
+        Form.setStyleSheet("background-color: rgb(232, 232, 232);")
         self.comboBox = QtWidgets.QComboBox(Form)
         self.comboBox.setGeometry(QtCore.QRect(100, 20, 69, 22))
+        self.comboBox.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.comboBox.setObjectName("comboBox")
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(33, 20, 71, 20))

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>UIQiandaoFace</class>
+ <widget class="QWidget" name="UIQiandaoFace">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1417</width>
-    <height>650</height>
+    <width>1291</width>
+    <height>651</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
   <widget class="QLabel" name="lb_toplabel">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>440</x>
      <y>20</y>
      <width>401</width>
      <height>51</height>
@@ -38,11 +38,11 @@
     <enum>Qt::AutoText</enum>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QGroupBox" name="GB_qiandao">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>80</y>
+     <x>530</x>
+     <y>70</y>
      <width>641</width>
      <height>531</height>
     </rect>
@@ -105,10 +105,10 @@ font: 14pt &quot;楷体&quot;;</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>10</y>
+      <x>330</x>
+      <y>30</y>
       <width>260</width>
-      <height>390</height>
+      <height>346</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -225,6 +225,32 @@ font: 14pt &quot;楷体&quot;;</string>
     </property>
     <property name="text">
      <string>暂无</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="GBstudent">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>70</y>
+     <width>411</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>391</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
   </widget>

@@ -4,17 +4,15 @@ from PyQt5 import QtCore,QtGui,QtWidgets
 
 from UI_NewMember import Ui_NewMember
 import os,sys
-from Qiandao.process_camera_info import Camera
 from  logic_MemberCAMChose import LogicMemberCAMChose
 
 
 class LogicNewMember(Ui_NewMember,QDialog):
-    def __init__(self):
+    def __init__(self,camnum):
         super().__init__()
         self.setupUi(self)
 
-        self.camera = Camera()
-
+        self.cameranum = camnum
         self.timer_camera = QtCore.QTimer()
         self.cap = cv2.VideoCapture()
         self.image = None
@@ -25,15 +23,22 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
 
     def init(self):
-        sex = ["男","女"]
+        self.clearLineEdit()
         card = ["年卡","季卡","次卡"]
-
-        self.cb_sex.addItems(sex)
+        classitem  = ["平衡车", "轮滑"]
         self.cb_card.addItems(card)
+        self.cb_classitem.addItems(classitem)
+
+
+    def clearLineEdit(self):
+        self.et_cichu.setText('')
+        self.et_age.setText('')
+        self.et_parent.setText('')
+        self.et_money.setText('')
 
     def slot_init(self):
+
         self.bt_opencam.clicked.connect(self.open_camera)
-        self.cameranum = self.camera.get_cam_num()
 
         self.bt_cutpic.clicked.connect(self.cut_pic)
 
@@ -42,7 +47,11 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
         self.bt_back.clicked.connect(self.back)
 
-    #截取图片
+
+
+
+
+
     def  cut_pic(self):
         try:
             if self.timer_camera.isActive() == False:
@@ -55,6 +64,15 @@ class LogicNewMember(Ui_NewMember,QDialog):
                 self.bt_opencam.setText(u'打开摄像头')
         except Exception as e:
             print(e)
+
+    def close_camera(self):
+        self.lb_cam.clear()
+        if self.timer_camera.isActive() == True:
+            self.timer_camera.stop()
+            self.cap.release()
+            self.lb_cam.clear()
+            self.bt_opencam.setText(u'打开摄像头')
+
 
     def open_camera(self):
         try:
@@ -72,6 +90,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
     #获取摄像头
     def getCAMNO(self, camnum):
+
         self.get_camera(int(camnum))
         self.timer_camera.timeout.connect(self.show_camera)
 
@@ -92,8 +111,11 @@ class LogicNewMember(Ui_NewMember,QDialog):
     #显示图像
     def show_camera(self):
         flag, self.image = self.cap.read()
-        show = cv2.resize(self.image, (280,210))
+        # print(self.image.shape)
+        # show = self.image[0:128, 0:512]
+        show = cv2.resize(self.image, (260,346))
         show = cv2.cvtColor(show, cv2.COLOR_BGR2RGB)
+
         # show = self.facerecognition.showMaxFace(show)
         showImage = QtGui.QImage(show.data, show.shape[1], show.shape[0], QtGui.QImage.Format_RGB888)
         self.lb_cam.setPixmap(QtGui.QPixmap.fromImage(showImage))
@@ -109,7 +131,8 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
     #返回
     def back(self):
-        print(2)
+        self.clearLineEdit()
+        self.close_camera()
 
 
     def closeEvent(self, event):
@@ -139,6 +162,6 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    login = LogicNewMember()
+    login = LogicNewMember(camnum=1)
     login.show()
     sys.exit(app.exec_())
