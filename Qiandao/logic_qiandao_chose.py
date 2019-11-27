@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 
-from UI_Qiandao_chose import UiQiandaoChose
-from logic_Qiandao_face import LogicQiandaoFace
+from Qiandao.UI_Qiandao_chose import UiQiandaoChose
+from Qiandao.logic_Qiandao_face import LogicQiandaoFace
 
 import os,sys
 

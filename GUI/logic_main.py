@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import QMessageBox,QMainWindow
 from PyQt5.QtCore import Qt
 
-from ui_mainWin import Ui_mainWin
-from logic_updateClass import logicUpdateClass
-from logic_newUser import logicNewUser
-from logic_sysCoach import logicSysCoach
+from GUI.ui_mainWin import Ui_mainWin
+from GUI.logic_updateClass import logicUpdateClass
+from GUI.logic_newUser import logicNewUser
+from GUI.logic_sysCoach import logicSysCoach
 
 class logicMainWin(Ui_mainWin, QMainWindow):
     def __init__(self):

@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow,QDialog,QMessageBox
 from PyQt5.QtCore import Qt
 
-from logic_qiandao_chose import LogicQiandaoChose
+from Qiandao.logic_qiandao_chose import LogicQiandaoChose
 
 
 import sys

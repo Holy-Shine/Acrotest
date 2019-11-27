@@ -1,6 +1,6 @@
 
 
-from Ui_updateClass import Ui_updateClass
+from GUI.Ui_updateClass import Ui_updateClass
 from PyQt5.QtWidgets import QDialog,QMessageBox,QTableView,QHeaderView, QListWidget, QStackedWidget
 from PyQt5.QtGui import QStandardItemModel,QStandardItem
 from PyQt5.QtCore import *

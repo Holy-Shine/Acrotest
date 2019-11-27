@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 from PyQt5 import QtCore,QtGui,QtWidgets
 from multiprocessing import Process
 import cv2
-from UI_Qiandao_face_Main import UIQiandaoFace
-from Face_Util import FaceRecognition,FaceInfo
+from Qiandao.UI_Qiandao_face_Main import UIQiandaoFace
+from face_recognition.Face_Util import FaceRecognition,FaceInfo
 import os,sys
 
 Appkey=b'2FzzVsnbAkk9q8eLx2s1Q7tft3dY1NZXdnLN8xK6UtXf'

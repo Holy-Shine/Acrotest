@@ -1,4 +1,4 @@
-from Ui_syscoach import Ui_sysCoach
+from GUI.Ui_syscoach import Ui_sysCoach
 import os,json
 import pymysql,sqlite3
 from PyQt5.QtWidgets import QDialog,QMessageBox,QTableView,QHeaderView, QListWidget, QStackedWidget

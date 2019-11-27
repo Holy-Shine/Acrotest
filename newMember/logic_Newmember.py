@@ -1,10 +1,12 @@
-from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
+
 import cv2
+import os,sys
+
+from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 from PyQt5 import QtCore,QtGui,QtWidgets
 
-from UI_NewMember import Ui_NewMember
-import os,sys
-from  logic_MemberCAMChose import LogicMemberCAMChose
+from newMember.UI_NewMember import Ui_NewMember
+from newMember.logic_MemberCAMChose import LogicMemberCAMChose
 
 
 class LogicNewMember(Ui_NewMember,QDialog):
@@ -23,11 +25,14 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
 
     def init(self):
+        self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)
         self.clearLineEdit()
         card = ["年卡","季卡","次卡"]
         classitem  = ["平衡车", "轮滑"]
         self.cb_card.addItems(card)
         self.cb_classitem.addItems(classitem)
+        self.cb_card_2.addItems(card)
+        self.cb_classitem_2.addItems(classitem)
 
 
     def clearLineEdit(self):

@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 
-from UI_Qiandao_chaxun import UIQiandaoChaxun
+from Qiandao.UI_Qiandao_chaxun import UIQiandaoChaxun
 import os,sys
 
 

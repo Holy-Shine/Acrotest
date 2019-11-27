@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 
-from StudentMain import Ui_StudentMain
+from StudentSystem.StudentMain import Ui_StudentMain
 
 
 class LogicStudentMain(Ui_StudentMain,QDialog):

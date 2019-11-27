@@ -1,5 +1,5 @@
 from ctypes import *
-from face_class import *
+from face_recognition.face_class import *
 wuyongdll=CDLL('../acroDLL/libarcsoft_face.dll')
 dll=CDLL('../acroDLL/libarcsoft_face_engine.dll')
 # wuyongdll=CDLL('libarcsoft_face.dll')

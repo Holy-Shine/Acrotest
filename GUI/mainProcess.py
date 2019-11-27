@@ -4,9 +4,9 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow,QDialog,QMessageBox
 from PyQt5.QtCore import Qt
 
-from logic_login import logicLoginWin
-from logic_main import logicMainWin
-from logic_newUser import logicNewUser
+from GUI.logic_login import logicLoginWin
+from GUI.logic_main import logicMainWin
+from GUI.logic_newUser import logicNewUser
 
 import sys
 
