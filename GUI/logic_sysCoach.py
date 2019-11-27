@@ -1,4 +1,3 @@
-from GUI.Ui_syscoach import Ui_sysCoach
 import os,json
 import pymysql,sqlite3
 from PyQt5.QtWidgets import QDialog,QMessageBox,QTableView,QHeaderView, QListWidget, QStackedWidget
@@ -7,11 +6,13 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import  *
 
 
+from GUI.Ui_syscoach import Ui_sysCoach
+
 class logicSysCoach(Ui_sysCoach, QDialog):
-    def __init__(self):
+    def __init__(self,MySQL):
         super().__init__()
         self.setupUi(self)  
-
+        self.MySQL = MySQL
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)   # list和右边窗口index绑定 
         self.btn_confirm.clicked.connect(self.on_button_add_coach)
         self.btn_clear.clicked.connect(self.clear_add)
@@ -60,19 +61,23 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             print(sql)
             if reply == QMessageBox.Yes:
                 try:
-                    conn = pymysql.connect(
-                        host='121.199.17.205',
-                        user='Jessie',
-                        password='Jessie.121406',
-                        database = 'meminfo',
-                        port = 3306,
-                        charset='utf8'
-                    )
-                    cursor = conn.cursor()
-                    cursor.execute(sql)
-                    conn.commit()
-                    conn.close()
-                    QMessageBox.information(self, '提示', '删除成功！',QMessageBox.Ok,QMessageBox.Ok)
+                    # conn = pymysql.connect(
+                    #     host='121.199.17.205',
+                    #     user='Jessie',
+                    #     password='Jessie.121406',
+                    #     database = 'meminfo',
+                    #     port = 3306,
+                    #     charset='utf8'
+                    # )
+                    # cursor = conn.cursor()
+                    # cursor.execute(sql)
+                    # conn.commit()
+                    # conn.close()
+                    flag= self.MySQL.DeleteFromDataBse(sql)
+                    if(flag ==True):
+                        QMessageBox.information(self, '提示', '删除成功！',QMessageBox.Ok,QMessageBox.Ok)
+                    else:
+                        QMessageBox.information(self, '提示', '删除失败！', QMessageBox.Ok, QMessageBox.Ok)
                 except Exception as e:
                     print(e)
                     QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)     
@@ -126,19 +131,24 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             print(sql)
             if reply == QMessageBox.Yes:
                 try:
-                    conn = pymysql.connect(
-                        host='121.199.17.205',
-                        user='Jessie',
-                        password='Jessie.121406',
-                        database = 'meminfo',
-                        port = 3306,
-                        charset='utf8'
-                    )
-                    cursor = conn.cursor()
-                    cursor.execute(sql)
-                    conn.commit()
-                    conn.close()
-                    QMessageBox.information(self, '提示', '更新成功！',QMessageBox.Ok,QMessageBox.Ok)
+                    # conn = pymysql.connect(
+                    #     host='121.199.17.205',
+                    #     user='Jessie',
+                    #     password='Jessie.121406',
+                    #     database = 'meminfo',
+                    #     port = 3306,
+                    #     charset='utf8'
+                    # )
+                    # cursor = conn.cursor()
+                    # cursor.execute(sql)
+                    # conn.commit()
+                    # conn.close()
+                    # QMessageBox.information(self, '提示', '更新成功！',QMessageBox.Ok,QMessageBox.Ok)
+                    flag = self.MySQL.UpdateFromDataBse(sql)
+                    if (flag == True):
+                        QMessageBox.information(self, '提示', '更新成功！', QMessageBox.Ok, QMessageBox.Ok)
+                    else:
+                        QMessageBox.information(self, '提示', '更新失败！', QMessageBox.Ok, QMessageBox.Ok)
                 except Exception as e:
                     print(e)
                     QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)     
@@ -191,37 +201,21 @@ class logicSysCoach(Ui_sysCoach, QDialog):
                 SELECT * FROM coach WHERE coa_name like \"%{}%\" or coa_phone like  \"%{}%\" or coa_rank like \"%{}%\"
             '''.format(self.le_search_term.text(),self.le_search_term.text(),self.le_search_term.text())
             try:
-                conn = pymysql.connect(
-                    host='121.199.17.205',
-                    user='Jessie',
-                    password='Jessie.121406',
-                    database = 'meminfo',
-                    port = 3306,
-                    charset='utf8'
-                )
-                cursor = conn.cursor()
-                cursor.execute(sql)
+                flag,result = self.MySQL.SelectFromDataBse(sql)
+                if (flag == True):
+                    self.data = result
+                    self.lb_result.setText('共搜索到 {} 条记录'.format(len(self.data)))
+                    types = ['轮滑', '平衡车', '均可']
+                    for i, (coa_phone, coa_name, coa_gender, coa_rank, coa_type, coa_info) in enumerate(self.data):
+                        self.data_model.appendRow([
+                            QStandardItem(coa_phone),
+                            QStandardItem(coa_name),
+                            QStandardItem(coa_rank),
+                            QStandardItem(types[int(coa_type)])
+                        ])
+                else:
+                    QMessageBox.information(self, '提示', '查询失败！', QMessageBox.Ok, QMessageBox.Ok)
 
-                self.data = cursor.fetchall()
-                self.lb_result.setText('共搜索到 {} 条记录'.format(len(self.data)))
-                types=['轮滑','平衡车','均可']
-                for i,(coa_phone, coa_name,coa_gender, coa_rank, coa_type, coa_info) in enumerate(self.data):
-                    self.data_model.appendRow([
-                        QStandardItem(coa_phone),
-                        QStandardItem(coa_name),
-                        QStandardItem(coa_rank),
-                        QStandardItem(types[int(coa_type)])
-                    ])
-
-                conn.commit()
-
-                conn.close()
-                # conn = sqlite3.connect('meminfo.db')
-                # c = conn.cursor()   
-                # c.execute(sql)
-                # conn.commit()
-                # conn.close()
-                # QMessageBox.information(self, '提示', '录入成功！',QMessageBox.Ok,QMessageBox.Ok)
             except Exception as e:
                 print(e)
                 QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)            
@@ -259,26 +253,25 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             print(sql)
             if reply == QMessageBox.Yes:
                 try:
-                        conn = pymysql.connect(
-                            host='121.199.17.205',
-                            user='Jessie',
-                            password='Jessie.121406',
-                            database = 'meminfo',
-                            port = 3306,
-                            charset='utf8'
-                        )
-                        cursor = conn.cursor()
-                        cursor.execute(sql)
-                        conn.commit()
-                        QMessageBox.information(self, '提示', '录入成功！',QMessageBox.Ok,QMessageBox.Ok)
-
-                        conn.close()
-                        # conn = sqlite3.connect('meminfo.db')
-                        # c = conn.cursor()   
-                        # c.execute(sql)
-                        # conn.commit()
-                        # conn.close()
-                        # QMessageBox.information(self, '提示', '录入成功！',QMessageBox.Ok,QMessageBox.Ok)
+                    # conn = pymysql.connect(
+                    #     host='121.199.17.205',
+                    #     user='Jessie',
+                    #     password='Jessie.121406',
+                    #     database = 'meminfo',
+                    #     port = 3306,
+                    #     charset='utf8'
+                    # )
+                    # cursor = conn.cursor()
+                    # cursor.execute(sql)
+                    # conn.commit()
+                    # QMessageBox.information(self, '提示', '录入成功！',QMessageBox.Ok,QMessageBox.Ok)
+                    #
+                    # conn.close()
+                        flag = self.MySQL.InsertFromDataBse(sql)
+                        if (flag == True):
+                            QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
+                        else:
+                            QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
                 except:
                     QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)
 
