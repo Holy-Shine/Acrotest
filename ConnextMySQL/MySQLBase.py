@@ -123,6 +123,7 @@ class MySQLBaseFunction():
 if __name__ == '__main__':
     MySQL = MySQLBaseFunction(HostIP=host,
                                    Username=user,
-                                   Password=password)
+                                   Password=password,
+                                   DataBase= database)
     MySQL.ConnectMySQL()
 

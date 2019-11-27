@@ -9,8 +9,11 @@ from PyQt5 import QtCore,QtGui,QtWidgets
 from newMember.logic_Newmember import LogicNewMember
 
 #导入排课系统
-from GUI.logic_updateClass import logicUpdateClass
-from GUI.logic_sysCoach import logicSysCoach
+from UpdateClass.logic_updateClass import logicUpdateClass
+
+
+#导入教练系统
+from CoachSystem.logic_sysCoach import logicSysCoach
 
 
 
@@ -63,13 +66,12 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FormStudentMain = LogicStudentMain()
 
-        self.FormLesson = logicUpdateClass()  # 排课系统
+        self.FormLesson = logicUpdateClass(MySQL=self.MySQL)  # 排课系统
 
         self.FormNewMember = LogicNewMember(self.CameraNum) #新学员录入系统
 
         self.FormChaxunQiandao = LogicQiandaoChaxun() #签到查询系统
 
-        self.FormLesson = logicUpdateClass()  # 排课系统
 
         self.ChaxunChose = LogicQiandaoChose(camnum=self.CameraNum) #选择签到方式
         self.ChaxunChose.setWindowModality(QtCore.Qt.ApplicationModal)
@@ -160,6 +162,8 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
             event.accept()
         else:
             event.ignore()
+
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

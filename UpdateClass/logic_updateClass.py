@@ -7,10 +7,9 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 import pymysql
-from GUI.dbManager import dbManager
 
 class logicUpdateClass(Ui_updateClass, QDialog):
-    def __init__(self):
+    def __init__(self, MySQL):
         super().__init__()
         self.setupUi(self)
         self.beatify()
@@ -20,7 +19,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         self.tv_show_mem.setEditTriggers(QTableView.NoEditTriggers) # 不可编辑
         self.tv_show_mem.setSelectionBehavior(QTableView.SelectRows) # 选中行
         
-
+        self.MySQL = MySQL
         # 设置背景
         # paletter = QPalette()
         # paletter.setBrush(QPalette.Background, QBrush(QPixmap('resource/paike_bg.png')))
@@ -98,16 +97,17 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                             self.cb_week.currentText(),
                             ','.join(sql_T)
                         )
-                        dbm = dbManager()
-                        dbm.excuteSQL(sql)
-                        # conn = sqlite3.connect('meminfo.db')
-                        # c = conn.cursor()   
-                        # c.execute(sql)
-                        # conn.commit()
-                        # conn.close()
-                        for i in range(2):
-                            self.data_model.setData(self.data_model.index(self.current_row, i), QBrush(Qt.green), Qt.BackgroundColorRole)
-                        QMessageBox.information(self, '提示', '排课成功！',QMessageBox.Ok,QMessageBox.Ok)
+
+                        flag = self.MySQL.InsertFromDataBse(sql)
+                        if (flag == True):
+                            for i in range(2):
+                                self.data_model.setData(self.data_model.index(self.current_row, i), QBrush(Qt.green),
+                                                        Qt.BackgroundColorRole)
+                            QMessageBox.information(self, '提示', '排课信息插入成功！', QMessageBox.Ok, QMessageBox.Ok)
+                        else:
+                            QMessageBox.information(self, '提示', '排课信息插入失败！', QMessageBox.Ok, QMessageBox.Ok)
+
+                        # QMessageBox.information(self, '提示', '排课成功！',QMessageBox.Ok,QMessageBox.Ok)
                         
                         
                         
@@ -119,6 +119,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 else:
                     pass                
             
+
 
 
     def row_sel_change(self):
@@ -154,13 +155,11 @@ class logicUpdateClass(Ui_updateClass, QDialog):
     def setupItem(self):
         sql = 'SELECT coa_name, coa_type FROM coach'
         try:
-
-            dbm = dbManager()   
-            coach = dbm.excuteSQL(sql)
-            for coa_name, ctype in (coach):
-                self.cb_coach.addItem(coa_name[0])
+            flag,result = self.MySQL.SelectFromDataBse(sql)
+            print(result)
+            for coa_name, ctype in (result):
+                self.cb_coach.addItem(coa_name)
                 self.coachs.append([coa_name, int(ctype)])
-
         except Exception as e:
             print(e)
             QMessageBox.critical(self,'错误','数据库异常！无法连接到教练数据库',QMessageBox.Ok,QMessageBox.Ok)       
@@ -185,16 +184,18 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 SELECT mc.mem_phone, mc.mem_name FROM mem_class mc WHERE mi.mem_phone=mc.mem_phone and mi.mem_name=mc.mem_name and week={})'''.format(week)
             print(sql)
             try:
-
-                dbm = dbManager()
-                types = ['轮滑','平衡车']
-                self.data = dbm.excuteSQL(sql)
-                for i,(mem_phone, mem_name, mem_type) in enumerate(self.data):
-                    self.data_model.appendRow([
-                        QStandardItem(str(mem_phone)),
-                        QStandardItem(mem_name),
-                        QStandardItem(types[int(mem_type)//2])
-                    ])
+                types = ['轮滑', '平衡车']
+                flag, result = self.MySQL.SelectFromDataBse(sql)
+                if (flag == True):
+                    self.data = result
+                    for i, (mem_phone, mem_name, mem_type) in enumerate(self.data):
+                        self.data_model.appendRow([
+                            QStandardItem(str(mem_phone)),
+                            QStandardItem(mem_name),
+                            QStandardItem(types[int(mem_type) // 2])
+                        ])
+                else:
+                    QMessageBox.information(self, '提示', '未排课信息查找失败！', QMessageBox.Ok, QMessageBox.Ok)
 
             except Exception as e:
                 print(e)

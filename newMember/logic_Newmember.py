@@ -55,9 +55,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
 
 
-
-
-    def  cut_pic(self):
+    def cut_pic(self):
         try:
             if self.timer_camera.isActive() == False:
                 QMessageBox.warning(self, u"Warning", u"请先打开摄像头",
