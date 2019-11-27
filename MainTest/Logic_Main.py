@@ -24,6 +24,14 @@ import os,sys
 from Qiandao.process_camera_info import Camera
 
 
+#数据库操作
+from ConnextMySQL.MySQLBase import MySQLBaseFunction
+host='121.199.17.205',  # IP
+user='Jessie',  # 用户名
+password='Jessie.121406',  # 密码
+database = 'meminfo',
+
+
 
 
 class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -38,6 +46,15 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.slot_init()
 
     def init(self):
+        #初始化数据库
+        self.MySQL = MySQLBaseFunction(HostIP=host,
+                                       Username=user,
+                                       Password=password,
+                                       DataBase=database)
+        self.MySQL.ConnectMySQL()
+
+
+        #初始化界面
         self.stackedWidget = QStackedWidget()
         self.Layout.addWidget(self.stackedWidget)
 
@@ -59,7 +76,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FormFaceQiandao = LogicQiandaoFace()  # 人脸查询系统
 
-        self.FromCoach = logicSysCoach()
+        self.FromCoach = logicSysCoach(MySQL=self.MySQL)
 
 
         self.stackedWidget.addWidget(self.FormBlank)
