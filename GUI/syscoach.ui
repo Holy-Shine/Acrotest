@@ -364,6 +364,9 @@ QListWidget#listFunc::Item:selected {
        <height>481</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string extracomment="发发"/>
+     </property>
      <property name="title">
       <string>操作栏</string>
      </property>
@@ -451,8 +454,14 @@ QListWidget#listFunc::Item:selected {
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="le_search_term">
+         <property name="toolTip">
+          <string/>
+         </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="placeholderText">
+          <string>输入&quot;*&quot;查询全部</string>
          </property>
         </widget>
        </item>
