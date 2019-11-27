@@ -6,8 +6,8 @@ from PyQt5.QtGui import QStandardItemModel,QStandardItem
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
-import sqlite3, pymysql
-
+import pymysql
+from GUI.dbManager import dbManager
 
 class logicUpdateClass(Ui_updateClass, QDialog):
     def __init__(self):
@@ -27,7 +27,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         # self.setPalette(paletter)
 
         self.weekdays = ['周一','周二','周三','周四','周五','周六','周日']
-        self.headers = ['联系方式','姓名']
+        self.headers = ['联系方式','姓名','类型']
         self.data_model = QStandardItemModel()
         self.data_model.setHorizontalHeaderLabels(self.headers)
         self.data = []
@@ -40,17 +40,17 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         self.btn_confirm.clicked.connect(self.on_button_confirm)
 
         self.cb_day_times = []
+        self.coachs = []
+        self.setupItem()
+        self.listFunc.setCurrentRow(0)
+        
 
     def beatify(self):
 
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)   # list和右边窗口index绑定
         
 
-    def myshow(self):
-        self.setupItem()
-
-        self.show()
-        self.listFunc.setCurrentRow(0)
+        
 
     def on_button_confirm(self):
         if self.le_choose_phone.text()=='':
@@ -98,19 +98,8 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                             self.cb_week.currentText(),
                             ','.join(sql_T)
                         )
-
-                        conn = pymysql.connect(
-                            host='121.199.17.205',
-                            user='Jessie',
-                            password='Jessie.121406',
-                            database = 'meminfo',
-                            port = 3306,
-                            charset='utf8'
-                        )
-                        cursor = conn.cursor()
-                        cursor.execute(sql)
-                        conn.commit()
-                        conn.close()
+                        dbm = dbManager()
+                        dbm.excuteSQL(sql)
                         # conn = sqlite3.connect('meminfo.db')
                         # c = conn.cursor()   
                         # c.execute(sql)
@@ -138,9 +127,17 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         if  current_row < len(self.data):
             selected_phone = str(self.data[current_row][0])
             selected_name = self.data[current_row][1]
+            selected_type = int(self.data[current_row][2])
             self.le_choose_name.setText(selected_name)
             self.le_choose_phone.setText(selected_phone)
             self.current_row = current_row
+
+            # 根据当前选中决定教练
+            self.cb_coach.clear() # 先清空
+            for coch in self.coachs:
+                if coch[1]>=selected_type-1:
+                    self.cb_coach.addItem(coch[0])
+                    
         else:
             self.le_choose_name.setText('')
             self.le_choose_phone.setText('')
@@ -155,27 +152,15 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             self.cb_day_times[i].setChecked(False)
 
     def setupItem(self):
-        sql = 'SELECT coa_name FROM coach'
+        sql = 'SELECT coa_name, coa_type FROM coach'
         try:
 
-            conn = pymysql.connect(
-                host='121.199.17.205',
-                user='Jessie',
-                password='Jessie.121406',
-                database = 'meminfo',
-                port = 3306,
-                charset='utf8'
-            )
-            cursor = conn.cursor()
-            cursor.execute(sql)
-            conn.commit()
-            
-            coanames = cursor.fetchall()
-            for coa_name in (coanames):
-                self.cb_coach.addItem(coa_name[0])
+            dbm = dbManager()   
+            coach = dbm.excuteSQL(sql)
+            for coa_name, ctype in (coach):
+                # self.cb_coach.addItem(coa_name[0])
+                self.coachs.append([coa_name, int(ctype)])
 
-            conn.commit()
-            conn.close()
         except Exception as e:
             print(e)
             QMessageBox.critical(self,'错误','数据库异常！无法连接到教练数据库',QMessageBox.Ok,QMessageBox.Ok)       
@@ -196,31 +181,21 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             QMessageBox.warning(self, '提示','年和周未选!', QMessageBox.Yes, QMessageBox.Yes)
         else:
             week = self.cb_week.currentText()
-            sql = '''SELECT mi.mem_phone, mi.mem_name FROM mem_info mi WHERE NOT EXISTS(
+            sql = '''SELECT mi.mem_phone, mi.mem_name, mi.mem_type FROM mem_info mi WHERE NOT EXISTS(
                 SELECT mc.mem_phone, mc.mem_name FROM mem_class mc WHERE mi.mem_phone=mc.mem_phone and mi.mem_name=mc.mem_name and week={})'''.format(week)
             print(sql)
             try:
 
-                conn = pymysql.connect(
-                    host='121.199.17.205',
-                    user='Jessie',
-                    password='Jessie.121406',
-                    database = 'meminfo',
-                    port = 3306,
-                    charset='utf8'
-                )
-                c = conn.cursor()   
-                c.execute(sql)
-                
-                self.data = c.fetchall()
-                for i,(mem_phone, mem_name) in enumerate(self.data):
+                dbm = dbManager()
+                types = ['轮滑','平衡车']
+                self.data = dbm.excuteSQL(sql)
+                for i,(mem_phone, mem_name, mem_type) in enumerate(self.data):
                     self.data_model.appendRow([
                         QStandardItem(str(mem_phone)),
-                        QStandardItem(mem_name)
+                        QStandardItem(mem_name),
+                        QStandardItem(types[int(mem_type)//2])
                     ])
 
-                conn.commit()
-                conn.close()
             except Exception as e:
                 print(e)
                 QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)

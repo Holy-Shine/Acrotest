@@ -161,7 +161,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             event.ignore()
 
-if __name__ == '__main__':
+def main():
     app = QtWidgets.QApplication(sys.argv)
     window = LogicMain()
     window.show()

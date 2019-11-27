@@ -36,6 +36,9 @@ class logicSysCoach(Ui_sysCoach, QDialog):
         self.btn_confirm_2.clicked.connect(self.on_button_update)
 
         self.btn_remove.clicked.connect(self.on_button_remove)
+        
+        self.btn_search.setShortcut(Qt.Key_Return)
+        self.listFunc.setCurrentRow(0)
 
     def on_button_remove(self):
         crow = self.tv_search_coach.currentIndex().row()
@@ -176,9 +179,8 @@ class logicSysCoach(Ui_sysCoach, QDialog):
         #     self.le_choose_name.setText('')
         #     self.le_choose_phone.setText('')
 
-    def myshow(self):
-        self.show()
-        self.listFunc.setCurrentRow(0)
+
+        
         
     def clear_add(self):
         '''清空添加教练内容
@@ -197,9 +199,14 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             # 清空表
             self.data_model.clear()
             self.data_model.setHorizontalHeaderLabels(self.headers)    
-            sql = '''
-                SELECT * FROM coach WHERE coa_name like \"%{}%\" or coa_phone like  \"%{}%\" or coa_rank like \"%{}%\"
-            '''.format(self.le_search_term.text(),self.le_search_term.text(),self.le_search_term.text())
+            if self.le_search_term.text()=='*':
+                sql = '''
+                SELECT * FROM coach
+                ''' 
+            else:
+                sql = '''
+                    SELECT * FROM coach WHERE coa_name like \"%{}%\" or coa_phone like  \"%{}%\" or coa_rank like \"%{}%\"
+                '''.format(self.le_search_term.text(),self.le_search_term.text(),self.le_search_term.text())
             try:
                 flag,result = self.MySQL.SelectFromDataBse(sql)
                 if (flag == True):
