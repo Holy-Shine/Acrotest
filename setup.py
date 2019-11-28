@@ -2,4 +2,5 @@ from MainTest import Logic_Main
 
 
 
-Logic_Main.main()
+if __name__ == '__main__':
+    Logic_Main.main()
