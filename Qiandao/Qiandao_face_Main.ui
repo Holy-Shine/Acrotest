@@ -38,26 +38,49 @@
     <enum>Qt::AutoText</enum>
    </property>
   </widget>
-  <widget class="QGroupBox" name="GB_qiandao">
+  <widget class="QGroupBox" name="GBstudent">
    <property name="geometry">
     <rect>
-     <x>530</x>
+     <x>100</x>
      <y>70</y>
-     <width>641</width>
-     <height>531</height>
+     <width>411</width>
+     <height>541</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(221, 221, 221);</string>
+   <property name="title">
+    <string>上课名单</string>
+   </property>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>391</width>
+      <height>501</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>70</y>
+     <width>301</width>
+     <height>541</height>
+    </rect>
    </property>
    <property name="title">
-    <string>签到信息</string>
+    <string>学习信息</string>
    </property>
    <widget class="QLabel" name="lb_name">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>80</y>
+      <x>20</x>
+      <y>70</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -72,8 +95,8 @@
    <widget class="QLabel" name="lb_nameinfo">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>90</y>
+      <x>120</x>
+      <y>70</y>
       <width>131</width>
       <height>21</height>
      </rect>
@@ -89,8 +112,8 @@ font: 14pt &quot;楷体&quot;;</string>
    <widget class="QLabel" name="lb_date">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>160</y>
+      <x>20</x>
+      <y>220</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -102,53 +125,28 @@ font: 14pt &quot;楷体&quot;;</string>
      <string>上课时间</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="lb_dateinfo">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>30</y>
-      <width>260</width>
-      <height>346</height>
+      <x>120</x>
+      <y>220</y>
+      <width>131</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(172, 172, 172);</string>
+     <string notr="true">background-color: rgb(152, 152, 152);
+font: 14pt &quot;楷体&quot;;</string>
     </property>
     <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="bt_trackback">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>440</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>返回</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="bt_qiandao_confrim">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>440</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>确认签到</string>
+     <string>暂无</string>
     </property>
    </widget>
    <widget class="QLabel" name="lb_coach">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>230</y>
+      <x>20</x>
+      <y>290</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -163,8 +161,8 @@ font: 14pt &quot;楷体&quot;;</string>
    <widget class="QLabel" name="lb_rest">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>300</y>
+      <x>20</x>
+      <y>360</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -176,11 +174,11 @@ font: 14pt &quot;楷体&quot;;</string>
      <string>剩余次数</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lb_dateinfo">
+   <widget class="QLabel" name="lb_restinfo">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>160</y>
+      <x>120</x>
+      <y>360</y>
       <width>131</width>
       <height>21</height>
      </rect>
@@ -193,28 +191,27 @@ font: 14pt &quot;楷体&quot;;</string>
      <string>暂无</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lb_coach_info">
+   <widget class="QLabel" name="lb_phone">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>230</y>
-      <width>131</width>
+      <x>20</x>
+      <y>150</y>
+      <width>81</width>
       <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(152, 152, 152);
-font: 14pt &quot;楷体&quot;;</string>
+     <string notr="true">font: 14pt &quot;宋体&quot;;</string>
     </property>
     <property name="text">
-     <string>暂无</string>
+     <string>电话号码</string>
     </property>
    </widget>
-   <widget class="QLabel" name="lb_restinfo">
+   <widget class="QLabel" name="lb_phoneinfo">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>300</y>
+      <x>120</x>
+      <y>150</y>
       <width>131</width>
       <height>21</height>
      </rect>
@@ -227,30 +224,85 @@ font: 14pt &quot;楷体&quot;;</string>
      <string>暂无</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QGroupBox" name="GBstudent">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>70</y>
-     <width>411</width>
-     <height>541</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string/>
-   </property>
-   <widget class="QTableView" name="tableView">
+   <widget class="QPushButton" name="bt_qiandao_confrim">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>391</width>
-      <height>521</height>
+      <x>40</x>
+      <y>450</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>确认签到</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="gb_coach">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>290</y>
+      <width>111</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="GB_qiandao">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>70</y>
+     <width>371</width>
+     <height>531</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="title">
+    <string>人脸签到</string>
+   </property>
+   <widget class="QLabel" name="lb_cam">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>40</y>
+      <width>260</width>
+      <height>346</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgb(172, 172, 172);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bt_opencam">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>400</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>打开摄像头</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bt_clear">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>460</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>清空信息</string>
     </property>
    </widget>
   </widget>

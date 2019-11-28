@@ -8,12 +8,11 @@ import os,sys
 day = ["周一","周二","周三","周四","周五","周六","周日"]
 
 class LogicQiandaoChose(UiQiandaoChose,QDialog):
-    def __init__(self,camnum):
+    def __init__(self):
         super().__init__()
         self.setupUi(self)
 
 
-        self.camera = camnum
         self.init()
 
         self.slot_init()
@@ -26,22 +25,22 @@ class LogicQiandaoChose(UiQiandaoChose,QDialog):
         for i in range(1,53):
             self.cb_week.addItem('第{}周'.format(i))
 
-        for i in range(0,self.camera):
-            self.cb_cam.addItem('{}'.format(i))
+        for i in range(10,21):
+            self.cb_cam.addItem('{}点'.format(i))
+
 
     def slot_init(self):
+        # self.bt_confrim.clicked.connect(self.open_face_qiandao)
         self.bt_back.clicked.connect(self.close)
 
 
     def open_face_qiandao(self):
-        self.face = LogicQiandaoFace()
-        if self.cameranum > 0:
-            self.facechaxun.show()
+        try:
+            self.face = LogicQiandaoFace()
+            self.face.show()
             self.close()
-        else:
-            QMessageBox.warning(self, u"Warning", u"请检测相机与电脑是否连接正确",
-                                          buttons=QMessageBox.Ok,
-                                          defaultButton=QMessageBox.Ok)
+        except Exception as e:
+            print(e)
 
 
 

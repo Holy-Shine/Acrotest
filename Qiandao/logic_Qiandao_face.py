@@ -46,124 +46,124 @@ class LogicQiandaoFace(UIQiandaoFace,QDialog):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.timer_camera = QtCore.QTimer()
-        self.cap = cv2.VideoCapture()
-        self.CAM_NUM = -1
-
-        #传入特征序列
-        self.face_featureslist = []
-
-        self.facerecognition = FaceRecognition(FaceInfo(Appkey=Appkey, SDKey=SDKey))
-
-        self.thread = ShowFD()
-
-        self.slot_init()
-
-
-    def setCamNum(self,cam, year,week,day):
-        #便于查询
-        self.year = year
-        self.week = week
-        self.day = day
-
-        #打开摄像头
-        self.CAM_NUM = int(cam)
-        self.getCamOpen()
-
-    def setFeaturesList(self,featureslist):
-        self.face_featureslist = featureslist
-
-    def getCamOpen(self):
-        self.open_camera()
-        self.timer_camera.timeout.connect(self.show_camera)
-
-    def getCamClose(self):
-        try:
-            self.label.clear()
-            if self.timer_camera.isActive() == True:
-                self.timer_camera.stop()
-                self.cap.release()
-                self.label.clear()
-        except Exception as e:
-            print(e)
-
-    def slot_init(self):
-        self.bt_qiandao_confrim.clicked.connect(self.qiandao_confrim)
-        # self.bt_trackback.clicked.connect(self.close)
-
-        try:
-            self.thread.getmsg(facelist=self.face_featureslist, function=self.facerecognition)
-            self.thread.start()
-        except Exception as e:
-            print(e)
-
-
-    #打开显示摄像头
-    def open_camera(self):
-        if self.timer_camera.isActive() == False and self.CAM_NUM>=0:
-            flag = self.cap.open(self.CAM_NUM)
-            if flag == False:
-                msg = QMessageBox.warning(self, u"Warning", u"请检测相机与电脑是否连接正确",
-                                                    buttons=QMessageBox.Ok,
-                                                    defaultButton=QMessageBox.Ok)
-            else:
-                self.timer_camera.start(30)
-
-
-    def show_camera(self):
-        flag, self.image = self.cap.read()
-        show = cv2.resize(self.image, (260,346))
-        show = cv2.cvtColor(show, cv2.COLOR_BGR2RGB)
-        # show = self.facerecognition.showMaxFace(show)
-        showImage = QtGui.QImage(show.data, show.shape[1], show.shape[0], QtGui.QImage.Format_RGB888)
-        self.label.setPixmap(QtGui.QPixmap.fromImage(showImage))
-
-        # 检测人脸
-        try:
-            self.thread.getimg(self.image)
-            index = self.thread.run()
-            if not index == None:
-                self.showinfoface(index)
-        except Exception as e:
-            print(e)
-
-
-    #显示检测信息
-    def showinfoface(self,index):
-        print("检测系统正在运行")
-
-
-    #确认签到
-    def qiandao_confrim(self):
-        print(2)
-
-
-
-
-    def closeEvent(self, event):
-        ok = QtWidgets.QPushButton()
-        cacel = QtWidgets.QPushButton()
-
-        msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Warning, u"关闭", u"是否关闭！")
-
-        msg.addButton(ok, QtWidgets.QMessageBox.ActionRole)
-        msg.addButton(cacel, QtWidgets.QMessageBox.RejectRole)
-        ok.setText(u'确定')
-        cacel.setText(u'取消')
-        # msg.setDetailedText('sdfsdff')
-        if msg.exec_() == QtWidgets.QMessageBox.RejectRole:
-            event.ignore()
-        else:
-            #             self.socket_client.send_command(self.socket_client.current_user_command)
-            if self.cap.isOpened():
-                self.cap.release()
-            if self.timer_camera.isActive():
-                self.timer_camera.stop()
-            event.accept()
-            try:
-                os._exit(0)
-            except Exception as e:
-                print(e)
+    #     self.timer_camera = QtCore.QTimer()
+    #     self.cap = cv2.VideoCapture()
+    #     self.CAM_NUM = -1
+    #
+    #     #传入特征序列
+    #     self.face_featureslist = []
+    #
+    #     self.facerecognition = FaceRecognition(FaceInfo(Appkey=Appkey, SDKey=SDKey))
+    #
+    #     self.thread = ShowFD()
+    #
+    #     self.slot_init()
+    #
+    #
+    # def setCamNum(self,cam, year,week,day):
+    #     #便于查询
+    #     self.year = year
+    #     self.week = week
+    #     self.day = day
+    #
+    #     #打开摄像头
+    #     self.CAM_NUM = int(cam)
+    #     self.getCamOpen()
+    #
+    # def setFeaturesList(self,featureslist):
+    #     self.face_featureslist = featureslist
+    #
+    # def getCamOpen(self):
+    #     self.open_camera()
+    #     self.timer_camera.timeout.connect(self.show_camera)
+    #
+    # def getCamClose(self):
+    #     try:
+    #         self.label.clear()
+    #         if self.timer_camera.isActive() == True:
+    #             self.timer_camera.stop()
+    #             self.cap.release()
+    #             self.label.clear()
+    #     except Exception as e:
+    #         print(e)
+    #
+    # def slot_init(self):
+    #     self.bt_qiandao_confrim.clicked.connect(self.qiandao_confrim)
+    #     # self.bt_trackback.clicked.connect(self.close)
+    #
+    #     try:
+    #         self.thread.getmsg(facelist=self.face_featureslist, function=self.facerecognition)
+    #         self.thread.start()
+    #     except Exception as e:
+    #         print(e)
+    #
+    #
+    # #打开显示摄像头
+    # def open_camera(self):
+    #     if self.timer_camera.isActive() == False and self.CAM_NUM>=0:
+    #         flag = self.cap.open(self.CAM_NUM)
+    #         if flag == False:
+    #             msg = QMessageBox.warning(self, u"Warning", u"请检测相机与电脑是否连接正确",
+    #                                                 buttons=QMessageBox.Ok,
+    #                                                 defaultButton=QMessageBox.Ok)
+    #         else:
+    #             self.timer_camera.start(30)
+    #
+    #
+    # def show_camera(self):
+    #     flag, self.image = self.cap.read()
+    #     show = cv2.resize(self.image, (260,346))
+    #     show = cv2.cvtColor(show, cv2.COLOR_BGR2RGB)
+    #     # show = self.facerecognition.showMaxFace(show)
+    #     showImage = QtGui.QImage(show.data, show.shape[1], show.shape[0], QtGui.QImage.Format_RGB888)
+    #     self.label.setPixmap(QtGui.QPixmap.fromImage(showImage))
+    #
+    #     # 检测人脸
+    #     try:
+    #         self.thread.getimg(self.image)
+    #         index = self.thread.run()
+    #         if not index == None:
+    #             self.showinfoface(index)
+    #     except Exception as e:
+    #         print(e)
+    #
+    #
+    # #显示检测信息
+    # def showinfoface(self,index):
+    #     print("检测系统正在运行")
+    #
+    #
+    # #确认签到
+    # def qiandao_confrim(self):
+    #     print(2)
+    #
+    #
+    #
+    #
+    # def closeEvent(self, event):
+    #     ok = QtWidgets.QPushButton()
+    #     cacel = QtWidgets.QPushButton()
+    #
+    #     msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Warning, u"关闭", u"是否关闭！")
+    #
+    #     msg.addButton(ok, QtWidgets.QMessageBox.ActionRole)
+    #     msg.addButton(cacel, QtWidgets.QMessageBox.RejectRole)
+    #     ok.setText(u'确定')
+    #     cacel.setText(u'取消')
+    #     # msg.setDetailedText('sdfsdff')
+    #     if msg.exec_() == QtWidgets.QMessageBox.RejectRole:
+    #         event.ignore()
+    #     else:
+    #         #             self.socket_client.send_command(self.socket_client.current_user_command)
+    #         if self.cap.isOpened():
+    #             self.cap.release()
+    #         if self.timer_camera.isActive():
+    #             self.timer_camera.stop()
+    #         event.accept()
+    #         try:
+    #             os._exit(0)
+    #         except Exception as e:
+    #             print(e)
 
 
 if __name__ == '__main__':
