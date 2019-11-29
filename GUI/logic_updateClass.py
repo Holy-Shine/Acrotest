@@ -67,39 +67,46 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 QMessageBox.warning(self, '提示','未选择教练!', QMessageBox.Yes, QMessageBox.Yes)
             
             else:
-                sql_T = []
+
                 str_confirm = '姓名：{}\n联系方式：{}\n教练：{}\n排课时间：\n   '.format(
                     self.le_choose_name.text(),
                     self.le_choose_phone.text(),
                     self.cb_coach.currentText()
                     )
+
                 base = 10
                 for i, cb in enumerate(self.cb_day_times):
                     if cb.isChecked():
                         day = i//12
                         time = str(base+i%12)
                         str_confirm+=(self.weekdays[day]+': '+time+':00'+'\n   ')
-                        sql_T.append('T'+str(day)+time)
 
                 reply = QMessageBox.warning(self, '确认信息',str_confirm, QMessageBox.Yes|QMessageBox.No, QMessageBox.Yes)
 
                 # 插入数据库
                 if reply == QMessageBox.Yes:
                     try:
-                        sql = '''
-                        INSERT INTO mem_class (mem_phone, mem_name, mem_coa_name, year, week, ctime) VALUES(
-                            {},'{}','{}',{},{},'{}'
-                        )
-                        '''.format(
-                            self.le_choose_phone.text(),
-                            self.le_choose_name.text(),
-                            self.cb_coach.currentText(),
-                            self.cb_year.currentText(),
-                            self.cb_week.currentText(),
-                            ','.join(sql_T)
-                        )
                         dbm = dbManager()
-                        dbm.excuteSQL(sql)
+                        base = 10
+                        for i, cb in enumerate(self.cb_day_times):
+                            if cb.isChecked():
+                                day = i//12+1
+                                time = base+i%12
+                                sql = '''
+                                INSERT INTO mem_class (mem_phone, mem_name, mem_coa_name, year, week, cday, ctime) VALUES(
+                                    {},'{}','{}',{},{},{},{}
+                                )
+                                '''.format(
+                                    self.le_choose_phone.text(),
+                                    self.le_choose_name.text(),
+                                    self.cb_coach.currentText(),
+                                    self.cb_year.currentText(),
+                                    self.cb_week.currentText(),
+                                    day,
+                                    time
+                                )
+                        
+                                dbm.excuteSQL(sql)
                         # conn = sqlite3.connect('meminfo.db')
                         # c = conn.cursor()   
                         # c.execute(sql)
@@ -112,9 +119,11 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                         
                         
                         #删除选中行
-                        # self.tv_show_mem.clearSelection()
-                        # self.data_model.removeRow(self.current_row)
-                    except:
+                        current_row = self.tv_show_mem.currentIndex().row()
+                        self.tv_show_mem.clearSelection()
+                        self.data_model.removeRow(current_row)
+                    except Exception as e:
+                        print(e)
                         QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)
                 else:
                     pass                
