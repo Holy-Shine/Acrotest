@@ -527,70 +527,70 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QCheckBox" name="cb_13">
+             <widget class="QCheckBox" name="cb_16">
               <property name="text">
                <string>14:00</string>
               </property>
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QCheckBox" name="cb_14">
+             <widget class="QCheckBox" name="cb_20">
               <property name="text">
                <string>18:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QCheckBox" name="cb_15">
+             <widget class="QCheckBox" name="cb_13">
               <property name="text">
                <string>11:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="cb_16">
+             <widget class="QCheckBox" name="cb_17">
               <property name="text">
                <string>15:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="2">
-             <widget class="QCheckBox" name="cb_17">
+             <widget class="QCheckBox" name="cb_21">
               <property name="text">
                <string>19:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QCheckBox" name="cb_18">
+             <widget class="QCheckBox" name="cb_14">
               <property name="text">
                <string>12:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QCheckBox" name="cb_19">
+             <widget class="QCheckBox" name="cb_18">
               <property name="text">
                <string>16:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="2">
-             <widget class="QCheckBox" name="cb_20">
+             <widget class="QCheckBox" name="cb_22">
               <property name="text">
                <string>20:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QCheckBox" name="cb_21">
+             <widget class="QCheckBox" name="cb_15">
               <property name="text">
                <string>13:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QCheckBox" name="cb_22">
+             <widget class="QCheckBox" name="cb_19">
               <property name="text">
                <string>17:00</string>
               </property>
@@ -628,70 +628,70 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QCheckBox" name="cb_25">
+             <widget class="QCheckBox" name="cb_28">
               <property name="text">
                <string>14:00</string>
               </property>
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QCheckBox" name="cb_26">
+             <widget class="QCheckBox" name="cb_32">
               <property name="text">
                <string>18:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QCheckBox" name="cb_27">
+             <widget class="QCheckBox" name="cb_25">
               <property name="text">
                <string>11:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="cb_28">
+             <widget class="QCheckBox" name="cb_29">
               <property name="text">
                <string>15:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="2">
-             <widget class="QCheckBox" name="cb_29">
+             <widget class="QCheckBox" name="cb_33">
               <property name="text">
                <string>19:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QCheckBox" name="cb_30">
+             <widget class="QCheckBox" name="cb_26">
               <property name="text">
                <string>12:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QCheckBox" name="cb_31">
+             <widget class="QCheckBox" name="cb_30">
               <property name="text">
                <string>16:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="2">
-             <widget class="QCheckBox" name="cb_32">
+             <widget class="QCheckBox" name="cb_34">
               <property name="text">
                <string>20:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QCheckBox" name="cb_33">
+             <widget class="QCheckBox" name="cb_27">
               <property name="text">
                <string>13:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QCheckBox" name="cb_34">
+             <widget class="QCheckBox" name="cb_31">
               <property name="text">
                <string>17:00</string>
               </property>
@@ -729,70 +729,70 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QCheckBox" name="cb_37">
+             <widget class="QCheckBox" name="cb_40">
               <property name="text">
                <string>14:00</string>
               </property>
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QCheckBox" name="cb_38">
+             <widget class="QCheckBox" name="cb_44">
               <property name="text">
                <string>18:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QCheckBox" name="cb_39">
+             <widget class="QCheckBox" name="cb_37">
               <property name="text">
                <string>11:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="cb_40">
+             <widget class="QCheckBox" name="cb_41">
               <property name="text">
                <string>15:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="2">
-             <widget class="QCheckBox" name="cb_41">
+             <widget class="QCheckBox" name="cb_45">
               <property name="text">
                <string>19:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QCheckBox" name="cb_42">
+             <widget class="QCheckBox" name="cb_38">
               <property name="text">
                <string>12:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QCheckBox" name="cb_43">
+             <widget class="QCheckBox" name="cb_42">
               <property name="text">
                <string>16:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="2">
-             <widget class="QCheckBox" name="cb_44">
+             <widget class="QCheckBox" name="cb_46">
               <property name="text">
                <string>20:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QCheckBox" name="cb_45">
+             <widget class="QCheckBox" name="cb_39">
               <property name="text">
                <string>13:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QCheckBox" name="cb_46">
+             <widget class="QCheckBox" name="cb_43">
               <property name="text">
                <string>17:00</string>
               </property>
@@ -822,6 +822,27 @@
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout_9">
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="cb_49">
+              <property name="text">
+               <string>11:00</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCheckBox" name="cb_51">
+              <property name="text">
+               <string>13:00</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QCheckBox" name="cb_58">
+              <property name="text">
+               <string>20:00</string>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="0">
              <widget class="QCheckBox" name="cb_48">
               <property name="text">
@@ -829,80 +850,59 @@
               </property>
              </widget>
             </item>
+            <item row="3" column="2">
+             <widget class="QCheckBox" name="cb_59">
+              <property name="text">
+               <string>21:00</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="cb_54">
+              <property name="text">
+               <string>16:00</string>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="1">
-             <widget class="QCheckBox" name="cb_49">
+             <widget class="QCheckBox" name="cb_52">
               <property name="text">
                <string>14:00</string>
               </property>
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QCheckBox" name="cb_50">
+             <widget class="QCheckBox" name="cb_56">
               <property name="text">
                <string>18:00</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="cb_51">
-              <property name="text">
-               <string>11:00</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="cb_52">
+             <widget class="QCheckBox" name="cb_53">
               <property name="text">
                <string>15:00</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
-             <widget class="QCheckBox" name="cb_53">
-              <property name="text">
-               <string>19:00</string>
-              </property>
-             </widget>
-            </item>
             <item row="2" column="0">
-             <widget class="QCheckBox" name="cb_54">
+             <widget class="QCheckBox" name="cb_50">
               <property name="text">
                <string>12:00</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QCheckBox" name="cb_55">
-              <property name="text">
-               <string>16:00</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QCheckBox" name="cb_56">
-              <property name="text">
-               <string>20:00</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QCheckBox" name="cb_57">
-              <property name="text">
-               <string>13:00</string>
-              </property>
-             </widget>
-            </item>
             <item row="3" column="1">
-             <widget class="QCheckBox" name="cb_58">
+             <widget class="QCheckBox" name="cb_55">
               <property name="text">
                <string>17:00</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="2">
-             <widget class="QCheckBox" name="cb_59">
+            <item row="1" column="2">
+             <widget class="QCheckBox" name="cb_57">
               <property name="text">
-               <string>21:00</string>
+               <string>19:00</string>
               </property>
              </widget>
             </item>
@@ -931,70 +931,70 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QCheckBox" name="cb_61">
+             <widget class="QCheckBox" name="cb_64">
               <property name="text">
                <string>14:00</string>
               </property>
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QCheckBox" name="cb_62">
+             <widget class="QCheckBox" name="cb_68">
               <property name="text">
                <string>18:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QCheckBox" name="cb_63">
+             <widget class="QCheckBox" name="cb_61">
               <property name="text">
                <string>11:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="cb_64">
+             <widget class="QCheckBox" name="cb_65">
               <property name="text">
                <string>15:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="2">
-             <widget class="QCheckBox" name="cb_65">
+             <widget class="QCheckBox" name="cb_69">
               <property name="text">
                <string>19:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QCheckBox" name="cb_66">
+             <widget class="QCheckBox" name="cb_62">
               <property name="text">
                <string>12:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QCheckBox" name="cb_67">
+             <widget class="QCheckBox" name="cb_66">
               <property name="text">
                <string>16:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="2">
-             <widget class="QCheckBox" name="cb_68">
+             <widget class="QCheckBox" name="cb_70">
               <property name="text">
                <string>20:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QCheckBox" name="cb_69">
+             <widget class="QCheckBox" name="cb_63">
               <property name="text">
                <string>13:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QCheckBox" name="cb_70">
+             <widget class="QCheckBox" name="cb_67">
               <property name="text">
                <string>17:00</string>
               </property>
@@ -1032,70 +1032,70 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QCheckBox" name="cb_73">
+             <widget class="QCheckBox" name="cb_76">
               <property name="text">
                <string>14:00</string>
               </property>
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QCheckBox" name="cb_74">
+             <widget class="QCheckBox" name="cb_80">
               <property name="text">
                <string>18:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QCheckBox" name="cb_75">
+             <widget class="QCheckBox" name="cb_73">
               <property name="text">
                <string>11:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="cb_76">
+             <widget class="QCheckBox" name="cb_77">
               <property name="text">
                <string>15:00</string>
               </property>
              </widget>
             </item>
             <item row="1" column="2">
-             <widget class="QCheckBox" name="cb_77">
+             <widget class="QCheckBox" name="cb_81">
               <property name="text">
                <string>19:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QCheckBox" name="cb_78">
+             <widget class="QCheckBox" name="cb_74">
               <property name="text">
                <string>12:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QCheckBox" name="cb_79">
+             <widget class="QCheckBox" name="cb_78">
               <property name="text">
                <string>16:00</string>
               </property>
              </widget>
             </item>
             <item row="2" column="2">
-             <widget class="QCheckBox" name="cb_80">
+             <widget class="QCheckBox" name="cb_82">
               <property name="text">
                <string>20:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QCheckBox" name="cb_81">
+             <widget class="QCheckBox" name="cb_75">
               <property name="text">
                <string>13:00</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QCheckBox" name="cb_82">
+             <widget class="QCheckBox" name="cb_79">
               <property name="text">
                <string>17:00</string>
               </property>
