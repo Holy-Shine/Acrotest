@@ -34,13 +34,13 @@ class LogicQiandaoChose(UiQiandaoChose,QDialog):
         self.bt_back.clicked.connect(self.close)
 
 
-    def open_face_qiandao(self):
-        try:
-            self.face = LogicQiandaoFace()
-            self.face.show()
-            self.close()
-        except Exception as e:
-            print(e)
+    # def open_face_qiandao(self):
+    #     try:
+    #         self.face = LogicQiandaoFace()
+    #         self.face.show()
+    #         self.close()
+    #     except Exception as e:
+    #         print(e)
 
 
 
