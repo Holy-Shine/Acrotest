@@ -93,7 +93,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         # 教练系统
         self.pb_main_CoachSystem.clicked.connect(self.on_pb_main_CoachSystem_clicked)
 
-    # 学员管理系统
+    # 教练系统
     def on_pb_main_CoachSystem_clicked(self):
         # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormCoach)
