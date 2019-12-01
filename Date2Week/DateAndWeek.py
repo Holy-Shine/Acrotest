@@ -19,8 +19,8 @@ def FromWeektoDate(year,week,day):
     res =time.strptime(date, '%Y-%U-%w')
     return res.tm_year,res.tm_mon,res.tm_mday
 if __name__ == '__main__':
-    y = '2020'
-    m = '01'
+    y = '2019'
+    m = '12'
     d = '01'
 
 
