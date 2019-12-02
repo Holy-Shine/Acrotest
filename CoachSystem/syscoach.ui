@@ -74,8 +74,7 @@ QListWidget#listFunc::Item:selected {
      </property>
      <property name="icon">
       <iconset>
-       <selectedon>resource/add_c.svg</selectedon>
-      </iconset>
+       <normaloff>../resource/add_c.svg</normaloff>../resource/add_c.svg</iconset>
      </property>
     </item>
     <item>
@@ -84,8 +83,7 @@ QListWidget#listFunc::Item:selected {
      </property>
      <property name="icon">
       <iconset>
-       <selectedon>resource/up_c.svg</selectedon>
-      </iconset>
+       <normaloff>../resource/up_c.svg</normaloff>../resource/up_c.svg</iconset>
      </property>
     </item>
    </widget>
@@ -364,6 +362,9 @@ QListWidget#listFunc::Item:selected {
        <height>481</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string extracomment="发发"/>
+     </property>
      <property name="title">
       <string>操作栏</string>
      </property>
@@ -451,8 +452,14 @@ QListWidget#listFunc::Item:selected {
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="le_search_term">
+         <property name="toolTip">
+          <string/>
+         </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="placeholderText">
+          <string>输入&quot;*&quot;查询全部</string>
          </property>
         </widget>
        </item>

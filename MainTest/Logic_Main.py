@@ -13,6 +13,7 @@ from  CoachSystem.logic_sysCoach import logicSysCoach
 #导入签到系统
 from Qiandao.logic_qiandao_chose import LogicQiandaoChose
 from Qiandao.logic_Qiandao_face import LogicQiandaoFace
+from SummarySystem.logic_sysSum import logicSysSum
 
 
 import os,sys
@@ -55,7 +56,9 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FormLesson = logicUpdateClass(MySQL=self.MySQL)  # 排课系统
 
-        self.FormNewMember = LogicNewMember(self.CameraNum) #新学员录入系统
+        self.FormNewMember = LogicNewMember() #新学员录入系统
+
+        self.FormSumSys = logicSysSum()  # 统计系统
 
 
         self.ChaxunChose = LogicQiandaoChose() #选择签到方式
@@ -71,6 +74,8 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.stackedWidget.addWidget(self.FormFaceQiandao)
         self.stackedWidget.addWidget(self.FormStudentMain)
         self.stackedWidget.addWidget(self.FormCoach)
+
+        self.stackedWidget.addWidget(self.FormSumSys)
 
         #初始设定为学生界面
         self.stackedWidget.setCurrentWidget(self.FormStudentMain)
@@ -93,6 +98,10 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         # 教练系统
         self.pb_main_CoachSystem.clicked.connect(self.on_pb_main_CoachSystem_clicked)
 
+
+        # 统计系统
+        self.pb_main_StatisticSystem.clicked.connect(self.on_pb_main_StatisticSystem_clicked)
+
     # 教练系统
     def on_pb_main_CoachSystem_clicked(self):
         # self.FormFaceQiandao.getCamClose()
@@ -113,6 +122,11 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         # self.FormFaceQiandao.getCamClose()
         # self.FormNewMember.close_camera()
         self.stackedWidget.setCurrentWidget(self.FormLesson)
+
+
+    # 统计系统
+    def on_pb_main_StatisticSystem_clicked(self):
+        self.stackedWidget.setCurrentWidget(self.FormSumSys)
 
     #新转老学员
     def on_pb_main_toOldMemberSystem_clicked(self):

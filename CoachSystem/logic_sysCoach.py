@@ -6,7 +6,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import  *
 
 
-from CoachSystem.Ui_syscoach import Ui_sysCoach
+from GUI.Ui_syscoach import Ui_sysCoach
 
 class logicSysCoach(Ui_sysCoach, QDialog):
     def __init__(self,MySQL):
@@ -36,6 +36,9 @@ class logicSysCoach(Ui_sysCoach, QDialog):
         self.btn_confirm_2.clicked.connect(self.on_button_update)
 
         self.btn_remove.clicked.connect(self.on_button_remove)
+        
+        self.btn_search.setShortcut(Qt.Key_Return)
+        self.listFunc.setCurrentRow(0)
 
     def on_button_remove(self):
         crow = self.tv_search_coach.currentIndex().row()
@@ -61,6 +64,18 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             print(sql)
             if reply == QMessageBox.Yes:
                 try:
+                    # conn = pymysql.connect(
+                    #     host='121.199.17.205',
+                    #     user='Jessie',
+                    #     password='Jessie.121406',
+                    #     database = 'meminfo',
+                    #     port = 3306,
+                    #     charset='utf8'
+                    # )
+                    # cursor = conn.cursor()
+                    # cursor.execute(sql)
+                    # conn.commit()
+                    # conn.close()
                     flag= self.MySQL.DeleteFromDataBse(sql)
                     if(flag ==True):
                         QMessageBox.information(self, '提示', '删除成功！',QMessageBox.Ok,QMessageBox.Ok)
@@ -119,6 +134,19 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             print(sql)
             if reply == QMessageBox.Yes:
                 try:
+                    # conn = pymysql.connect(
+                    #     host='121.199.17.205',
+                    #     user='Jessie',
+                    #     password='Jessie.121406',
+                    #     database = 'meminfo',
+                    #     port = 3306,
+                    #     charset='utf8'
+                    # )
+                    # cursor = conn.cursor()
+                    # cursor.execute(sql)
+                    # conn.commit()
+                    # conn.close()
+                    # QMessageBox.information(self, '提示', '更新成功！',QMessageBox.Ok,QMessageBox.Ok)
                     flag = self.MySQL.UpdateFromDataBse(sql)
                     if (flag == True):
                         QMessageBox.information(self, '提示', '更新成功！', QMessageBox.Ok, QMessageBox.Ok)
@@ -147,10 +175,12 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             self.comboBox_4.setCurrentIndex(rank)
             self.comboBox_3.setCurrentIndex(ctype)
             self.te_cmsg_2.setText(info)
+        # else:
+        #     self.le_choose_name.setText('')
+        #     self.le_choose_phone.setText('')
 
-    def myshow(self):
-        self.show()
-        self.listFunc.setCurrentRow(0)
+
+        
         
     def clear_add(self):
         '''清空添加教练内容
@@ -169,9 +199,14 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             # 清空表
             self.data_model.clear()
             self.data_model.setHorizontalHeaderLabels(self.headers)    
-            sql = '''
-                SELECT * FROM coach WHERE coa_name like \"%{}%\" or coa_phone like  \"%{}%\" or coa_rank like \"%{}%\"
-            '''.format(self.le_search_term.text(),self.le_search_term.text(),self.le_search_term.text())
+            if self.le_search_term.text()=='*':
+                sql = '''
+                SELECT * FROM coach
+                ''' 
+            else:
+                sql = '''
+                    SELECT * FROM coach WHERE coa_name like \"%{}%\" or coa_phone like  \"%{}%\" or coa_rank like \"%{}%\"
+                '''.format(self.le_search_term.text(),self.le_search_term.text(),self.le_search_term.text())
             try:
                 flag,result = self.MySQL.SelectFromDataBse(sql)
                 if (flag == True):
@@ -225,6 +260,20 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             print(sql)
             if reply == QMessageBox.Yes:
                 try:
+                    # conn = pymysql.connect(
+                    #     host='121.199.17.205',
+                    #     user='Jessie',
+                    #     password='Jessie.121406',
+                    #     database = 'meminfo',
+                    #     port = 3306,
+                    #     charset='utf8'
+                    # )
+                    # cursor = conn.cursor()
+                    # cursor.execute(sql)
+                    # conn.commit()
+                    # QMessageBox.information(self, '提示', '录入成功！',QMessageBox.Ok,QMessageBox.Ok)
+                    #
+                    # conn.close()
                         flag = self.MySQL.InsertFromDataBse(sql)
                         if (flag == True):
                             QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)

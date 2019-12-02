@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'e:\waibaoTest\CoachSystem\syscoach.ui'
+# Form implementation generated from reading ui file 'e:\waibaoTest\GUI\syscoach.ui'
 #
 # Created by: PyQt5 UI code generator 5.13.0
 #
@@ -43,12 +43,12 @@ class Ui_sysCoach(object):
         self.listFunc.setObjectName("listFunc")
         item = QtWidgets.QListWidgetItem()
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../resource/add_c.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("resource/add_c.svg"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         item.setIcon(icon)
         self.listFunc.addItem(item)
         item = QtWidgets.QListWidgetItem()
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../resource/up_c.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("resource/up_c.svg"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         item.setIcon(icon1)
         self.listFunc.addItem(item)
         self.label = QtWidgets.QLabel(self.left_widget)
