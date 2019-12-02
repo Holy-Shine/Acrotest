@@ -1,5 +1,3 @@
-
-
 from GUI.Ui_updateClass import Ui_updateClass
 from PyQt5.QtWidgets import QDialog,QMessageBox,QTableView,QHeaderView, QListWidget, QStackedWidget
 from PyQt5.QtGui import QStandardItemModel,QStandardItem
@@ -206,6 +204,3 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 self.btn_confirm.setEnabled(True)
             else:
                 self.btn_confirm.setEnabled(False)
-                
-
-        

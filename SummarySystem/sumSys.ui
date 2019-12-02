@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>sumSys</class>
+ <widget class="QDialog" name="sumSys">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1291</width>
+    <height>651</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1291</width>
+    <height>651</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1291</width>
+    <height>651</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>统计系统</string>
+  </property>
+  <widget class="QWidget" name="left_widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>161</width>
+     <height>661</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:#DDDDDD</string>
+   </property>
+   <widget class="QListWidget" name="listFunc">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>131</width>
+      <height>441</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QListWidget#listFunc{
+    outline: 0px;
+    border:0px;
+    min-width: 120px;
+    color: Black;
+    background: #DDDDDD;
+}
+
+QListWidget#listFunc::Item{
+     height:30px;
+}
+QListWidget#listFunc::Item:selected {
+    background: rgb(49, 194, 124);
+    border-radius:1.5px;
+   
+}
+</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>办卡续卡统计</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>resource/card.svg</normaloff>resource/card.svg</iconset>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>营业额统计</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>resource/money.svg</normaloff>resource/money.svg</iconset>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>20</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 75 14pt &quot;黑体&quot;;</string>
+    </property>
+    <property name="text">
+     <string>菜单栏</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStackedWidget" name="stackedWidget">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>60</y>
+     <width>881</width>
+     <height>521</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
+   <widget class="QWidget" name="page">
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 14pt &quot;黑体&quot;;</string>
+     </property>
+     <property name="text">
+      <string>办卡续卡统计</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="gb_banka">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>80</y>
+       <width>831</width>
+       <height>451</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>直方图展示</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_show">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>40</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>展示</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_2">
+    <widget class="QPushButton" name="btn_show_money">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>40</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>展示</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 14pt &quot;黑体&quot;;</string>
+     </property>
+     <property name="text">
+      <string>营业额统计</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="gb_money">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>80</y>
+       <width>831</width>
+       <height>451</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>点线图展示</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="lb_head">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>20</y>
+     <width>431</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 28pt &quot;楷体&quot;;</string>
+   </property>
+   <property name="text">
+    <string>统 计 系 统</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
