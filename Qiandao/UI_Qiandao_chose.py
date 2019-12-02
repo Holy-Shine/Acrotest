@@ -58,11 +58,11 @@ class UiQiandaoChose(object):
 
     def retranslateUi(self, UiQiandaoChose):
         _translate = QtCore.QCoreApplication.translate
-        UiQiandaoChose.setWindowTitle(_translate("UiQiandaoChose", "Form"))
+        UiQiandaoChose.setWindowTitle(_translate("UiQiandaoChose", "选择签到时间"))
         self.bt_back.setText(_translate("UiQiandaoChose", "返回"))
         self.bt_confrim.setText(_translate("UiQiandaoChose", "确认"))
         self.lb_year.setText(_translate("UiQiandaoChose", "年份"))
         self.lb_day.setText(_translate("UiQiandaoChose", "周内"))
-        self.lb_cam.setText(_translate("UiQiandaoChose", "摄像头"))
+        self.lb_cam.setText(_translate("UiQiandaoChose", "时间"))
         self.lb_week.setText(_translate("UiQiandaoChose", "周次"))
 

@@ -6,10 +6,10 @@ import os,sys
 
 class LogicMemberCAMChose(UIQiandaoCamera,QDialog):
     mySignal = pyqtSignal(str)
-    def __init__(self,cameranum):
+    def __init__(self,Camnum):
         super().__init__()
         self.setupUi(self)
-        self.cameranum = cameranum
+        self.cameranum = Camnum
 
         self.init()
         self.slot_init()

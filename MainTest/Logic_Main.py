@@ -4,37 +4,27 @@ from StudentSystem.Logic_StudentMain import LogicStudentMain
 from MainTest.UI_Main import Ui_MainWindow
 from PyQt5 import QtCore,QtGui,QtWidgets
 
-
-#导入学员录入系统
 from newMember.logic_Newmember import LogicNewMember
-
-#导入排课系统
+#排课系统
 from UpdateClass.logic_updateClass import logicUpdateClass
 
-
-#导入教练系统
-from CoachSystem.logic_sysCoach import logicSysCoach
-
-
-
+#教练系统
+from  CoachSystem.logic_sysCoach import logicSysCoach
 #导入签到系统
 from Qiandao.logic_qiandao_chose import LogicQiandaoChose
 from Qiandao.logic_Qiandao_face import LogicQiandaoFace
-from Qiandao.logic_Qiandao_chaxun import LogicQiandaoChaxun
+
 
 import os,sys
 
 from Qiandao.process_camera_info import Camera
-
-
-#数据库操作
 from ConnextMySQL.MySQLBase import MySQLBaseFunction
+
+
 host='121.199.17.205',  # IP
 user='Jessie',  # 用户名
 password='Jessie.121406',  # 密码
 database = 'meminfo',
-
-
 
 
 class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -43,21 +33,18 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setFixedSize(self.width(), self.height())
 
+        self.MySQL = MySQLBaseFunction(HostIP=host,
+                                       Username = user,
+                                       Password= password,
+                                       DataBase= database)
+
+        self.MySQL.ConnectMySQL()
         self.CameraNum = Camera().get_cam_num()
 
         self.init()
         self.slot_init()
 
     def init(self):
-        #初始化数据库
-        self.MySQL = MySQLBaseFunction(HostIP=host,
-                                       Username=user,
-                                       Password=password,
-                                       DataBase=database)
-        self.MySQL.ConnectMySQL()
-
-
-        #初始化界面
         self.stackedWidget = QStackedWidget()
         self.Layout.addWidget(self.stackedWidget)
 
@@ -70,24 +57,20 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FormNewMember = LogicNewMember(self.CameraNum) #新学员录入系统
 
-        self.FormChaxunQiandao = LogicQiandaoChaxun() #签到查询系统
 
-
-        self.ChaxunChose = LogicQiandaoChose(camnum=self.CameraNum) #选择签到方式
+        self.ChaxunChose = LogicQiandaoChose() #选择签到方式
         self.ChaxunChose.setWindowModality(QtCore.Qt.ApplicationModal)
-
         self.FormFaceQiandao = LogicQiandaoFace()  # 人脸查询系统
 
-        self.FromCoach = logicSysCoach(MySQL=self.MySQL)
+        self.FormCoach = logicSysCoach(MySQL=self.MySQL)  # 教练系统
 
 
         self.stackedWidget.addWidget(self.FormBlank)
         self.stackedWidget.addWidget(self.FormNewMember)
         self.stackedWidget.addWidget(self.FormLesson)
-        self.stackedWidget.addWidget(self.FormChaxunQiandao)
         self.stackedWidget.addWidget(self.FormFaceQiandao)
         self.stackedWidget.addWidget(self.FormStudentMain)
-        self.stackedWidget.addWidget(self.FromCoach)
+        self.stackedWidget.addWidget(self.FormCoach)
 
         #初始设定为学生界面
         self.stackedWidget.setCurrentWidget(self.FormStudentMain)
@@ -96,6 +79,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
     def slot_init(self):
         #新学员录入系统嵌入
         self.pb_main_NewMemberSystem.clicked.connect(self.on_pb_main_NewMemberSystem_clicked)
+
 
         #排课系统嵌入
         self.pb_main_LessonSystem.clicked.connect(self.on_pb_main_LessonSystem_clicked)
@@ -106,46 +90,59 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         # 签到系统
         self.pb_main_StudentSystem.clicked.connect(self.on_pb_main_StudentSystem_clicked)
 
-
-        #教练系统
+        # 教练系统
         self.pb_main_CoachSystem.clicked.connect(self.on_pb_main_CoachSystem_clicked)
 
-
-    #教练管理系统
+    # 教练系统
     def on_pb_main_CoachSystem_clicked(self):
-        self.FormFaceQiandao.getCamClose()
-        self.stackedWidget.setCurrentWidget(self.FromCoach)
+        # self.FormFaceQiandao.getCamClose()
+        self.stackedWidget.setCurrentWidget(self.FormCoach)
 
     #学员管理系统
     def on_pb_main_StudentSystem_clicked(self):
-        self.FormFaceQiandao.getCamClose()
+        # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormStudentMain)
 
     #新学员系统
     def on_pb_main_NewMemberSystem_clicked(self):
-        self.FormFaceQiandao.getCamClose()
+        # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormNewMember)
 
     #排课系统
     def on_pb_main_LessonSystem_clicked(self):
-        self.FormFaceQiandao.getCamClose()
-        self.FormNewMember.close_camera()
+        # self.FormFaceQiandao.getCamClose()
+        # self.FormNewMember.close_camera()
         self.stackedWidget.setCurrentWidget(self.FormLesson)
+
+    #新转老学员
+    def on_pb_main_toOldMemberSystem_clicked(self):
+        # self.FormFaceQiandao.getCamClose()
+        # self.FormNewMember.close_camera()
+        self.stackedWidget.setCurrentWidget(self.FormOldMember)
+
+    #老转新学员
+    def on_pb_main_toNewMemberSystem_clicked(self):
+        # self.FormFaceQiandao.getCamClose()
+        # self.FormNewMember.close_camera()
+        self.stackedWidget.setCurrentWidget(self.FormNewMember)
 
     #签到系统
     def on_pb_main_QiandaoSystem_clicked(self):
-        self.FormFaceQiandao.getCamClose()
+        # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormBlank)
-        self.ChaxunChose.show()
-        self.ChaxunChose.bt_confrim.clicked.connect(self.open_qiandao)
+        try:
+            self.ChaxunChose.show()
+            self.ChaxunChose.bt_confrim.clicked.connect(self.open_qiandao)
+        except Exception as e:
+            print(e)
 
 
     def open_qiandao(self):
         try:
-            self.FormFaceQiandao.setCamNum(cam=self.ChaxunChose.cb_cam.currentText(),
-                                           year=self.ChaxunChose.cb_year.currentText(),
-                                           week = self.ChaxunChose.cb_week.currentText(),
-                                           day = self.ChaxunChose.cb_day.currentText())
+            # self.FormFaceQiandao.setCamNum(cam=self.ChaxunChose.cb_cam.currentText(),
+            #                                year=self.ChaxunChose.cb_year.currentText(),
+            #                                week = self.ChaxunChose.cb_week.currentText(),
+            #                                day = self.ChaxunChose.cb_day.currentText())
             self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
             self.ChaxunChose.close()
         except Exception as e:
@@ -163,9 +160,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             event.ignore()
 
-
-
-def main():
+if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     window = LogicMain()
     window.show()
