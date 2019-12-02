@@ -53,6 +53,8 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
         self.bt_opencam_new.clicked.connect(self.open_camera_new)
         self.pb_opencam_old.clicked.connect(self.open_camera_old)
+
+        self.listFunc.itemClicked.connect(self.close_camera)
     #
     #     self.bt_cutpic.clicked.connect(self.cut_pic)
     #
@@ -77,15 +79,22 @@ class LogicNewMember(Ui_NewMember,QDialog):
     #     except Exception as e:
     #         print(e)
     #
-    # def close_camera(self):
-    #     self.lb_cam.clear()
-    #     if self.timer_camera.isActive() == True:
-    #         self.timer_camera.stop()
-    #         self.cap.release()
-    #         self.lb_cam.clear()
-    #         self.bt_opencam.setText(u'打开摄像头')
-    #
-    #
+    def close_camera(self):
+        self.lb_cam_new.clear()
+        self.lb_cam_old.clear()
+        if self.timer_camera.isActive() == True:
+            self.timer_camera.stop()
+            self.cap.release()
+            self.lb_cam_new.clear()
+            self.lb_cam_old.clear()
+            self.bt_opencam_new.setText(u'打开摄像头')
+            self.pb_opencam_old.setText(u'打开摄像头')
+
+
+
+
+
+
     def open_camera_new(self):
         self.cameranum = Camera().get_cam_num()
         if(self.cameranum>0):
