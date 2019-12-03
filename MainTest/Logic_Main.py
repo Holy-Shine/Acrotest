@@ -40,7 +40,6 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
                                        DataBase= database)
 
         self.MySQL.ConnectMySQL()
-        self.CameraNum = Camera().get_cam_num()
 
         self.init()
         self.slot_init()
@@ -56,7 +55,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FormLesson = logicUpdateClass(MySQL=self.MySQL)  # 排课系统
 
-        self.FormNewMember = LogicNewMember() #新学员录入系统
+        self.FormNewMember = LogicNewMember(MySQL=self.MySQL) #新学员录入系统
 
         self.FormSumSys = logicSysSum()  # 统计系统
 

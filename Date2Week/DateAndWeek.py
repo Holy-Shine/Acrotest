@@ -18,13 +18,19 @@ def FromWeektoDate(year,week,day):
     date = '{}-{}-{}'.format(year,week,day)
     res =time.strptime(date, '%Y-%U-%w')
     return res.tm_year,res.tm_mon,res.tm_mday
+
+def getCurrentYMD():
+    tm = time.gmtime()
+    return '{}-{}-{}'.format(tm.tm_year,tm.tm_mon,tm.tm_mday)
+
 if __name__ == '__main__':
-    y = '2019'
-    m = '12'
-    d = '01'
-
-
-    week,weekday = FromDatetoWeek(y,m,d)
-    print('{}年第{}周的周{}'.format(2019,week,weekday))
-    year,mon,day = FromWeektoDate(2019,int(week)-1,int(weekday))
-    print('{}年第{}月{}日'.format(year, mon, day))
+    # y = '2019'
+    # m = '12'
+    # d = '03'
+    #
+    #
+    # week,weekday = FromDatetoWeek(y,m,d)
+    # print('{}年第{}周的周{}'.format(2019,week,weekday))
+    # year,mon,day = FromWeektoDate(2019,int(week)-1,int(weekday))
+    # print('{}年第{}月{}日'.format(year, mon, day))
+    print(getCurrentYMD())
