@@ -38,6 +38,6 @@ class Ui_verify(object):
 
     def retranslateUi(self, verify):
         _translate = QtCore.QCoreApplication.translate
-        verify.setWindowTitle(_translate("verify", "Dialog"))
+        verify.setWindowTitle(_translate("verify", "二级验证"))
         self.label.setText(_translate("verify", "二级密码："))
         self.btn_confirm.setText(_translate("verify", "确认"))
