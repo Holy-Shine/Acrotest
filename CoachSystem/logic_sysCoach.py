@@ -1,12 +1,12 @@
 import os,json
-import pymysql,sqlite3
 from PyQt5.QtWidgets import QDialog,QMessageBox,QTableView,QHeaderView, QListWidget, QStackedWidget
 from PyQt5.QtGui import QStandardItemModel,QStandardItem
 from PyQt5.QtCore import *
 from PyQt5.QtGui import  *
 
 
-from GUI.Ui_syscoach import Ui_sysCoach
+from CoachSystem.Ui_syscoach import Ui_sysCoach
+from CoachSystem.logic_verify import logicVerify
 
 class logicSysCoach(Ui_sysCoach, QDialog):
     def __init__(self,MySQL):
@@ -14,13 +14,15 @@ class logicSysCoach(Ui_sysCoach, QDialog):
         self.setupUi(self)  
         self.MySQL = MySQL
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)   # list和右边窗口index绑定 
+        self.listFunc.currentRowChanged.connect(self.init_upcoach)
+
         self.btn_confirm.clicked.connect(self.on_button_add_coach)
         self.btn_clear.clicked.connect(self.clear_add)
 
         self.tv_search_coach.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
         self.tv_search_coach.setSelectionBehavior(QTableView.SelectRows) # 选中行
 
-
+        # self.verify = False  # 默认未验证
         self.headers = ['联系方式','姓名','职级','类别']
         self.data_model = QStandardItemModel()
         self.data_model.setHorizontalHeaderLabels(self.headers)
@@ -36,9 +38,29 @@ class logicSysCoach(Ui_sysCoach, QDialog):
         self.btn_confirm_2.clicked.connect(self.on_button_update)
 
         self.btn_remove.clicked.connect(self.on_button_remove)
-        
+    
+        self.btn_verify.clicked.connect(self.on_button_verify)
+
         self.btn_search.setShortcut(Qt.Key_Return)
         self.listFunc.setCurrentRow(0)
+
+    def init_upcoach(self):
+        self.btn_remove.setEnabled(False)
+        self.btn_confirm_2.setEnabled(False)
+        self.lb_status.setText('当前状态：未认证')
+        self.btn_verify.setEnabled(True)
+
+    def on_button_verify(self):
+        # 二级密码验证
+        veriWin = logicVerify()
+        veriWin.myshow()
+        if veriWin.exec() == 1:
+            self.btn_remove.setEnabled(True)
+            self.btn_confirm_2.setEnabled(True)
+            self.lb_status.setText('当前状态：已认证')
+            self.btn_verify.setEnabled(False)
+        
+
 
     def on_button_remove(self):
         crow = self.tv_search_coach.currentIndex().row()
