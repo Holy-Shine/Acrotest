@@ -147,3 +147,6 @@ dmypy.json
 /freesdk_132512.dat
 /newMember/test.py
 /heatmap.py
+/newMember/processtodatabese.py
+/newMember/cleardatabase.utf8
+/newMember/somedata.utf8
