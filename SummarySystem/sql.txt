@@ -1,0 +1,2 @@
+# 统计
+SELECT COUNT(*) FROM meminfo.banka AS bk where bk.banka_type=1 or bk.banka_date like '%2019-10%'

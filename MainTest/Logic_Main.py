@@ -57,7 +57,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FormNewMember = LogicNewMember(MySQL=self.MySQL) #新学员录入系统
 
-        self.FormSumSys = logicSysSum()  # 统计系统
+        self.FormSumSys = logicSysSum(MySQL=self.MySQL)  # 统计系统
 
 
         self.ChaxunChose = LogicQiandaoChose() #选择签到方式
