@@ -63,62 +63,69 @@ class MySQLBaseFunction():
 
     #测试连接
     def MySQLTest(self):
-        flag = False
-        if(self.CheckCursor()):
-            self.cursor.execute("use meminfo;")
-            self.cursor.execute("show tables;")
-            self.conn.commit()
-            flag = True
-            return flag
-        else:
-            return flag
+        try:
+            flag = False
+            if(self.CheckCursor()):
+                self.cursor.execute("use meminfo;")
+                self.cursor.execute("show tables;")
+                self.conn.commit()
+                flag = True
+                return flag
+            else:
+                return flag
+        except Exception as e:
+            print(e)
 
     #从数据库中查询某项
     def SelectFromDataBse(self,str):
-        flag = False
-        if (self.CheckCursor()):
-            self.cursor.execute(str)
-            result = self.cursor.fetchall()
-            self.conn.commit()
-            flag = True
-            return flag, result
-        else:
-            return flag,"请先连接数据库"
-
+        try:
+            flag = False
+            if (self.CheckCursor()):
+                self.cursor.execute(str)
+                result = self.cursor.fetchall()
+                self.conn.commit()
+                flag = True
+                return flag, result
+            else:
+                return flag,"请先连接数据库"
+        except Exception as e:
+            print(e)
 
     #插入数据项
     def InsertFromDataBse(self,str):
         flag = False
-        if (self.CheckCursor()):
-            self.cursor.execute(str)
-            self.conn.commit()
-            flag = True
-            return flag
-        else:
-            return flag
+        try:
+            if (self.CheckCursor()):
+                self.cursor.execute(str)
+                self.conn.commit()
+                flag = True
+        except Exception as e:
+            print(e)
+        return flag
 
     def UpdateFromDataBse(self,str):
         flag = False
-        if (self.CheckCursor()):
-            self.cursor.execute(str)
-            self.conn.commit()
-            flag = True
-            return flag
-        else:
-            return flag
+        try:
+            if (self.CheckCursor()):
+                self.cursor.execute(str)
+                self.conn.commit()
+                flag = True
+        except Exception as e:
+            print(e)
+        return flag
 
 
     #删除数据项
     def DeleteFromDataBse(self,str):
         flag = False
-        if (self.CheckCursor()):
-            self.cursor.execute(str)
-            self.conn.commit()
-            flag = True
-            return flag
-        else:
-            return flag
-
+        try:
+            if (self.CheckCursor()):
+                self.cursor.execute(str)
+                self.conn.commit()
+                flag = True
+        except Exception as e:
+            print(e)
+        return flag
 
 if __name__ == '__main__':
     MySQL = MySQLBaseFunction(HostIP=host,
