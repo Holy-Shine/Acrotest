@@ -15,6 +15,8 @@ from Qiandao.logic_qiandao_chose import LogicQiandaoChose
 from Qiandao.logic_Qiandao_face import LogicQiandaoFace
 from SummarySystem.logic_sysSum import logicSysSum
 
+from FaceFunction.FaceUtil import FaceRecognition
+
 
 import os,sys
 
@@ -27,6 +29,8 @@ user='Jessie',  # 用户名
 password='Jessie.121406',  # 密码
 database = 'meminfo',
 
+Appkey=b'2FzzVsnbAkk9q8eLx2s1Q7tft3dY1NZXdnLN8xK6UtXf'
+SDKey=b'DAEJTcePD4TWaWKej3xRpPxBhCWGkFf4nxdYnooLWDuP'
 
 class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -45,6 +49,12 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.slot_init()
 
     def init(self):
+        self.facefunction = FaceRecognition(Appkey=Appkey, SDKey=SDKey)
+        flag = self.facefunction.ActivationFace()
+        if not flag:
+            QtWidgets.QMessageBox.warning(self, u"Warning", u"人脸识别检测初始化失败，请检查人脸识别SDK",
+                                          buttons=QtWidgets.QMessageBox.Ok)
+
         self.stackedWidget = QStackedWidget()
         self.Layout.addWidget(self.stackedWidget)
 
@@ -55,7 +65,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FormLesson = logicUpdateClass(MySQL=self.MySQL)  # 排课系统
 
-        self.FormNewMember = LogicNewMember(MySQL=self.MySQL) #新学员录入系统
+        self.FormNewMember = LogicNewMember(MySQL=self.MySQL, facefunction = self.facefunction) #新学员录入系统
 
         self.FormSumSys = logicSysSum(MySQL=self.MySQL)  # 统计系统
 
