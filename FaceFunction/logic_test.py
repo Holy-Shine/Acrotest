@@ -4,8 +4,6 @@ from PyQt5 import QtGui,QtCore,QtWidgets
 
 from FaceFunction import cameraui
 from FaceFunction.FaceUtil import FaceRecognition
-
-import FaceFunction.PickleFunction as pkf
 from multiprocessing import Process
 
 Appkey=b'2FzzVsnbAkk9q8eLx2s1Q7tft3dY1NZXdnLN8xK6UtXf'
