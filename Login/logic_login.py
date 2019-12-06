@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit
 
-from ui_login import UI_login
+from Login.ui_login import UI_login
 import os, json
 
 class logicLoginWin(UI_login,QDialog):
