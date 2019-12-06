@@ -198,17 +198,40 @@
      <property name="title">
       <string>年份与周数</string>
      </property>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>521</width>
+        <x>12</x>
+        <y>21</y>
+        <width>511</width>
         <height>23</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout" columnstretch="0,1,0,0,1" columnminimumwidth="0,0,0,0,0">
-       <item row="0" column="4">
+      <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0,0,0,1">
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>周：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="cb_year">
+         <item>
+          <property name="text">
+           <string>未选择</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>年份:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
         <widget class="QComboBox" name="cb_week">
          <item>
           <property name="text">
@@ -265,84 +288,230 @@
            <string>10</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>11</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>12</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>13</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>14</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>15</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>16</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>17</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>18</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>19</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>20</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>21</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>22</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>23</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>24</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>25</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>26</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>27</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>28</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>29</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>30</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>31</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>32</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>33</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>34</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>35</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>36</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>37</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>38</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>39</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>40</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>41</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>42</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>43</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>44</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>45</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>46</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>47</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>48</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>49</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>50</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>51</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>52</string>
+          </property>
+         </item>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
+       <item row="0" column="4">
+        <widget class="QLabel" name="label_14">
          <property name="text">
-          <string>年份:</string>
+          <string>当前选中：</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
-        <widget class="QLabel" name="label_2">
+       <item row="0" column="5" colspan="2">
+        <widget class="QLabel" name="lb_status">
          <property name="text">
-          <string>周：</string>
+          <string>未选</string>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="cb_year">
-         <item>
-          <property name="text">
-           <string>未选择</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2019</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2020</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2021</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2022</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2023</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2024</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2025</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2026</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2027</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2028</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>2029</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>
@@ -402,9 +571,9 @@
           </font>
          </property>
          <property name="currentIndex">
-          <number>6</number>
+          <number>0</number>
          </property>
-         <widget class="QWidget" name="tb_mon">
+         <widget class="QWidget" name="tb_1">
           <attribute name="title">
            <string>周一</string>
           </attribute>
@@ -505,7 +674,7 @@
            </layout>
           </widget>
          </widget>
-         <widget class="QWidget" name="tb_tue">
+         <widget class="QWidget" name="tb_2">
           <attribute name="title">
            <string>周二</string>
           </attribute>
@@ -606,7 +775,7 @@
            </layout>
           </widget>
          </widget>
-         <widget class="QWidget" name="tb_wed">
+         <widget class="QWidget" name="tb_3">
           <attribute name="title">
            <string>周三</string>
           </attribute>
@@ -707,7 +876,7 @@
            </layout>
           </widget>
          </widget>
-         <widget class="QWidget" name="tb_thu">
+         <widget class="QWidget" name="tb_4">
           <attribute name="title">
            <string>周四</string>
           </attribute>
@@ -808,7 +977,7 @@
            </layout>
           </widget>
          </widget>
-         <widget class="QWidget" name="tb_fri">
+         <widget class="QWidget" name="tb_5">
           <attribute name="title">
            <string>周五</string>
           </attribute>
@@ -909,7 +1078,7 @@
            </layout>
           </widget>
          </widget>
-         <widget class="QWidget" name="tb_sat">
+         <widget class="QWidget" name="tb_6">
           <attribute name="title">
            <string>周六</string>
           </attribute>
@@ -1010,7 +1179,7 @@
            </layout>
           </widget>
          </widget>
-         <widget class="QWidget" name="tb_sun">
+         <widget class="QWidget" name="tb_7">
           <attribute name="title">
            <string>周日</string>
           </attribute>

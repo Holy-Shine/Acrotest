@@ -1,6 +1,8 @@
 from SummarySystem.Ui_sumSys import Ui_sumSys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout,QMessageBox
-from PyQt5.QtCore import QTimer
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout,QMessageBox, QTableView, QHeaderView, QFileDialog
+from PyQt5.QtGui import QStandardItemModel,QStandardItem
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 import sys, time
 import numpy as np 
 
@@ -16,6 +18,10 @@ mpl.rcParams['font.sans-serif'] = ['SimHei']
 
 from datetime import datetime as dt
 
+# 多线程数据库
+
+from SummarySystem.WorkThread import *
+
 class logicSysSum(QMainWindow, Ui_sumSys):
     def __init__(self, MySQL, parent=None):
         super(logicSysSum, self).__init__(parent)
@@ -29,7 +35,7 @@ class logicSysSum(QMainWindow, Ui_sumSys):
         self.bar_org_y = np.array([0,0])
         self.bar_y = np.array([100,200])
 
-
+        self.fulid_selected_month = []
 
 
 
@@ -37,11 +43,29 @@ class logicSysSum(QMainWindow, Ui_sumSys):
 
         self.time_limit = 30   # 更新50次
 
+        self.sql_thread = None
+        self.excel_thread = None
+
         
+        # 办卡续卡流水界面的相关初始化
+        self.tv_fluid.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+        self.fluid_headers = ['联系方式','姓名','办/续卡','办/续卡金额','办/续卡日期']
+        self.fluid_data_model = QStandardItemModel()
+        self.fluid_data_model.setHorizontalHeaderLabels(self.fluid_headers)
+        self.fluid_data = []
+        self.tv_fluid.setModel(self.fluid_data_model)
+        self.tv_fluid.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         
+
+
+
+        # 按钮事件绑定        
         self.btn_show_bar.clicked.connect(self.on_btn_showhis)
         self.btn_show_BXline.clicked.connect(self.on_btn_show_BXline)
         self.btn_show_MoneyLine.clicked.connect(self.on_btn_showMoney)
+        self.btn_fluid_getDB.clicked.connect(self.on_btn_getBXfluid)
+        self.btn_fluid_excrt.clicked.connect(self.on_btn_save_crt_fluid)
+        self.btn_fluid_expall.clicked.connect(self.on_btn_save_all_fluid)
 
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)
         self.listFunc.currentRowChanged.connect(self.event_left_rowSelected)
@@ -53,7 +77,7 @@ class logicSysSum(QMainWindow, Ui_sumSys):
 
     def get_Bar_data(self, year, month):
 
-        sql_date = '%{}-{}%'.format(year,month)
+        sql_date = '%{}-{}-%'.format(year,month)
         sql_bk = '''
         SELECT COUNT(*) FROM banka AS bk where bk.banka_type=0 and bk.banka_date like '{}'
         '''.format(sql_date)
@@ -96,12 +120,12 @@ class logicSysSum(QMainWindow, Ui_sumSys):
                 if cur_month-i<0:
                     year -= 1
                 sql = '''
-                SELECT COUNT(*) FROM banka AS bk where bk.banka_type=0 and bk.banka_date like '%{}-{}%'
+                SELECT COUNT(*) FROM banka AS bk where bk.banka_type=0 and bk.banka_date like '%{}-{}-%'
                 '''.format(year, month)
 
                 flag_bkhi, result_bkhis = self.MySQL.SelectFromDataBse(sql)
                 sql = '''
-                SELECT COUNT(*) FROM banka AS bk where bk.banka_type=1 and bk.banka_date like '%{}-{}%'
+                SELECT COUNT(*) FROM banka AS bk where bk.banka_type=1 and bk.banka_date like '%{}-{}-%'
                 '''.format(year, month)
 
                 flag_xkhi, result_xkhis = self.MySQL.SelectFromDataBse(sql)
@@ -138,7 +162,7 @@ class logicSysSum(QMainWindow, Ui_sumSys):
                 if cur_month-i<0:
                     year -= 1
                 sql = '''
-                SELECT SUM(banka_fee) FROM banka AS bk where bk.banka_date like '%{}-{}%'
+                SELECT SUM(banka_fee) FROM banka AS bk where bk.banka_date like '%{}-{}-%'
                 '''.format(year, month)
 
                 flag1, result= self.MySQL.SelectFromDataBse(sql)
@@ -175,7 +199,22 @@ class logicSysSum(QMainWindow, Ui_sumSys):
         # 营业额统计
         elif current_row == 1:
             pass
+
+        # 办卡续卡流水
+        elif current_row == 2:
+
+            if len(self.fluid_data)==0:
+                self.btn_fluid_excrt.setEnabled(False)
+
+
             
+            # 初始化年
+            self.cb_fluid_year.addItems([str(self.cur_year-2),str(self.cur_year-1),str(self.cur_year)])
+            self.cb_fluid_year.setCurrentIndex(2)
+
+            
+
+
 
 
     def banka_setAx(self):
@@ -262,6 +301,73 @@ class logicSysSum(QMainWindow, Ui_sumSys):
         self.timer.timeout.connect(self.BarUpdate)
 
 
+
+    def on_btn_save_all_fluid(self):
+        sql = '''
+        SELECT * FROM banka WHERE banka_date ORDER BY banka_date
+        '''
+
+        self.sql_thread = MySQLThread(self.MySQL, sql)
+        self.sql_thread.trigger.connect(self.on_thread_export_all_data)
+        self.sql_thread.start()
+    
+
+
+    def on_btn_save_crt_fluid(self):
+        filepath = QFileDialog.getSaveFileName(self, '导出到EXCEL','./当前数据.xls','Excel Files(*.xls)')[0]
+
+        if filepath!='':
+
+
+            self.btn_fluid_getDB.setEnabled(False)
+            self.btn_fluid_excrt.setEnabled(False)
+            self.btn_fluid_expall.setEnabled(False)
+
+            self.excel_thread = WriteExcelThread(self.fluid_data, filepath)
+            self.excel_thread.trigger.connect(self.on_thread_export_crtdata)
+            self.excel_thread.start()
+    
+
+
+    def on_btn_getBXfluid(self):
+        # 无效校验
+        flag = False
+        self.fulid_selected_month.clear()
+        # 清空
+        self.fluid_data.clear()
+        self.fluid_data_model.clear()
+        self.fluid_headers = ['联系方式','姓名','办/续卡','办/续卡金额','办/续卡日期']
+        self.fluid_data_model.setHorizontalHeaderLabels(self.fluid_headers)
+
+
+        for i in range(1,len(self.cb_fluid_month.qCheckBox)):
+            if self.cb_fluid_month.qCheckBox[i].isChecked():
+                flag = True
+                self.fulid_selected_month.append(i)
+        print(self.fulid_selected_month)
+        if flag == False:
+            QMessageBox.warning(self, '提示','未选择月份!', QMessageBox.Yes, QMessageBox.Yes)
+        else:
+
+            search_terms = []
+            for m in self.fulid_selected_month:
+                date = '{}-{}-'.format(self.cb_fluid_year.currentText(), m)
+                search_terms.append(date)
+
+            sql = '''
+            SELECT * FROM banka WHERE banka_date REGEXP '{}' ORDER BY banka_date
+            '''.format('|'.join(search_terms))
+
+
+
+            self.btn_fluid_getDB.setEnabled(False)
+            self.btn_fluid_excrt.setEnabled(False)
+            self.btn_fluid_expall.setEnabled(False)
+            # 开一个线程执行sql
+            self.sql_thread = MySQLThread(self.MySQL, sql)
+            self.sql_thread.trigger.connect(self.on_thread_show_fluid_tv)
+
+            self.sql_thread.start()
 
 
 
@@ -385,8 +491,39 @@ class logicSysSum(QMainWindow, Ui_sumSys):
         self.BarFigureLayout.addWidget(self.BarFigure)
         
      
+# 线程结束函数
+    def on_thread_show_fluid_tv(self, sql_data):
+        BX =  ['办卡','续卡']
+        for i, data in enumerate(sql_data):
+            self.fluid_data_model.appendRow([
+                QStandardItem(data[0]),
+                QStandardItem(data[1]),
+                QStandardItem(BX[data[2]]),
+                QStandardItem(str(data[3])),
+                QStandardItem(data[4])
+            ])
+            self.fluid_data.append(data)
+        
+        self.btn_fluid_getDB.setEnabled(True)
+        self.btn_fluid_excrt.setEnabled(True)
+        self.btn_fluid_expall.setEnabled(True)
 
+    def on_thread_export_crtdata(self):
+        self.btn_fluid_getDB.setEnabled(True)
+        self.btn_fluid_excrt.setEnabled(True)
+        self.btn_fluid_expall.setEnabled(True)
+        QMessageBox.warning(self, '提示','导出成功!', QMessageBox.Yes, QMessageBox.Yes)
 
+    def on_thread_export_all_data(self, sql_data):
+        filepath = QFileDialog.getSaveFileName(self, '导出到EXCEL','./所有流水数据.xls','Excel Files(*.xls)')[0]
+
+        if filepath != '':
+            self.btn_fluid_getDB.setEnabled(False)
+            self.btn_fluid_excrt.setEnabled(False)
+            self.btn_fluid_expall.setEnabled(False)
+            self.excel_thread = WriteExcelThread(sql_data, filepath)
+            self.excel_thread.trigger.connect(self.on_thread_export_crtdata)
+            self.excel_thread.start()
 
 # 画板类
 class Figure_Canvas(FigureCanvas):
@@ -400,6 +537,8 @@ class Figure_Canvas(FigureCanvas):
         y = [2,1,3,5,6,4,3]
         self.ax.plot(x,y)
 
+
+# 
 # if __name__ == '__main__':
 #     app = QApplication(sys.argv)
 #     ui = logicSysSum()
