@@ -3,11 +3,11 @@ import cv2
 import os
 import pickle
 from PyQt5 import QtGui,QtCore,QtWidgets
-import cameraui
-from Face_Util import FaceRecognition,FaceInfo,FaceList
+from face_recognition.Face_Util import FaceRecognition,FaceInfo
 import time
 from multiprocessing import Process
 
+from FaceFunction import cameraui
 from io import BytesIO
 from ctypes import *
 

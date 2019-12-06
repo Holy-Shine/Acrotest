@@ -19,9 +19,9 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>30</x>
      <y>40</y>
-     <width>751</width>
+     <width>821</width>
      <height>591</height>
     </rect>
    </property>
@@ -33,7 +33,7 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>721</width>
+      <width>801</width>
       <height>561</height>
      </rect>
     </property>
@@ -45,21 +45,21 @@
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>830</x>
-     <y>50</y>
-     <width>381</width>
+     <x>870</x>
+     <y>140</y>
+     <width>351</width>
      <height>81</height>
     </rect>
    </property>
    <property name="title">
     <string>查询</string>
    </property>
-   <widget class="QLineEdit" name="et_query">
+   <widget class="QLineEdit" name="et_search">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>90</x>
       <y>30</y>
-      <width>191</width>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
@@ -67,7 +67,7 @@
      <string notr="true">background-color: rgb(255, 255, 255);</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="bt_query">
+   <widget class="QPushButton" name="bt_search">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -80,45 +80,103 @@
      <string>查询</string>
     </property>
    </widget>
+   <widget class="QLabel" name="lb_phone">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>54</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>电话号码</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>820</x>
-     <y>170</y>
-     <width>391</width>
-     <height>111</height>
+     <x>870</x>
+     <y>240</y>
+     <width>361</width>
+     <height>371</height>
     </rect>
    </property>
    <property name="title">
     <string>功能菜单</string>
    </property>
-   <widget class="QPushButton" name="st_studentInfo">
+   <widget class="QPushButton" name="bt_modifyinfo">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>30</y>
-      <width>101</width>
-      <height>51</height>
+      <x>20</x>
+      <y>120</y>
+      <width>331</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
-     <string>学生信息</string>
+     <string>学生信息修改</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btstuclass">
+   <widget class="QPushButton" name="bt_checkclass">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>30</y>
-      <width>101</width>
-      <height>51</height>
+      <x>20</x>
+      <y>200</y>
+      <width>331</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
-     <string>排课信息</string>
+     <string>排课信息查看(一周内）</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="bt_flash">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>331</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>刷新学生表格</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bt_quit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>290</y>
+      <width>331</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>退出系统</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="lb_toplabel">
+   <property name="geometry">
+    <rect>
+     <x>930</x>
+     <y>60</y>
+     <width>261</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 75 28pt &quot;楷体&quot;;</string>
+   </property>
+   <property name="text">
+    <string>学 生 系 统 </string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
   </widget>
  </widget>
  <resources/>

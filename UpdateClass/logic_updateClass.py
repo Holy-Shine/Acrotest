@@ -105,13 +105,6 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                         else:
                             QMessageBox.information(self, '提示', '排课信息插入失败！', QMessageBox.Ok, QMessageBox.Ok)
 
-                        # QMessageBox.information(self, '提示', '排课成功！',QMessageBox.Ok,QMessageBox.Ok)
-                        
-                        
-                        
-                        #删除选中行
-                        # self.tv_show_mem.clearSelection()
-                        # self.data_model.removeRow(self.current_row)
                     except:
                         QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)
                 else:

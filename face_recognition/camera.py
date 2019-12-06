@@ -102,20 +102,11 @@ class Ui_MainWindow(QtWidgets.QWidget):
 
     def show_camera(self):
         flag, self.image = self.cap.read()
-        # face = self.face_detect.align(self.image)
-        # if face:
-        #     pass
         show = cv2.resize(self.image, (640, 480))
         show = cv2.cvtColor(show, cv2.COLOR_BGR2RGB)
-        # print(show.shape[1], show.shape[0])
-        # show.shape[1] = 640, show.shape[0] = 480
         showImage = QtGui.QImage(show.data, show.shape[1], show.shape[0], QtGui.QImage.Format_RGB888)
         self.label_show_camera.setPixmap(QtGui.QPixmap.fromImage(showImage))
-        # self.x += 1
-        # self.label_move.move(self.x,100)
 
-        # if self.x ==320:
-        #     self.label_show_camera.raise_()
 
     def closeEvent(self, event):
         ok = QtWidgets.QPushButton()
