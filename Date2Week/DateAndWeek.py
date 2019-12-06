@@ -23,6 +23,7 @@ def getCurrentYMD():
     tm = time.gmtime()
     return '{}-{}-{}'.format(tm.tm_year,tm.tm_mon,tm.tm_mday)
 
+#返回某年有几周
 def getWeekNum(year):
     date_day = '{}{}{}'.format(year, 12, 31)
     week = int(datetime.strptime(date_day, "%Y%m%d").strftime("%W")) + 1
