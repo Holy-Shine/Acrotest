@@ -18,6 +18,9 @@ from SummarySystem.logic_sysSum import logicSysSum
 from FaceFunction.FaceUtil import FaceRecognition
 
 
+#二级验证码
+from CoachSystem.logic_verify import logicVerify
+
 import os,sys
 
 from Qiandao.process_camera_info import Camera
@@ -61,7 +64,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         #子界面
         self.FormBlank = QWidget()  #空白界面
 
-        self.FormStudentMain = LogicStudentMain()
+        self.FormStudentMain = LogicStudentMain(MySQL=self.MySQL)
 
         self.FormLesson = logicUpdateClass(MySQL=self.MySQL)  # 排课系统
 
@@ -113,23 +116,18 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
     # 教练系统
     def on_pb_main_CoachSystem_clicked(self):
-        # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormCoach)
 
     #学员管理系统
     def on_pb_main_StudentSystem_clicked(self):
-        # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormStudentMain)
 
     #新学员系统
     def on_pb_main_NewMemberSystem_clicked(self):
-        # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormNewMember)
 
     #排课系统
     def on_pb_main_LessonSystem_clicked(self):
-        # self.FormFaceQiandao.getCamClose()
-        # self.FormNewMember.close_camera()
         self.stackedWidget.setCurrentWidget(self.FormLesson)
 
 
@@ -137,17 +135,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
     def on_pb_main_StatisticSystem_clicked(self):
         self.stackedWidget.setCurrentWidget(self.FormSumSys)
 
-    #新转老学员
-    def on_pb_main_toOldMemberSystem_clicked(self):
-        # self.FormFaceQiandao.getCamClose()
-        # self.FormNewMember.close_camera()
-        self.stackedWidget.setCurrentWidget(self.FormOldMember)
 
-    #老转新学员
-    def on_pb_main_toNewMemberSystem_clicked(self):
-        # self.FormFaceQiandao.getCamClose()
-        # self.FormNewMember.close_camera()
-        self.stackedWidget.setCurrentWidget(self.FormNewMember)
 
     #签到系统
     def on_pb_main_QiandaoSystem_clicked(self):
@@ -162,10 +150,6 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def open_qiandao(self):
         try:
-            # self.FormFaceQiandao.setCamNum(cam=self.ChaxunChose.cb_cam.currentText(),
-            #                                year=self.ChaxunChose.cb_year.currentText(),
-            #                                week = self.ChaxunChose.cb_week.currentText(),
-            #                                day = self.ChaxunChose.cb_day.currentText())
             self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
             self.ChaxunChose.close()
         except Exception as e:

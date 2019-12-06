@@ -16,7 +16,7 @@ class logicVerify(Ui_verify, QDialog):
 
     def on_button_verify(self):
         pwd = self.le_pwd.text()
-        if pwd == 'Jessie123':
+        if pwd == '123':
             self.accept()
         else:
             QMessageBox.warning(self, '提示','二级密码错误！', QMessageBox.Yes, QMessageBox.Yes)

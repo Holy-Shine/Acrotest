@@ -13,6 +13,8 @@ from Qiandao.process_camera_info import Camera
 import Date2Week.DateAndWeek as dateweek
 import traceback
 
+from CoachSystem.logic_verify import logicVerify
+
 class LogicNewMember(Ui_NewMember,QDialog):
     def __init__(self,MySQL,facefunction):
         super().__init__()
@@ -202,6 +204,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
     '''
     #关闭摄像头
     def close_camera(self):
+        self.meminfo_data['人脸特征'] = ''
         self.lb_cam_new.clear()
         self.lb_cam_old.clear()
         if self.timer_camera.isActive() == True:
@@ -397,6 +400,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
     #确认信息和插入数据库
     def confrim_and_insert_new(self):
+
         try:
     #数据库段
             self.meminfo_data['学生姓名'] = self.et_name_new.text()
@@ -435,46 +439,50 @@ class LogicNewMember(Ui_NewMember,QDialog):
                 QMessageBox.warning(self, u"温馨提示", u"请输入此次录入学生的办卡费用",
                                     buttons=QMessageBox.Ok, )
             else:
-                hint = '学生姓名：{}\n学生性别：{}\n学生年龄：{}\n学生家长：{}\n联系方式：{}\n课时次数：{}\n' \
-                       '金额：{}\n课程种类：{}\n办卡种类：{}'.format(
-                    self.meminfo_data['学生姓名'],
-                    self.meminfo_data['学生性别'],
-                    self.meminfo_data['学生年龄'],
-                    self.meminfo_data['学生家长'],
-                    self.meminfo_data['联系方式'],
-                    self.meminfo_data['课时次数'],
-                    self.banka_data['金额'],
-                    self.cb_classitem_new.currentText(),
-                    self.cb_card_new.currentText()
-                )
-                reply = QMessageBox.warning(self, '确认信息', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-                if reply == QMessageBox.Yes:
-                    if(self.meminfo_data['人脸特征'] == ''):
-                        reply2 = QMessageBox.warning(self,'确认信息','您还没有录入人脸图像\n确认继续录入吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-                        if(reply2 == QMessageBox.Yes):
+                self.FormVerify = logicVerify()
+                self.FormVerify.setWindowModality(QtCore.Qt.ApplicationModal)
+                self.FormVerify.show()
+                if self.FormVerify.exec() == 1:
+                    hint = '学生姓名：{}\n学生性别：{}\n学生年龄：{}\n学生家长：{}\n联系方式：{}\n课时次数：{}\n' \
+                           '金额：{}\n课程种类：{}\n办卡种类：{}'.format(
+                        self.meminfo_data['学生姓名'],
+                        self.meminfo_data['学生性别'],
+                        self.meminfo_data['学生年龄'],
+                        self.meminfo_data['学生家长'],
+                        self.meminfo_data['联系方式'],
+                        self.meminfo_data['课时次数'],
+                        self.banka_data['金额'],
+                        self.cb_classitem_new.currentText(),
+                        self.cb_card_new.currentText()
+                    )
+                    reply = QMessageBox.warning(self, '确认信息', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+                    if reply == QMessageBox.Yes:
+                        if(self.meminfo_data['人脸特征'] == ''):
+                            reply2 = QMessageBox.warning(self,'确认信息','您还没有录入人脸图像\n确认继续录入吗？', QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+                            if(reply2 == QMessageBox.Yes):
+                                try:
+                                    flag1 = self.Insert2Banka()
+                                    flag2 = self.Insert2Meminfo()
+                                    if (flag1 and flag2):
+                                        QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
+                                        self.clearEditAfterNewMemberInsert()
+                                    else:
+                                        QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
+                                except Exception as e:
+                                    print(e)
+                            else:
+                                print(1)
+                        else:
                             try:
-                                flag1 = self.Insert2Banka()
-                                flag2 = self.Insert2Meminfo()
-                                if (flag1 and flag2):
+                                flag3 = self.Insert2Banka()
+                                flag4 = self.Insert2Meminfo()
+                                if (flag3 and flag4):
                                     QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
                                     self.clearEditAfterNewMemberInsert()
                                 else:
                                     QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
                             except Exception as e:
                                 print(e)
-                        else:
-                            print(1)
-                    else:
-                        try:
-                            flag3 = self.Insert2Banka()
-                            flag4 = self.Insert2Meminfo()
-                            if (flag3 and flag4):
-                                QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
-                                self.clearEditAfterNewMemberInsert()
-                            else:
-                                QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
-                        except Exception as e:
-                            print(e)
 
 
         except Exception as e:
@@ -612,45 +620,50 @@ class LogicNewMember(Ui_NewMember,QDialog):
                 QMessageBox.warning(self, u"温馨提示", u"请输入续卡的费用",
                                     buttons=QMessageBox.Ok)
             else:
-                allcishu = self.current_cichu + int(newcishu)
-                hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n原有次数：{}\n' \
-                       '增加次数：{}\n总次数：{}\n续卡金额：{}\n续卡种类：{}'.format(
-                    self.et_name_old.text(),
-                    self.et_phone_old.text(),
-                    self.cb_classitem_old.currentText(),
-                    self.current_cichu,
-                    newcishu,
-                    allcishu,
-                    self.et_money_old.text(),
-                    newcarditem
-                )
-                reply = QMessageBox.warning(self, '确认信息', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-                if reply == QMessageBox.Yes:
-                    sql_update_meminfo ='UPDATE  mem_info  SET mem_cls_left={}, mem_cardtype=\'{}\' WHERE mem_phone=\'{}\' and mem_type={};'.format(
-                        allcishu,
-                        newcarditem,
+                self.FormVerify = logicVerify()
+                self.FormVerify.setWindowModality(QtCore.Qt.ApplicationModal)
+                self.FormVerify.show()
+                if self.FormVerify.exec() == 1:
+                    allcishu = self.current_cichu + int(newcishu)
+                    hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n原有次数：{}\n' \
+                           '增加次数：{}\n总次数：{}\n续卡金额：{}\n续卡种类：{}'.format(
+                        self.et_name_old.text(),
                         self.et_phone_old.text(),
-                        self.cb_classitem_old.currentIndex()
+                        self.cb_classitem_old.currentText(),
+                        self.current_cichu,
+                        newcishu,
+                        allcishu,
+                        self.et_money_old.text(),
+                        newcarditem
                     )
-                    print(sql_update_meminfo)
-                    flag1 = self.MySQL.UpdateFromDataBse(sql_update_meminfo)
-                    self.banka_data['学生姓名'] = self.et_name_old.text()
-                    self.banka_data['学生电话'] = self.et_phone_old.text()
-                    self.banka_data['办卡续卡'] = 1  # '0'是办卡 ‘1’是续卡
-                    self.banka_data['金额'] = self.et_money_old.text()
-                    self.banka_data['日期'] = dateweek.getCurrentYMD()
-                    flag2 = self.Insert2Banka()
-                    if (flag1 and flag2):
-                        self.clearEditAfterOldMemberUpdate()
-                        QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
-                    else:
-                        QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
+                    reply = QMessageBox.warning(self, '确认信息', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+                    if reply == QMessageBox.Yes:
+                        sql_update_meminfo ='UPDATE  mem_info  SET mem_cls_left={}, mem_cardtype=\'{}\' WHERE mem_phone=\'{}\' and mem_type={};'.format(
+                            allcishu,
+                            newcarditem,
+                            self.et_phone_old.text(),
+                            self.cb_classitem_old.currentIndex()
+                        )
+                        print(sql_update_meminfo)
+                        flag1 = self.MySQL.UpdateFromDataBse(sql_update_meminfo)
+                        self.banka_data['学生姓名'] = self.et_name_old.text()
+                        self.banka_data['学生电话'] = self.et_phone_old.text()
+                        self.banka_data['办卡续卡'] = 1  # '0'是办卡 ‘1’是续卡
+                        self.banka_data['金额'] = self.et_money_old.text()
+                        self.banka_data['日期'] = dateweek.getCurrentYMD()
+                        flag2 = self.Insert2Banka()
+                        if (flag1 and flag2):
+                            self.clearEditAfterOldMemberUpdate()
+                            QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
+                        else:
+                            QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
         except Exception as e:
             print(e)
 
     #更新数据后清空信息
     def clearEditAfterOldMemberUpdate(self):
         self.meminfo_data['人脸特征'] = ''
+        self.lb_cam_old.clear()
         self.et_money_old.clear()
         self.et_cichu__old.clear()
         self.et_name_old.clear()
@@ -671,27 +684,33 @@ class LogicNewMember(Ui_NewMember,QDialog):
         self.le_search_term.clear()
         self.lb_result.clear()
 
+
+    #更新学员的人脸信息
     def confrim_pic_old_update(self):
         try:
             if(self.et_phone_old.text()==''):
                 QMessageBox.warning(self, u"温馨提示", u"请在左侧选择学生",
                                     buttons=QMessageBox.Ok)
             else:
-                hint = '学生姓名：{}\n联系方式：{}\n'.format(self.et_name_old.text(), self.et_phone_old.text())
-                reply = QMessageBox.warning(self, '确认信息', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-                if reply == QMessageBox.Yes:
-                    sql_update_face = 'UPDATE  mem_info  SET mem_facefeature=\'{}\' WHERE mem_phone=\'{}\' and mem_name=\'{}\';'.format(
-                        self.meminfo_data['人脸特征'],
-                        self.et_phone_old.text(),
-                        self.et_name_old.text()
-                    )
-                    print(sql_update_face)
-                    flag1 = self.MySQL.UpdateFromDataBse(sql_update_face)
-                    if (flag1):
-                        self.clearEditAfterOldMemberUpdate()
-                        QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
-                    else:
-                        QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
+                self.FormVerify = logicVerify()
+                self.FormVerify.setWindowModality(QtCore.Qt.ApplicationModal)
+                self.FormVerify.show()
+                if self.FormVerify.exec() == 1:
+                    hint = '学生姓名：{}\n联系方式：{}\n'.format(self.et_name_old.text(), self.et_phone_old.text())
+                    reply = QMessageBox.warning(self, '确认信息', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+                    if reply == QMessageBox.Yes:
+                        sql_update_face = 'UPDATE  mem_info  SET mem_facefeature=\'{}\' WHERE mem_phone=\'{}\' and mem_name=\'{}\';'.format(
+                            self.meminfo_data['人脸特征'],
+                            self.et_phone_old.text(),
+                            self.et_name_old.text()
+                        )
+                        print(sql_update_face)
+                        flag1 = self.MySQL.UpdateFromDataBse(sql_update_face)
+                        if (flag1):
+                            self.clearEditAfterOldMemberUpdate()
+                            QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
+                        else:
+                            QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
         except Exception as e:
             print(e)
 
