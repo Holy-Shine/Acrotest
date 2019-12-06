@@ -83,6 +83,15 @@ QListWidget#listFunc::Item:selected {
        <normaloff>resource/money.svg</normaloff>resource/money.svg</iconset>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>办卡续卡流水</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>resource/fluid.svg</normaloff>resource/fluid.svg</iconset>
+     </property>
+    </item>
    </widget>
    <widget class="QLabel" name="label_13">
     <property name="geometry">
@@ -111,7 +120,7 @@ QListWidget#listFunc::Item:selected {
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QLabel" name="label_3">
@@ -168,7 +177,7 @@ QListWidget#listFunc::Item:selected {
      <property name="title">
       <string>选择展示的年月</string>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -297,7 +306,7 @@ QListWidget#listFunc::Item:selected {
      <property name="title">
       <string>选择显示多少个月</string>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>18</x>
@@ -427,6 +436,125 @@ QListWidget#listFunc::Item:selected {
        </item>
       </layout>
      </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_3">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>40</y>
+       <width>451</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>选择栏(默认可选近3年的流水)</string>
+     </property>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>411</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,1,0,1">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>年：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="cb_fluid_year"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>月：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QComboBox" name="cb_fluid_month"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QTableView" name="tv_fluid">
+     <property name="geometry">
+      <rect>
+       <x>45</x>
+       <y>131</y>
+       <width>961</width>
+       <height>381</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>40</y>
+       <width>481</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>操作栏</string>
+     </property>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>17</y>
+        <width>411</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="btn_fluid_excrt">
+         <property name="text">
+          <string>导出当前流水</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btn_fluid_expall">
+         <property name="text">
+          <string>导出全部流水</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="btn_fluid_getDB">
+         <property name="text">
+          <string>获取数据库流水信息</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 14pt &quot;黑体&quot;;</string>
+     </property>
+     <property name="text">
+      <string>办卡续卡流水</string>
+     </property>
     </widget>
    </widget>
   </widget>

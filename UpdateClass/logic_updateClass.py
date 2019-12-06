@@ -1,4 +1,5 @@
-from GUI.Ui_updateClass import Ui_updateClass
+from UpdateClass.Ui_updateClass import Ui_updateClass
+from Date2Week.DateAndWeek import *
 from PyQt5.QtWidgets import QDialog,QMessageBox,QTableView,QHeaderView, QListWidget, QStackedWidget
 from PyQt5.QtGui import QStandardItemModel,QStandardItem
 from PyQt5.QtCore import *
@@ -30,6 +31,9 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         self.data = []
         self.tv_show_mem.setModel(self.data_model)
         self.tv_show_mem.selectionModel().selectionChanged.connect(self.row_sel_change) # 选中事件
+
+        self.cb_year.currentIndexChanged.connect(self.event_label_status_change)
+        self.cb_week.currentIndexChanged.connect(self.event_label_status_change)
 
         self.tv_show_mem.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         
@@ -126,8 +130,9 @@ class logicUpdateClass(Ui_updateClass, QDialog):
 
             # 根据当前选中决定教练
             self.cb_coach.clear() # 先清空
+            self.cb_coach.addItem('未选择')
             for coch in self.coachs:
-                if coch[1]>=selected_type-1:
+                if coch[1]==selected_type or coch[1]==2:
                     self.cb_coach.addItem(coch[0])
                     
         else:
@@ -145,6 +150,11 @@ class logicUpdateClass(Ui_updateClass, QDialog):
 
     def setupItem(self):
         sql = 'SELECT coa_name, coa_type FROM coach'
+        from datetime import datetime as dt
+        year = dt.now().year
+        self.cb_year.clear()
+        self.cb_year.addItems(['未选择',str(year),str(year+1)])
+
         try:
             flag,result = self.MySQL.SelectFromDataBse(sql)
             print(result)
@@ -183,7 +193,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                         self.data_model.appendRow([
                             QStandardItem(str(mem_phone)),
                             QStandardItem(mem_name),
-                            QStandardItem(types[int(mem_type) // 2])
+                            QStandardItem(types[int(mem_type)])
                         ])
                 else:
                     QMessageBox.information(self, '提示', '未排课信息查找失败！', QMessageBox.Ok, QMessageBox.Ok)
@@ -197,3 +207,41 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 self.btn_confirm.setEnabled(True)
             else:
                 self.btn_confirm.setEnabled(False)
+
+
+    def event_label_status_change(self):
+        if self.cb_week.currentText()=='未选择' or self.cb_year.currentText()=='未选择':
+            self.lb_status.setText('未选')
+
+        else:
+            year = int(self.cb_year.currentText())
+            week = int(self.cb_week.currentText())
+            F = FromWeektoDate(year,week,1)
+            T = FromWeektoDate(year,week,7)
+            text = '''{}-{}-{}至{}-{}-{}'''.format(F[0],F[1],F[2], T[0],T[1],T[2])
+            self.lb_status.setText(text)
+
+            if week == 1:
+                weekday = getFirstWeekDate(year)
+                
+                # 使得一些日子不可用
+                
+                print(weekday)
+                for i in range(1, int(weekday)):
+                    eval('self.tb_{}'.format(i)).setEnabled(False)
+
+            elif week == 52:
+                weekday = getLastWeekDate(year)
+            
+                # 使得一些日子不可用
+                
+                print(weekday)
+                for i in range(int(weekday)+1,8):
+                    eval('self.tb_{}'.format(i)).setEnabled(False)
+
+            else:
+                for i in range(1,8):
+                    eval('self.tb_{}'.format(i)).setEnabled(True)                
+                
+            
+            
