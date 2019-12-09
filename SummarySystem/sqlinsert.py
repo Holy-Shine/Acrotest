@@ -82,6 +82,14 @@ def search():
     print(rst[0][0])
 
 
-from SummarySystem.myUI import ComboCheckBox
-items = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-self.cb_fluid_month = ComboCheckBox(items, self.widget)
+# from SummarySystem.myUI import ComboCheckBox
+# items = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+# self.cb_fluid_month = ComboCheckBox(items, self.widget)
+
+dic={}
+lis = [(1,2,3),(1,2,3),(4,5,6)]
+for li in lis:
+    if li not in dic:
+        dic[li]=0
+    dic[li]+=1
+print(dic)
