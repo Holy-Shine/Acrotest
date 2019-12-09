@@ -33,6 +33,7 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
         #设置修改和查询界面不可用
         self.bt_modifyinfo.setEnabled(False)
         self.bt_checkclass.setEnabled(False)
+        self.bt_delete.setEnabled(False)
 
 
         self.cardtype = {
@@ -78,6 +79,8 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
         self.bt_modifyinfo.clicked.connect(self.modify_meminfo)
         #根据电话号码查询
         self.bt_search.clicked.connect(self.search_for_studentinfo)
+        #删除学生信息
+        self.bt_delete.clicked.connect(self.delete_member)
 
     #添加表格
     def add_table(self):
@@ -103,9 +106,10 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
 
     #查询数据库，更新最新的学生列表
     def frash_studentList(self):
-        # 设置修改和查询界面不可用
+        # 设置修改和查询界面可用
         self.bt_modifyinfo.setEnabled(False)
         self.bt_checkclass.setEnabled(False)
+        self.bt_delete.setEnabled(False)
         try:
             sql = 'select * from mem_info'
             flag,self.data_meminfo_search = self.MySQL.SelectFromDataBse(sql)
@@ -123,6 +127,7 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
                 self.addtomeminfo_data(result)
                 self.bt_modifyinfo.setEnabled(True)
                 self.bt_checkclass.setEnabled(True)
+                self.bt_delete.setEnabled(True)
         except Exception as e:
             print(e)
 
@@ -149,6 +154,36 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
                 self.FormModify.setWindowModality(QtCore.Qt.ApplicationModal)
                 self.FormModify.show()
                 if(self.FormModify.exec() == 1):
+                    self.frash_studentList()
+        except Exception as e:
+            print(e)
+
+    def delete_member(self):
+        try:
+            self.FormVerify = logicVerify()
+            self.FormVerify.setWindowModality(QtCore.Qt.ApplicationModal)
+            self.FormVerify.show()
+            if self.FormVerify.exec() == 1:
+                hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n '.format(
+                    self.meminfo_data['学生姓名'],
+                    self.meminfo_data['联系方式'],
+                    self.type2card[self.meminfo_data['课程种类']]
+                )
+                reply = QMessageBox.warning(self, '确认删除？', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+                if reply == QMessageBox.Yes:
+                    sql = '''DELETE FROM mem_info WHERE mem_phone=\'{}\' and mem_name=\'{}\' and mem_type={};
+                                '''.format(
+                        self.meminfo_data['学生姓名'],
+                        self.meminfo_data['联系方式'],
+                        self.meminfo_data['课程种类']
+                    )
+                    print(sql)
+                    flag = self.MySQL.DeleteFromDataBse(sql)
+
+                    if (flag):
+                        QMessageBox.information(self, '提示', '修改成功！', QMessageBox.Ok, QMessageBox.Ok)
+                    else:
+                        QMessageBox.information(self, '提示', '修改失败！', QMessageBox.Ok, QMessageBox.Ok)
                     self.frash_studentList()
         except Exception as e:
             print(e)
@@ -191,10 +226,10 @@ if __name__ == '__main__':
     user = 'Jessie',  # 用户名
     password = 'Jessie.121406',  # 密码
     database = 'meminfo',
-    MySQL = MySQLBaseFunction(HostIP=host,
-                              Username=user,
-                              Password=password,
-                              DataBase=database)
+    MySQL = MySQLBaseFunction(HostIP=host[0],
+                              Username=user[0],
+                              Password=password[0],
+                              DataBase=database[0])
     MySQL.ConnectMySQL()
     app = QApplication(sys.argv)
     login = LogicStudentMain(MySQL=MySQL)

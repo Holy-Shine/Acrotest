@@ -35,14 +35,14 @@ database = 'meminfo',
 
 
 class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self,MySQL,facefunction):
+    def __init__(self,MySQL,facefunction,user):
         super(LogicMain, self).__init__()
         self.setupUi(self)
         self.setFixedSize(self.width(), self.height())
 
         self.MySQL = MySQL
         self.facefunction = facefunction
-
+        self.username = user
         self.init()
         self.slot_init()
 
@@ -52,6 +52,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.stackedWidget = QStackedWidget()
         self.Layout.addWidget(self.stackedWidget)
 
+        self.gottaUser()
         #子界面
         self.FormBlank = QWidget()  #空白界面
 
@@ -104,6 +105,16 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 统计系统
         self.pb_main_StatisticSystem.clicked.connect(self.on_pb_main_StatisticSystem_clicked)
+
+    def gottaUser(self):
+        if(self.username =='Jessie'):
+            self.lb_main_username.setText('当前用户：{}'.format('苏总'))
+        elif (self.username == 'WangAn'):
+                self.lb_main_username.setText('当前用户：{}'.format('王总'))
+        elif (self.username == 'WangLiPing'):
+                self.lb_main_username.setText('当前用户：{}'.format('王力平'))
+        else:
+            self.lb_main_username.setText('当前用户：{}'.format('其他'))
 
     # 教练系统
     def on_pb_main_CoachSystem_clicked(self):
@@ -159,7 +170,8 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
             event.ignore()
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    window = LogicMain()
-    window.show()
-    sys.exit(app.exec_())
+    print(1)
+    # app = QtWidgets.QApplication(sys.argv)
+    # window = LogicMain()
+    # window.show()
+    # sys.exit(app.exec_())

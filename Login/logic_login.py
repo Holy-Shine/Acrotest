@@ -19,8 +19,11 @@ class logicLoginWin(UI_login,QDialog):
         self.lineEdit_pwd.setPlaceholderText('请输入密码')
         self.btn_yes.clicked.connect(self.on_pushButton_enter_clicked)
         self.btn_yes.setDefault(True)
+        self.btn_cancel.clicked.connect(self.on_pushButton_clear_clicked)
         
-
+    def on_pushButton_clear_clicked(self):
+        self.lineEdit_name.clear()
+        self.lineEdit_pwd.clear()
                 
     def on_pushButton_enter_clicked(self):
         try:
@@ -42,7 +45,7 @@ class logicLoginWin(UI_login,QDialog):
                 flag,facefunction = ckdf.CheckFace()
                 if not flag:
                     QMessageBox.warning(self, '提示', '人脸识别SDK错误，请检查！', QMessageBox.Yes, QMessageBox.Yes)
-                self.LogicMain = LogicMain(MySQL= MySQL, facefunction= facefunction)
+                self.LogicMain = LogicMain(MySQL= MySQL, facefunction= facefunction,user = name)
                 self.LogicMain.show()
 
 
