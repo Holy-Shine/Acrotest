@@ -74,7 +74,7 @@ QListWidget#listFunc::Item:selected {
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../resource/add_c.svg</normaloff>../resource/add_c.svg</iconset>
+       <normaloff>resource/add_c.svg</normaloff>../resource/add_c.svg</iconset>
      </property>
     </item>
     <item>
@@ -83,7 +83,7 @@ QListWidget#listFunc::Item:selected {
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../resource/up_c.svg</normaloff>../resource/up_c.svg</iconset>
+       <normaloff>resource/up_c.svg</normaloff>../resource/up_c.svg</iconset>
      </property>
     </item>
    </widget>

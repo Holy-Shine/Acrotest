@@ -152,3 +152,6 @@ dmypy.json
 /newMember/somedata.utf8
 /FaceFunction/asf_install.dat
 /FaceFunction/freesdk_132512.dat
+!/BasicInfos/users.log
+/Login/asf_install.dat
+/Login/freesdk_132512.dat

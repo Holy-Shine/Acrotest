@@ -15,7 +15,7 @@ from Qiandao.logic_qiandao_chose import LogicQiandaoChose
 from Qiandao.logic_Qiandao_face import LogicQiandaoFace
 from SummarySystem.logic_sysSum import logicSysSum
 
-from FaceFunction.FaceUtil import FaceRecognition
+
 
 
 #二级验证码
@@ -24,7 +24,7 @@ from CoachSystem.logic_verify import logicVerify
 import os,sys
 
 from Qiandao.process_camera_info import Camera
-from ConnextMySQL.MySQLBase import MySQLBaseFunction
+from ConnecMySQL.MySQLBase import MySQLBaseFunction
 
 
 host='121.199.17.205',  # IP
@@ -32,35 +32,27 @@ user='Jessie',  # 用户名
 password='Jessie.121406',  # 密码
 database = 'meminfo',
 
-Appkey=b'2FzzVsnbAkk9q8eLx2s1Q7tft3dY1NZXdnLN8xK6UtXf'
-SDKey=b'DAEJTcePD4TWaWKej3xRpPxBhCWGkFf4nxdYnooLWDuP'
+
 
 class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self,MySQL,facefunction,user):
         super(LogicMain, self).__init__()
         self.setupUi(self)
         self.setFixedSize(self.width(), self.height())
 
-        self.MySQL = MySQLBaseFunction(HostIP=host,
-                                       Username = user,
-                                       Password= password,
-                                       DataBase= database)
-
-        self.MySQL.ConnectMySQL()
-
+        self.MySQL = MySQL
+        self.facefunction = facefunction
+        self.username = user
         self.init()
         self.slot_init()
 
     def init(self):
-        self.facefunction = FaceRecognition(Appkey=Appkey, SDKey=SDKey)
-        flag = self.facefunction.ActivationFace()
-        if not flag:
-            QtWidgets.QMessageBox.warning(self, u"Warning", u"人脸识别检测初始化失败，请检查人脸识别SDK",
-                                          buttons=QtWidgets.QMessageBox.Ok)
+
 
         self.stackedWidget = QStackedWidget()
         self.Layout.addWidget(self.stackedWidget)
 
+        self.gottaUser()
         #子界面
         self.FormBlank = QWidget()  #空白界面
 
@@ -113,6 +105,16 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 统计系统
         self.pb_main_StatisticSystem.clicked.connect(self.on_pb_main_StatisticSystem_clicked)
+
+    def gottaUser(self):
+        if(self.username =='Jessie'):
+            self.lb_main_username.setText('当前用户：{}'.format('苏总'))
+        elif (self.username == 'WangAn'):
+                self.lb_main_username.setText('当前用户：{}'.format('王总'))
+        elif (self.username == 'WangLiPing'):
+                self.lb_main_username.setText('当前用户：{}'.format('王力平'))
+        else:
+            self.lb_main_username.setText('当前用户：{}'.format('其他'))
 
     # 教练系统
     def on_pb_main_CoachSystem_clicked(self):
@@ -168,7 +170,8 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
             event.ignore()
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    window = LogicMain()
-    window.show()
-    sys.exit(app.exec_())
+    print(1)
+    # app = QtWidgets.QApplication(sys.argv)
+    # window = LogicMain()
+    # window.show()
+    # sys.exit(app.exec_())

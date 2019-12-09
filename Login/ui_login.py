@@ -23,9 +23,6 @@ class UI_login(object):
         self.label_2 = QtWidgets.QLabel(Form)
         self.label_2.setGeometry(QtCore.QRect(60, 80, 31, 16))
         self.label_2.setObjectName("label_2")
-        self.checkbox_save = QtWidgets.QCheckBox(Form)
-        self.checkbox_save.setGeometry(QtCore.QRect(60, 120, 141, 16))
-        self.checkbox_save.setObjectName("checkbox_save")
         self.btn_cancel = QtWidgets.QPushButton(Form)
         self.btn_cancel.setGeometry(QtCore.QRect(60, 150, 75, 23))
         self.btn_cancel.setObjectName("btn_cancel")
@@ -47,10 +44,9 @@ class UI_login(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "员工登录"))
+        Form.setWindowTitle(_translate("Form", "freestyle轮滑管理系统"))
         self.label.setText(_translate("Form", "用户名："))
         self.label_2.setText(_translate("Form", "密码："))
-        self.checkbox_save.setText(_translate("Form", "记住用户名和密码"))
         self.btn_cancel.setText(_translate("Form", "清空"))
         self.btn_yes.setText(_translate("Form", "确定"))
 

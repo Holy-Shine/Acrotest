@@ -741,17 +741,18 @@ class LogicNewMember(Ui_NewMember,QDialog):
                 print(e)
 
 if __name__ == '__main__':
-    from ConnextMySQL.MySQLBase import MySQLBaseFunction
-    host = '121.199.17.205',  # IP
-    user = 'Jessie',  # 用户名
-    password = 'Jessie.121406',  # 密码
-    database = 'meminfo',
-    MySQL = MySQLBaseFunction(HostIP=host,
-                      Username=user,
-                      Password=password,
-                      DataBase=database)
-    MySQL.ConnectMySQL()
-    app = QApplication(sys.argv)
-    login = LogicNewMember(MySQL=MySQL)
-    login.show()
-    sys.exit(app.exec_())
+    print(1)
+    # from ConnecMySQL.MySQLBase import MySQLBaseFunction
+    # host = '121.199.17.205',  # IP
+    # user = 'Jessie',  # 用户名
+    # password = 'Jessie.121406',  # 密码
+    # database = 'meminfo',
+    # MySQL = MySQLBaseFunction(HostIP=host,
+    #                   Username=user,
+    #                   Password=password,
+    #                   DataBase=database)
+    # MySQL.ConnectMySQL()
+    # app = QApplication(sys.argv)
+    # login = LogicNewMember(MySQL=MySQL)
+    # login.show()
+    # sys.exit(app.exec_())

@@ -20,7 +20,7 @@ from datetime import datetime as dt
 
 # 多线程数据库
 
-from SummarySystem.WorkThread import *
+from WorkThread.WorkThread import *
 
 class logicSysSum(QMainWindow, Ui_sumSys):
     def __init__(self, MySQL, parent=None):
@@ -512,7 +512,7 @@ class logicSysSum(QMainWindow, Ui_sumSys):
         self.btn_fluid_getDB.setEnabled(True)
         self.btn_fluid_excrt.setEnabled(True)
         self.btn_fluid_expall.setEnabled(True)
-        QMessageBox.warning(self, '提示','导出成功!', QMessageBox.Yes, QMessageBox.Yes)
+        QMessageBox.information(self, '提示','导出成功!', QMessageBox.Yes, QMessageBox.Yes)
 
     def on_thread_export_all_data(self, sql_data):
         filepath = QFileDialog.getSaveFileName(self, '导出到EXCEL','./所有流水数据.xls','Excel Files(*.xls)')[0]
