@@ -185,7 +185,7 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
 
 
 if __name__ == '__main__':
-    from ConnextMySQL.MySQLBase import MySQLBaseFunction
+    from ConnecMySQL.MySQLBase import MySQLBaseFunction
 
     host = '121.199.17.205',  # IP
     user = 'Jessie',  # 用户名

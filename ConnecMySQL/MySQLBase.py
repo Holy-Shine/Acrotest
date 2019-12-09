@@ -46,18 +46,18 @@ class MySQLBaseFunction():
     #连接数据库
     def ConnectMySQL(self):
         try:
-            self.conn = pymysql.connect(host=self.HostIP[0],  # IP
-                                  user=self.Username[0],  # 用户名
-                                  password=self.Password[0],  # 密码
+            self.conn = pymysql.connect(host=self.HostIP,  # IP
+                                  user=self.Username,  # 用户名
+                                  password=self.Password,  # 密码
                                   port=3306,  # 端口号
-                                  database= self.database[0],
+                                  database= self.database,
                                   charset='utf8')  # 注意是utf8不是utf-8
             # 使用cursor()方法获取操作游标
             self.cursor = self.conn.cursor()
-            print("已经成功连接数据库！")
+            # print("已经成功连接数据库！")
             return True
         except Exception as e:
-            print("连接数据库失败！")
+            # print("连接数据库失败！")
             print(e)
             return False
 

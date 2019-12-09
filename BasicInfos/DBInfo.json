@@ -1,0 +1,11 @@
+{
+        "error_code": 0,
+        "DB_info": [
+                {
+                        "ip": "121.199.17.205",
+                        "user":"Jessie",
+                        "password": "Jessie.121406",
+                        "database": "meminfo"
+                }
+        ]
+}
