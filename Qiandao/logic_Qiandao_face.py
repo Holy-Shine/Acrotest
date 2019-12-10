@@ -181,7 +181,6 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
         # print(self.data_meminfo_search)
         for i, (mem_name, mem_phone, mem_type, mem_coa_name, mem_cls_left,
                 ctime, mem_signed,_) in enumerate(self.data_meminfo_search):
-            print('name{}.time{}.si{}'.format(mem_name,ctime,mem_signed))
             if(mem_signed==0):
                 signed = '否'
             else:
