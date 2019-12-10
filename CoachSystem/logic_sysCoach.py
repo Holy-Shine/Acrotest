@@ -308,5 +308,25 @@ class logicSysCoach(Ui_sysCoach, QDialog):
 
 
         
+    def myclear(self):
+        self.data_model.clear()
+        self.data_model.setHorizontalHeaderLabels(self.headers)
+        self.data = []  
+
+        self.le_search_term.clear()
+        self.le_c_name.clear()
+        self.le_c_phone.clear()
+        self.cb_a_rank.setCurrentIndex(0)
+        self.cb_a_type.setCurrentIndex(0)
+        self.te_cmsg.clear()
+
+        self.le_c_name_3.clear()
+        self.le_c_phone_3.clear()
+        self.comboBox_3.setCurrentIndex(0)
+        self.comboBox_4.setCurrentIndex(0)
+
+        self.te_cmsg_2.clear()
+
+        self.listFunc.setCurrentRow(0)
 
 

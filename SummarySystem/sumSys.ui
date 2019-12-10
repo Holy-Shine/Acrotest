@@ -120,7 +120,7 @@ QListWidget#listFunc::Item:selected {
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QLabel" name="label_3">
@@ -451,7 +451,7 @@ QListWidget#listFunc::Item:selected {
      <property name="title">
       <string>选择栏(默认可选近3年的流水)</string>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -506,7 +506,7 @@ QListWidget#listFunc::Item:selected {
      <property name="title">
       <string>操作栏</string>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>40</x>
