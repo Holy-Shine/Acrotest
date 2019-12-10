@@ -1750,7 +1750,7 @@ background-color: rgb(49, 194, 124);
 }</string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tb_1_2">
           <attribute name="title">
@@ -2508,7 +2508,7 @@ border-color: rgb(255, 0, 0);</string>
        <string>查找状态：当前找到0条记录</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>30</x>

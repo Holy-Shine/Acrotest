@@ -136,9 +136,10 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                                 flag1 = self.MySQL.InsertFromDataBse(sql)
                                 flag &= flag1
                         if (flag == True):
-                            for i in range(2):
-                                self.data_model.setData(self.data_model.index(self.current_row, i), QBrush(Qt.green),
-                                                        Qt.BackgroundColorRole)
+                            self.data_model.removeRow(self.tv_show_mem.currentIndex().row())
+                            # for i in range(2):
+                            #     self.data_model.setData(self.data_model.index(self.current_row, i), QBrush(Qt.green),
+                            #                             Qt.BackgroundColorRole)
                             QMessageBox.information(self, '提示', '排课信息插入成功！', QMessageBox.Ok, QMessageBox.Ok)
                         else:
                             QMessageBox.information(self, '提示', '排课信息插入失败！', QMessageBox.Ok, QMessageBox.Ok)
