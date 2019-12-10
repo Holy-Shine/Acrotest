@@ -84,9 +84,15 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         else:
             # 检查是否未选择排课日期
             flag = True
+            num = 0
             for cb in self.cb_day_times:
                 flag = flag and (not cb.isChecked())
-            if flag:
+                if cb.isChecked():
+                    num+=1
+
+            if num>self.data[self.tv_show_mem.currentIndex().row()][3]:
+                QMessageBox.warning(self, '警告','当前排课次数多于该学员剩余课时次数!', QMessageBox.Yes, QMessageBox.Yes)
+            elif flag:
                 QMessageBox.warning(self, '提示','未选择排课日期!', QMessageBox.Yes, QMessageBox.Yes)
             
             elif self.cb_coach.currentText()=='未选择':
@@ -136,6 +142,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                                 flag1 = self.MySQL.InsertFromDataBse(sql)
                                 flag &= flag1
                         if (flag == True):
+                            self.data.remove(self.data[self.tv_show_mem.currentIndex().row()])
                             self.data_model.removeRow(self.tv_show_mem.currentIndex().row())
                             # for i in range(2):
                             #     self.data_model.setData(self.data_model.index(self.current_row, i), QBrush(Qt.green),
@@ -416,15 +423,15 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             QMessageBox.warning(self, '提示','年和周未选!', QMessageBox.Yes, QMessageBox.Yes)
         else:
             week = self.cb_week.currentText()
-            sql = '''SELECT mi.mem_phone, mi.mem_name, mi.mem_type FROM mem_info mi WHERE NOT EXISTS(
-                SELECT mc.mem_phone, mc.mem_name FROM mem_class mc WHERE mi.mem_phone=mc.mem_phone and mi.mem_name=mc.mem_name and week={})'''.format(week)
+            sql = '''SELECT mi.mem_phone, mi.mem_name, mi.mem_type, mi.mem_cls_left FROM mem_info mi WHERE NOT EXISTS(
+                SELECT mc.mem_phone, mc.mem_name FROM mem_class mc WHERE mi.mem_phone=mc.mem_phone and mi.mem_name=mc.mem_name and week={}) and mem_cls_left>0'''.format(week)
             print(sql)
             try:
                 types = ['轮滑', '平衡车']
                 flag, result = self.MySQL.SelectFromDataBse(sql)
                 if (flag == True):
-                    self.data = result
-                    for i, (mem_phone, mem_name, mem_type) in enumerate(self.data):
+                    self.data = list(result)
+                    for i, (mem_phone, mem_name, mem_type, mem_cls_left) in enumerate(self.data):
                         self.data_model.appendRow([
                             QStandardItem(str(mem_phone)),
                             QStandardItem(mem_name),

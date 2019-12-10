@@ -100,7 +100,12 @@ class logicSysCoach(Ui_sysCoach, QDialog):
                     # conn.close()
                     flag= self.MySQL.DeleteFromDataBse(sql)
                     if(flag ==True):
+                        self.data.remove(self.data[self.tv_search_coach.currentIndex().row()])
+                        self.data_model.removeRow(self.tv_search_coach.currentIndex().row())
+                        
+
                         QMessageBox.information(self, '提示', '删除成功！',QMessageBox.Ok,QMessageBox.Ok)
+                        
                     else:
                         QMessageBox.information(self, '提示', '删除失败！', QMessageBox.Ok, QMessageBox.Ok)
                 except Exception as e:
@@ -232,7 +237,7 @@ class logicSysCoach(Ui_sysCoach, QDialog):
             try:
                 flag,result = self.MySQL.SelectFromDataBse(sql)
                 if (flag == True):
-                    self.data = result
+                    self.data = list(result)
                     self.lb_result.setText('共搜索到 {} 条记录'.format(len(self.data)))
                     types = ['轮滑', '平衡车', '均可']
                     for i, (coa_phone, coa_name, coa_gender, coa_rank, coa_type, coa_info) in enumerate(self.data):
