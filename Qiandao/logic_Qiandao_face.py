@@ -1,174 +1,297 @@
-from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush, QColor
+from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QTableView, QHeaderView
 
 from PyQt5 import QtCore,QtGui,QtWidgets
-from multiprocessing import Process
-import cv2
-from Qiandao.UI_Qiandao_face_Main import UIQiandaoFace
-from face_recognition.Face_Util import FaceRecognition,FaceInfo
+
+from Qiandao.UI_Qiandao_face_Main import Ui_UIQiandaoFace
 import os,sys
+import time
+from Date2Week import DateAndWeek as timefunction
 
-Appkey=b'2FzzVsnbAkk9q8eLx2s1Q7tft3dY1NZXdnLN8xK6UtXf'
-SDKey=b'DAEJTcePD4TWaWKej3xRpPxBhCWGkFf4nxdYnooLWDuP'
-
-class ShowFD(Process):
-    def __init__(self):
-        super(ShowFD, self).__init__()
-        self.function = None
-        self.facelist = None
-        self.img = None
-        self.count = 0
-
-    def getmsg(self,facelist,function):
-        self.function = function
-        self.facelist = facelist
-
-    def getimg(self,img):
-        self.img = img
-    def show_index(self):
-        tz = self.function.getFaceFutrue(self.img)
-        info = self.function.getMaxPro(currentFeature = tz, FeatueList =self.facelist)
-        return info
-
-    def run(self):
-        if not self.count== 20:
-            self.count = self.count+1
-            return None
-        else:
-            self.count = 0
-            try:
-                info =self.show_index()
-                return info
-            except Exception as e:
-                print(e)
-
-
-class LogicQiandaoFace(UIQiandaoFace,QDialog):
-    def __init__(self):
+class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
+    def __init__(self,MySQL,facefunction):
         super().__init__()
         self.setupUi(self)
-    #     self.timer_camera = QtCore.QTimer()
-    #     self.cap = cv2.VideoCapture()
-    #     self.CAM_NUM = -1
-    #
-    #     #传入特征序列
-    #     self.face_featureslist = []
-    #
-    #     self.facerecognition = FaceRecognition(FaceInfo(Appkey=Appkey, SDKey=SDKey))
-    #
-    #     self.thread = ShowFD()
-    #
-    #     self.slot_init()
-    #
-    #
-    # def setCamNum(self,cam, year,week,day):
-    #     #便于查询
-    #     self.year = year
-    #     self.week = week
-    #     self.day = day
-    #
-    #     #打开摄像头
-    #     self.CAM_NUM = int(cam)
-    #     self.getCamOpen()
-    #
-    # def setFeaturesList(self,featureslist):
-    #     self.face_featureslist = featureslist
-    #
-    # def getCamOpen(self):
-    #     self.open_camera()
-    #     self.timer_camera.timeout.connect(self.show_camera)
-    #
-    # def getCamClose(self):
-    #     try:
-    #         self.label.clear()
-    #         if self.timer_camera.isActive() == True:
-    #             self.timer_camera.stop()
-    #             self.cap.release()
-    #             self.label.clear()
-    #     except Exception as e:
-    #         print(e)
-    #
-    # def slot_init(self):
-    #     self.bt_qiandao_confrim.clicked.connect(self.qiandao_confrim)
-    #     # self.bt_trackback.clicked.connect(self.close)
-    #
-    #     try:
-    #         self.thread.getmsg(facelist=self.face_featureslist, function=self.facerecognition)
-    #         self.thread.start()
-    #     except Exception as e:
-    #         print(e)
-    #
-    #
-    # #打开显示摄像头
-    # def open_camera(self):
-    #     if self.timer_camera.isActive() == False and self.CAM_NUM>=0:
-    #         flag = self.cap.open(self.CAM_NUM)
-    #         if flag == False:
-    #             msg = QMessageBox.warning(self, u"Warning", u"请检测相机与电脑是否连接正确",
-    #                                                 buttons=QMessageBox.Ok,
-    #                                                 defaultButton=QMessageBox.Ok)
-    #         else:
-    #             self.timer_camera.start(30)
-    #
-    #
-    # def show_camera(self):
-    #     flag, self.image = self.cap.read()
-    #     show = cv2.resize(self.image, (260,346))
-    #     show = cv2.cvtColor(show, cv2.COLOR_BGR2RGB)
-    #     # show = self.facerecognition.showMaxFace(show)
-    #     showImage = QtGui.QImage(show.data, show.shape[1], show.shape[0], QtGui.QImage.Format_RGB888)
-    #     self.label.setPixmap(QtGui.QPixmap.fromImage(showImage))
-    #
-    #     # 检测人脸
-    #     try:
-    #         self.thread.getimg(self.image)
-    #         index = self.thread.run()
-    #         if not index == None:
-    #             self.showinfoface(index)
-    #     except Exception as e:
-    #         print(e)
-    #
-    #
-    # #显示检测信息
-    # def showinfoface(self,index):
-    #     print("检测系统正在运行")
-    #
-    #
-    # #确认签到
-    # def qiandao_confrim(self):
-    #     print(2)
-    #
-    #
-    #
-    #
-    # def closeEvent(self, event):
-    #     ok = QtWidgets.QPushButton()
-    #     cacel = QtWidgets.QPushButton()
-    #
-    #     msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Warning, u"关闭", u"是否关闭！")
-    #
-    #     msg.addButton(ok, QtWidgets.QMessageBox.ActionRole)
-    #     msg.addButton(cacel, QtWidgets.QMessageBox.RejectRole)
-    #     ok.setText(u'确定')
-    #     cacel.setText(u'取消')
-    #     # msg.setDetailedText('sdfsdff')
-    #     if msg.exec_() == QtWidgets.QMessageBox.RejectRole:
-    #         event.ignore()
-    #     else:
-    #         #             self.socket_client.send_command(self.socket_client.current_user_command)
-    #         if self.cap.isOpened():
-    #             self.cap.release()
-    #         if self.timer_camera.isActive():
-    #             self.timer_camera.stop()
-    #         event.accept()
-    #         try:
-    #             os._exit(0)
-    #         except Exception as e:
-    #             print(e)
+        self.MySQL = MySQL
+        self.faceFunction = facefunction
+        self.dianlist = None
+        self.data_meminfo_search = None
 
 
+
+        self.dian2int={
+            '10点':10,
+            '11点':11,
+            '12点': 12,
+            '13点': 13,
+            '14点': 14,
+            '15点':15,
+            '16点': 16,
+            '17点': 17,
+            '18点': 18,
+            '19点': 19,
+            '20点': 20,
+            '21点': 21,
+        }
+
+        self.int2dian = {
+            10 :'10点',
+            11 :'11点',
+            12 :'12点',
+            13 :'13点',
+            14 :'14点',
+            15 :'15点',
+            16 :'16点',
+            17 :'17点',
+            18 :'18点',
+            19 :'19点',
+            20 :'20点',
+            21 :'21点',
+        }
+
+        self.week2day = { 1:"周一",
+                     2:"周二",
+                     3:"周三",
+                     4:"周四",
+                     5:"周五",
+                     6:"周六",
+                     7:"周日"}
+
+        self.meminfo_data = {
+            '学生姓名': '',
+            '课程种类': '',
+            '联系方式': '',
+            '上课时间': '',
+            '是否签到': '',
+            '教练姓名': '',
+            '剩余次数': '',
+        }
+
+        self.cardtype = {
+            '轮滑': 0,
+            '平衡车': 1
+        }
+
+        self.type2card = {
+            0:'轮滑',
+            1:'平衡车'
+        }
+
+        self.init()
+        self.slot_init()
+
+    def init(self):
+        self.headers_StudentList = ['学生姓名', '联系方式','课程种类','上课时间', '是否签到', '教练姓名', '剩余次数']
+        self.data_model = QStandardItemModel()
+        # 学生表初始化
+        self.data_model.setHorizontalHeaderLabels(self.headers_StudentList)
+        self.tv_student.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+        self.tv_student.setSelectionBehavior(QTableView.SelectRows)  # 选中行
+        self.tv_student.setModel(self.data_model)
+        self.tv_student.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.initday()
+        self.initcoach()
+
+        #显示et不可用
+        self.et_cishu.setEnabled(False)
+        self.et_name.setEnabled(False)
+        self.et_phone.setEnabled(False)
+        self.et_classtime.setEnabled(False)
+        self.bt_qiandao_confrim.setEnabled(False)
+
+    def slot_init(self):
+        self.bt_search.clicked.connect(self.searchlist)
+
+        # 表内选择
+        self.tv_student.selectionModel().selectionChanged.connect(self.row_sel_change)
+
+        #确认签到
+        self.bt_qiandao_confrim.clicked.connect(self.confrim_qiandao)
+
+
+    def initday(self):
+        tm = time.gmtime()
+        week,weekday = timefunction.FromDatetoWeek(year=tm.tm_year,
+                                                month=tm.tm_mon,
+                                                day=tm.tm_mday)
+        self.lb_time.setText("当前日期：{}年{}月{}日 第{}周 {}".format(tm.tm_year,tm.tm_mon,tm.tm_mday,week,self.week2day[int(weekday)]))
+
+
+    def initcoach(self):
+        self.cb_coach.clear()
+        try:
+            sql = 'SELECT coa_name FROM coach;'
+            _,coachname = self.MySQL.SelectFromDataBse(sql)
+            for name in coachname:
+                self.cb_coach.addItem(name[0])
+        except Exception as e:
+            print(e)
+
+    def searchlist(self):
+        try:
+            self.initcoach()
+            self.dianlist = self.cb_dian.Selectlist()
+            if (len(self.dianlist) == 0):
+                QMessageBox.information(self, '提示', '没有选择具体时间点！', QMessageBox.Ok, QMessageBox.Ok)
+            else:
+                self.selectClassList()
+                self.add_table()
+        except Exception as e:
+            print(e)
+
+    def addtomeminfo_data(self,result):
+        try:
+            self.meminfo_data['学生姓名'] = result[0]
+            self.meminfo_data['联系方式'] = result[1]
+            self.meminfo_data['课程种类'] = result[2]
+            self.meminfo_data['上课时间'] = self.int2dian[result[5]]
+            self.meminfo_data['是否签到'] = result[6]
+            self.meminfo_data['教练姓名'] = result[3]
+            self.meminfo_data['剩余次数'] = result[4]
+
+        except Exception as e:
+            print(e)
+
+    def maketext(self):
+        self.et_name.setText(self.meminfo_data['学生姓名'] )
+        self.et_phone.setText(self.meminfo_data['联系方式'])
+        self.et_cishu.setText(str(self.meminfo_data['剩余次数']))
+        self.et_classtime.setText(self.meminfo_data['上课时间'])
+
+    def row_sel_change(self):
+        try:
+            current_row = self.tv_student.currentIndex().row()
+            if current_row < len(self.data_meminfo_search):
+                result = self.data_meminfo_search[current_row]
+                self.addtomeminfo_data(result)
+                self.maketext()
+                if(result[6]==0):
+                    self.bt_qiandao_confrim.setEnabled(True)
+                else:
+                    self.bt_qiandao_confrim.setEnabled(False)
+        except Exception as e:
+            print(e)
+
+
+
+
+    def add_table(self):
+        self.data_model.clear()
+        self.data_model.setHorizontalHeaderLabels(self.headers_StudentList)
+        # print(self.data_meminfo_search)
+        for i, (mem_name, mem_phone, mem_type, mem_coa_name, mem_cls_left,
+                ctime, mem_signed,_) in enumerate(self.data_meminfo_search):
+            if(mem_signed==0):
+                signed = '否'
+            else:
+                signed = '是'
+            self.data_model.appendRow([
+                QStandardItem(mem_name),
+                QStandardItem(mem_phone),
+                QStandardItem(self.type2card[mem_type]),
+                QStandardItem(self.int2dian[ctime]),
+                QStandardItem(signed),
+                QStandardItem(mem_coa_name),
+                QStandardItem(str(mem_cls_left)),
+            ])
+
+    def selectClassList(self):
+        try:
+            tm = time.gmtime()
+            week, weekday = timefunction.FromDatetoWeek(year=tm.tm_year,
+                                                        month=tm.tm_mon,
+                                                        day=tm.tm_mday)
+            diansql = 'ctime={}'.format(self.dian2int[self.dianlist[0]])
+            for i in range(1, len(self.dianlist)):
+                diansql += ' OR ctime={}'.format(self.dian2int[self.dianlist[i]])
+
+            sql = 'SELECT distinct mem_class.mem_name, ' \
+                  'mem_class.mem_phone, ' \
+                  'mem_class.mem_type,' \
+                  'mem_class.mem_coa_name,' \
+                  'mem_info.mem_cls_left,' \
+                  'mem_class.ctime, ' \
+                  'mem_class.mem_signed,' \
+                  'mem_info.mem_facefeature ' \
+                  ' FROM mem_info JOIN  mem_class WHERE ' \
+                  'mem_class.mem_name = mem_info.mem_name ' \
+                  ' AND mem_class.year={}  ' \
+                  ' AND mem_class.week={} ' \
+                  ' AND mem_class.cday={}' \
+                  ' AND ({})'.format(
+                tm.tm_year,
+                week,
+                weekday,
+                diansql
+            )
+            print(sql)
+            flag, self.data_meminfo_search = self.MySQL.SelectFromDataBse(sql)
+        except Exception as e:
+            print(e)
+
+
+    def confrim_qiandao(self):
+        try:
+            hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n 教练姓名：{}\n上课时间：{}\n剩余次数：{}-1={}\n'.format(
+                self.meminfo_data['学生姓名'],
+                self.meminfo_data['联系方式'],
+                self.type2card[self.meminfo_data['课程种类']],
+                self.cb_coach.currentText(),
+                self.meminfo_data['上课时间'],
+                self.meminfo_data['剩余次数'],
+                int(self.meminfo_data['剩余次数'])-1,
+            )
+            reply = QMessageBox.warning(self, '确认删除？', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+            if reply == QMessageBox.Yes:
+                tm = time.gmtime()
+                week, weekday = timefunction.FromDatetoWeek(year=tm.tm_year,
+                                                            month=tm.tm_mon,
+                                                            day=tm.tm_mday)
+                sql_update_cishu = 'UPDATE  mem_info  SET mem_cls_left={} WHERE mem_name=\'{}\' and mem_phone=\'{}\' and mem_type={};'.format(
+                    int(self.meminfo_data['剩余次数']) - 1,
+                    self.meminfo_data['学生姓名'],
+                    self.meminfo_data['联系方式'],
+                    self.meminfo_data['课程种类']
+                )
+                sql_update_class = 'UPDATE  mem_class  SET mem_signed=1 WHERE mem_name=\'{}\' ' \
+                                   'and mem_phone=\'{}\' ' \
+                                   'and mem_type={} ' \
+                                   'and year={} and week ={} and cday={} and ctime = {};'.format(
+                    self.meminfo_data['学生姓名'],
+                    self.meminfo_data['联系方式'],
+                    self.meminfo_data['课程种类'],
+                    tm.tm_year,week,weekday,
+                    self.dian2int[self.meminfo_data['上课时间']]
+                )
+                print(sql_update_class)
+
+                flag1 = self.MySQL.UpdateFromDataBse(sql_update_cishu)
+                flag2 = self.MySQL.UpdateFromDataBse(sql_update_class)
+
+                if (flag1 and flag2):
+                    self.selectClassList()
+                    self.add_table()
+                    QMessageBox.information(self, '提示', '签到成功！', QMessageBox.Ok, QMessageBox.Ok)
+                else:
+                    QMessageBox.information(self, '提示', '签到失败！', QMessageBox.Ok, QMessageBox.Ok)
+
+
+
+        except Exception as e:
+            print(e)
+
+
+def getOR(dian):
+    res = 'ctime={}'.format(dian[0])
+    for i in range(1,len(dian)):
+        res+=' OR ctime={}'.format(dian[i])
+    print(res)
+    return res
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    login = LogicQiandaoFace()
-    login.setCamNum(0)
-    login.show()
-    sys.exit(app.exec_())
+    dian = [1,2]
+    getOR(dian)
+    # app = QApplication(sys.argv)
+    # login = LogicQiandaoFace(MySQL,facefunction)
+
+    # login.show()
+    # sys.exit(app.exec_())
