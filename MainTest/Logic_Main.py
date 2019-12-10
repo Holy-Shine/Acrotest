@@ -1,3 +1,4 @@
+from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QStackedWidget, QWidget
 
 from StudentSystem.Logic_StudentMain import LogicStudentMain
@@ -11,11 +12,11 @@ from UpdateClass.logic_updateClass import logicUpdateClass
 #教练系统
 from  CoachSystem.logic_sysCoach import logicSysCoach
 #导入签到系统
-from Qiandao.logic_qiandao_chose import LogicQiandaoChose
 from Qiandao.logic_Qiandao_face import LogicQiandaoFace
+#统计系统
 from SummarySystem.logic_sysSum import logicSysSum
 
-
+import Login.CheckDBandFace as ckdf
 
 
 #二级验证码
@@ -23,14 +24,7 @@ from CoachSystem.logic_verify import logicVerify
 
 import os,sys
 
-from Qiandao.process_camera_info import Camera
-from ConnecMySQL.MySQLBase import MySQLBaseFunction
 
-
-host='121.199.17.205',  # IP
-user='Jessie',  # 用户名
-password='Jessie.121406',  # 密码
-database = 'meminfo',
 
 
 
@@ -52,7 +46,14 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.stackedWidget = QStackedWidget()
         self.Layout.addWidget(self.stackedWidget)
 
+        #用户和时间
         self.gottaUser()
+        #实时显示时间
+        timer = QTimer(self)
+        timer.timeout.connect(self.showtime)
+        timer.start()
+
+        #
         #子界面
         self.FormBlank = QWidget()  #空白界面
 
@@ -65,9 +66,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.FormSumSys = logicSysSum(MySQL=self.MySQL)  # 统计系统
 
 
-        self.ChaxunChose = LogicQiandaoChose() #选择签到方式
-        self.ChaxunChose.setWindowModality(QtCore.Qt.ApplicationModal)
-        self.FormFaceQiandao = LogicQiandaoFace()  # 人脸查询系统
+        self.FormFaceQiandao = LogicQiandaoFace(MySQL=self.MySQL,facefunction=self.facefunction)  # 人脸查询系统
 
         self.FormCoach = logicSysCoach(MySQL=self.MySQL)  # 教练系统
 
@@ -118,6 +117,12 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             self.lb_main_username.setText('当前用户：{}'.format('其他'))
 
+
+    def showtime(self):
+        datetime = QDateTime.currentDateTime()
+        text = datetime.toString()
+        self.lb_main_time.setText(text)
+
     # 教练系统
     def on_pb_main_CoachSystem_clicked(self):
         self.stackedWidget.setCurrentWidget(self.FormCoach)
@@ -144,20 +149,9 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
     #签到系统
     def on_pb_main_QiandaoSystem_clicked(self):
         # self.FormFaceQiandao.getCamClose()
-        self.stackedWidget.setCurrentWidget(self.FormBlank)
-        try:
-            self.ChaxunChose.show()
-            self.ChaxunChose.bt_confrim.clicked.connect(self.open_qiandao)
-        except Exception as e:
-            print(e)
+        self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
 
 
-    def open_qiandao(self):
-        try:
-            self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
-            self.ChaxunChose.close()
-        except Exception as e:
-            print(e)
 
 
 
@@ -172,8 +166,9 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
             event.ignore()
 
 if __name__ == '__main__':
-    print(1)
-    # app = QtWidgets.QApplication(sys.argv)
-    # window = LogicMain()
-    # window.show()
-    # sys.exit(app.exec_())
+    f1, MySQL = ckdf.CheckDB()
+    f2, facefunction = ckdf.CheckFace()
+    app = QtWidgets.QApplication(sys.argv)
+    window = LogicMain( MySQL=MySQL,facefunction=facefunction,user='Jessie')
+    window.show()
+    sys.exit(app.exec_())
