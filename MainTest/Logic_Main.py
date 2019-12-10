@@ -92,6 +92,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #排课系统嵌入
         self.pb_main_LessonSystem.clicked.connect(self.on_pb_main_LessonSystem_clicked)
+        self.pb_main_LessonSystem.clicked.connect(self.FormLesson.myclear)
 
         #签到系统
         self.pb_main_QiandaoSystem.clicked.connect(self.on_pb_main_QiandaoSystem_clicked)
@@ -101,11 +102,12 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 教练系统
         self.pb_main_CoachSystem.clicked.connect(self.on_pb_main_CoachSystem_clicked)
+        self.pb_main_CoachSystem.clicked.connect(self.FormCoach.myclear)
 
 
         # 统计系统
         self.pb_main_StatisticSystem.clicked.connect(self.on_pb_main_StatisticSystem_clicked)
-
+        self.pb_main_StatisticSystem.clicked.connect(self.FormSumSys.myclear)
     def gottaUser(self):
         if(self.username =='Jessie'):
             self.lb_main_username.setText('当前用户：{}'.format('苏总'))

@@ -46,6 +46,8 @@ class logicSysSum(QMainWindow, Ui_sumSys):
         self.sql_thread = None
         self.excel_thread = None
 
+        self.sql_thread_BXnum = None
+
         
         # 办卡续卡流水界面的相关初始化
         self.tv_fluid.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
@@ -209,6 +211,7 @@ class logicSysSum(QMainWindow, Ui_sumSys):
 
             
             # 初始化年
+            self.cb_fluid_year.clear()
             self.cb_fluid_year.addItems([str(self.cur_year-2),str(self.cur_year-1),str(self.cur_year)])
             self.cb_fluid_year.setCurrentIndex(2)
 
@@ -525,6 +528,25 @@ class logicSysSum(QMainWindow, Ui_sumSys):
             self.excel_thread.trigger.connect(self.on_thread_export_crtdata)
             self.excel_thread.start()
 
+
+    def myclear(self):
+        self.fluid_data_model.clear()
+        self.fluid_data_model.setHorizontalHeaderLabels(self.fluid_headers)
+        self.fluid_data = []
+        
+
+        self.BXLineFigure.ax.cla()
+        self.BXLineFigure.draw()
+        self.BarFigure.ax.cla()
+        self.BarFigure.draw()
+        self.LineFigure.ax.cla()
+        self.LineFigure.draw()
+
+        self.listFunc.setCurrentRow(0)
+        self.cb_fluid_month.clear()
+        
+
+
 # 画板类
 class Figure_Canvas(FigureCanvas):
     def __init__(self, parent=None, width=3.9, height=2.7, dpi=100):
@@ -537,6 +559,12 @@ class Figure_Canvas(FigureCanvas):
         y = [2,1,3,5,6,4,3]
         self.ax.plot(x,y)
 
+
+
+
+
+
+        
 
 # 
 # if __name__ == '__main__':

@@ -64,6 +64,8 @@ class logicUpdateClass(Ui_updateClass, QDialog):
 
         self.cb_day_times = []
         self.cb_day_times2 = []
+        self.tbs_1 = []
+        self.tbs_2 = []
         self.coachs = []
         self.setupItem()
         self.listFunc.setCurrentRow(0)
@@ -149,18 +151,21 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             
 
 
+
+
     def row_sel_change_2(self):
 
         types = ['轮滑','平衡车']
         current_row = self.tv_show_mem_3.currentIndex().row()
         if current_row < len(self.data_2):
+            dt_txt = self.data_2[current_row][3]
             selected_phone = str(self.data_2[current_row][0])
             selected_name = self.data_2[current_row][1]
             selected_type = int(self.data_2[current_row][2])
             self.le_choose_name_3.setText(selected_name)
             self.le_choose_phone_3.setText(selected_phone)
             self.le_choose_type_3.setText(types[selected_type])  
-            self.te_current_paike.setText(self.data_2[current_row][3])   
+            self.te_current_paike.setText(dt_txt)   
 
             # 清空checkbox
             for cb in self.cb_day_times2:
@@ -171,6 +176,36 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             for coch in self.coachs:
                 if coch[1]==selected_type or coch[1]==2:
                     self.cb_coach_2.addItem(coch[0])      
+
+
+            # 重置当前cb和tb
+            self.setAllTab(self.tbs_2)
+            self.setAllCheckBox(self.cb_day_times2)
+
+            # 修改checkbox
+            times = dt_txt.split('\n')
+            for daytime in times[1:]:
+                week, time = daytime.split(': ')
+                week_idx = self.weekdays.index(week)
+                time_idx = int(time[:2])-10
+
+                self.cb_day_times2[week_idx*12+time_idx].setChecked(True)
+            
+            # 检查当前日期，设置某些tab不可选
+            year = dt.now().year
+            month = dt.now().month
+            day = dt.now().day
+
+            cweek, cweekday = FromDatetoWeek(year, month, day)
+
+            if int(self.cb_week_2.currentText())<cweek:  # 设置了过去的周，则均不可选
+                self.setAllTab(self.tbs_2, enable=False)
+
+            elif int(self.cb_week_2.currentText())==cweek:  # 若刚好是当前周次
+                for i in range(0, int(cweekday)-1):
+                    self.tbs_2[i].setEnabled(False)
+
+            
 
     def row_sel_change(self):
         current_row = self.tv_show_mem.currentIndex().row()
@@ -210,7 +245,9 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         from datetime import datetime as dt
         year = dt.now().year
         self.cb_year.clear()
+        self.cb_year_2.clear()
         self.cb_year.addItems(['未选择',str(year),str(year+1)])
+        self.cb_year_2.addItems(['未选择',str(year), str(year+1)])
 
         try:
             flag,result = self.MySQL.SelectFromDataBse(sql)
@@ -230,6 +267,12 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             self.cb_day_times2.append(eval('self.cb_{}_2'.format(i)))
 
 
+        # 将两个tab全部放入tab中
+        for i in range(1,8):
+            self.tbs_1.append(eval('self.tb_{}'.format(i)))
+            self.tbs_2.append(eval('self.tb_{}_2'.format(i)))
+
+
         self.clean_up()
 
     def on_button_search_update(self):
@@ -243,8 +286,10 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             year = self.cb_year_2.currentText()
             week = self.cb_week_2.currentText()
             search_term = self.le_upclass_term.text()
+
+            # 查询未签到的排课数据
             sql = '''
-            SELECT * FROM mem_class WHERE year={} and week={} and (mem_phone like '%{}%' OR mem_name like '%{}%')
+            SELECT * FROM mem_class WHERE year={} and week={} and (mem_phone like '%{}%' OR mem_name like '%{}%') and mem_signed=0
             '''.format(year, week,search_term, search_term)
 
             self.btn_upclass_search.setEnabled(False)
@@ -276,13 +321,13 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 flag |= cb.isChecked()
 
             dl_sql = '''
-            DELETE FROM mem_class WHERE mem_name='{}' and mem_phone='{}' and mem_type={} and year={} and week={}
+            DELETE FROM mem_class WHERE mem_name='{}' and mem_phone='{}' and mem_type={} and year={} and week={} and mem_signed=0
             '''.format(name, phone, type, year, week)
             if flag == False:
                 # 删除排课
 
 
-                hint = '''确认删除【{}】在第{}年第{}周的所有安排吗？
+                hint = '''确认删除【{}】在第{}年第{}周的所有未签到安排吗？
                 '''.format(name, year, week)
 
                 reply = QMessageBox.warning(self, '确认信息',hint, QMessageBox.Yes|QMessageBox.No, QMessageBox.Yes)
@@ -406,8 +451,9 @@ class logicUpdateClass(Ui_updateClass, QDialog):
 
         # 更新排课信息
         elif current_row ==1:
-            cyear = dt.now().year
-            self.cb_year_2.addItems([str(cyear), str(cyear+1)])
+            pass
+           # cyear = dt.now().year
+         
 
 
         
@@ -515,16 +561,16 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             weeks = ['周一','周二','周三','周四','周五','周六','周日']
             types = ['轮滑', '平衡车']
             self.data_2 = []
-            day_times = '{}年第{}周：\n'.format(self.cb_year_2.currentText(), self.cb_week_2.currentText())
+            day_times = '{}年第{}周: '.format(self.cb_year_2.currentText(), self.cb_week_2.currentText())
 
             rst_dic = {}
             for i,line in enumerate(data):
                 key = tuple([line[0], line[1], line[2]])
                 if key not in rst_dic:
                     rst_dic[key] = day_times
-                rst_dic[key]+= '{}：{}:00\n'.format(weeks[line[6]-1], line[7])
+                rst_dic[key]+= '\n{}: {}:00'.format(weeks[line[6]-1], line[7])
 
-            self.lb_sch_status_2.setText('查找状态：当前找到{}条记录'.format(len(self.data_2)))
+            
             for i, key in enumerate(rst_dic):
                 self.data_2.append([key[0], key[1], key[2], rst_dic[key]])
                 self.data_model_2.appendRow([
@@ -532,5 +578,52 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                     QStandardItem(key[1]),
                     QStandardItem(types[key[2]])
                 ])
+            self.lb_sch_status_2.setText('查找状态：当前找到{}条记录'.format(len(self.data_2)))
         self.btn_upclass_search.setEnabled(True)
         self.btn_confirm_2.setEnabled(True)
+
+
+
+################################################ 重置/设置函数区 ###################################################
+    def setAllCheckBox(self, cbs, checked=False):
+        for cb in cbs:
+            cb.setChecked(checked)
+
+    def setAllTab(self, tbs, enable=True):
+        for tb in tbs:
+            tb.setEnabled(enable)
+
+
+    def myclear(self):
+        # 页签1清空
+        self.data = []
+        self.data_model.clear()
+        self.data_model.setHorizontalHeaderLabels(self.headers)
+        self.le_choose_name.clear()
+        self.le_choose_phone.clear()
+        self.le_choose_type.clear()
+        self.cb_year.setCurrentIndex(0)
+        self.cb_week.setCurrentIndex(0)
+        self.cb_coach.clear()
+        self.setAllTab(self.tbs_1)
+        self.setAllCheckBox(self.cb_day_times)
+
+        # 页签2清空
+        self.data_2 = []
+        self.data_model_2.clear()
+        self.data_model_2.setHorizontalHeaderLabels(self.headers)
+        self.le_choose_name_3.clear()
+        self.le_choose_phone_3.clear()
+        self.le_choose_type_3.clear()
+        self.cb_year_2.setCurrentIndex(0)
+        self.cb_week_2.setCurrentIndex(0)
+        self.cb_coach_2.clear()
+        self.setAllTab(self.tbs_2)
+        self.setAllCheckBox(self.cb_day_times2)  
+        self.le_upclass_term.clear()
+        self.lb_sch_status_2.setText('查找状态：当前找到0条记录')
+
+        self.listFunc.setCurrentRow(0)  # 选中第一个页签
+
+
+        
