@@ -165,7 +165,8 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
                 result = self.data_meminfo_search[current_row]
                 self.addtomeminfo_data(result)
                 self.maketext()
-                if(result[6]==0):
+                print(result[4])
+                if(result[6]==0 and int(result[4])>0):
                     self.bt_qiandao_confrim.setEnabled(True)
                 else:
                     self.bt_qiandao_confrim.setEnabled(False)
