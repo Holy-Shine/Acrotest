@@ -88,8 +88,6 @@ class Ui_MainWindow(QtWidgets.QWidget):
                 msg = QtWidgets.QMessageBox.warning(self, u"Warning", u"请检测相机与电脑是否连接正确",
                                                     buttons=QtWidgets.QMessageBox.Ok,
                                                     defaultButton=QtWidgets.QMessageBox.Ok)
-            # if msg==QtGui.QMessageBox.Cancel:
-            #                     pass
             else:
                 self.timer_camera.start(30)
 

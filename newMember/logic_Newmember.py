@@ -43,7 +43,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
     def init(self):
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)
         #添加条目
-        card = ["无限", "年卡", "一季卡", '两季卡','一对一','一对二']
+        card = ["无限", "年卡", "一季卡", '两季卡','三季卡','一对一','一对二']
         classitem = ["轮滑","平衡车" ]
         self.cb_card_new.addItems(card)
         self.cb_classitem_new.addItems(classitem)
