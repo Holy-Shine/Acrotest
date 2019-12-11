@@ -131,7 +131,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                                 '''.format(
                                     self.le_choose_phone.text(),
                                     self.le_choose_name.text(),
-                                    types.index(self.le_choose_type.text()),
+                                    types.index(self.le_choose_clstype.text()),
                                     self.cb_coach.currentText(),
                                     self.cb_year.currentText(),
                                     self.cb_week.currentText(),
@@ -218,14 +218,16 @@ class logicUpdateClass(Ui_updateClass, QDialog):
     def row_sel_change(self):
         current_row = self.tv_show_mem.currentIndex().row()
         print(current_row)
-        # types = ['轮滑','平衡车']
+        types = ['轮滑','平衡车']
         if  current_row < len(self.data):
             selected_phone = str(self.data[current_row][0])
             selected_name = self.data[current_row][1]
             selected_type = self.data[current_row][4]
+            selected_cls_type = self.data[current_row][2]
             self.le_choose_name.setText(selected_name)
             self.le_choose_phone.setText(selected_phone)
             self.le_choose_type.setText(selected_type)
+            self.le_choose_clstype.setText(types[selected_cls_type])
             self.current_row = current_row
 
             # 根据当前选中决定教练
