@@ -91,7 +91,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                     num+=1
 
             if num>self.data[self.tv_show_mem.currentIndex().row()][3]:
-                QMessageBox.warning(self, '警告','当前排课次数多于该学员剩余课时次数!', QMessageBox.Yes, QMessageBox.Yes)
+                QMessageBox.warning(self, '警告','当前排课次数多于该学员剩余课时次数!\n当前学员剩余次数：{}次'.format(self.data[self.tv_show_mem.currentIndex().row()][3]), QMessageBox.Yes, QMessageBox.Yes)
             elif flag:
                 QMessageBox.warning(self, '提示','未选择排课日期!', QMessageBox.Yes, QMessageBox.Yes)
             
@@ -218,14 +218,14 @@ class logicUpdateClass(Ui_updateClass, QDialog):
     def row_sel_change(self):
         current_row = self.tv_show_mem.currentIndex().row()
         print(current_row)
-        types = ['轮滑','平衡车']
+        # types = ['轮滑','平衡车']
         if  current_row < len(self.data):
             selected_phone = str(self.data[current_row][0])
             selected_name = self.data[current_row][1]
-            selected_type = int(self.data[current_row][2])
+            selected_type = self.data[current_row][4]
             self.le_choose_name.setText(selected_name)
             self.le_choose_phone.setText(selected_phone)
-            self.le_choose_type.setText(types[selected_type])
+            self.le_choose_type.setText(selected_type)
             self.current_row = current_row
 
             # 根据当前选中决定教练
@@ -423,7 +423,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             QMessageBox.warning(self, '提示','年和周未选!', QMessageBox.Yes, QMessageBox.Yes)
         else:
             week = self.cb_week.currentText()
-            sql = '''SELECT mi.mem_phone, mi.mem_name, mi.mem_type, mi.mem_cls_left FROM mem_info mi WHERE NOT EXISTS(
+            sql = '''SELECT mi.mem_phone, mi.mem_name, mi.mem_type, mi.mem_cls_left, mi.mem_cardtype FROM mem_info mi WHERE NOT EXISTS(
                 SELECT mc.mem_phone, mc.mem_name FROM mem_class mc WHERE mi.mem_phone=mc.mem_phone and mi.mem_name=mc.mem_name and week={}) and mem_cls_left>0'''.format(week)
             print(sql)
             try:
@@ -431,7 +431,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 flag, result = self.MySQL.SelectFromDataBse(sql)
                 if (flag == True):
                     self.data = list(result)
-                    for i, (mem_phone, mem_name, mem_type, mem_cls_left) in enumerate(self.data):
+                    for i, (mem_phone, mem_name, mem_type, mem_cls_left, mem_cardtype) in enumerate(self.data):
                         self.data_model.appendRow([
                             QStandardItem(str(mem_phone)),
                             QStandardItem(mem_name),
