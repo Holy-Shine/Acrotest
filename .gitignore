@@ -155,3 +155,4 @@ dmypy.json
 !/BasicInfos/users.log
 /Login/asf_install.dat
 /Login/freesdk_132512.dat
+/newMember/memdata.utf8

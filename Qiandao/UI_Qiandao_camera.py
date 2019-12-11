@@ -29,7 +29,7 @@ class UIQiandaoCamera(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "选择一个摄像头"))
         self.label.setText(_translate("Form", "选择摄像头"))
         self.bt_confrim.setText(_translate("Form", "确定"))
 

@@ -63,7 +63,7 @@ class Ui_StudentMain(object):
         StudentMain.setWindowTitle(_translate("StudentMain", "Form"))
         self.groupBox_2.setTitle(_translate("StudentMain", "查询"))
         self.bt_search.setText(_translate("StudentMain", "查询"))
-        self.lb_phone.setText(_translate("StudentMain", "电话号码"))
+        self.lb_phone.setText(_translate("StudentMain", "查询学生"))
         self.groupBox_3.setTitle(_translate("StudentMain", "功能菜单"))
         self.bt_modifyinfo.setText(_translate("StudentMain", "学生信息修改"))
         self.bt_checkclass.setText(_translate("StudentMain", "排课信息查看(一周内）"))
