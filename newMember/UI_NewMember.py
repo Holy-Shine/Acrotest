@@ -425,7 +425,7 @@ class Ui_NewMember(object):
         self.btn_clear__old.setText(_translate("NewMember", "清空信息"))
         self.label_22.setText(_translate("NewMember", "搜索状态："))
         self.btn_search.setText(_translate("NewMember", "查询"))
-        self.lb_check_phone.setText(_translate("NewMember", "电话号码"))
+        self.lb_check_phone.setText(_translate("NewMember", "模糊查询"))
         self.gb_pic.setTitle(_translate("NewMember", "图像信息"))
         self.pb_opencam_old.setText(_translate("NewMember", "打开摄像头"))
         self.pb_clearpic_old.setText(_translate("NewMember", "清空图像"))

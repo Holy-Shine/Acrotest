@@ -81,7 +81,7 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
         self.slot_init()
 
     def init(self):
-        self.headers_StudentList = ['学生姓名', '联系方式','课程种类','上课时间', '是否签到', '教练姓名', '剩余次数']
+        self.headers_StudentList = ['学生姓名', '联系方式','办卡种类','课程种类','上课时间', '是否签到', '教练姓名', '剩余次数']
         self.data_model = QStandardItemModel()
         # 学生表初始化
         self.data_model.setHorizontalHeaderLabels(self.headers_StudentList)
@@ -106,7 +106,7 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
         self.tv_student.selectionModel().selectionChanged.connect(self.row_sel_change)
 
         #确认签到
-        self.bt_qiandao_confrim.clicked.connect(self.confrim_qiandao)
+        self.bt_qiandao_confrim.clicked.connect(self.on_bt_click_qiandao)
 
 
     def initday(self):
@@ -165,9 +165,12 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
                 result = self.data_meminfo_search[current_row]
                 self.addtomeminfo_data(result)
                 self.maketext()
-                print(result[4])
-                if(result[6]==0 and int(result[4])>0):
+                if(int(result[4])>0):
                     self.bt_qiandao_confrim.setEnabled(True)
+                    if(result[6]==0):
+                        self.bt_qiandao_confrim.setText('确认签到')
+                    else:
+                        self.bt_qiandao_confrim.setText('取消签到')
                 else:
                     self.bt_qiandao_confrim.setEnabled(False)
         except Exception as e:
@@ -181,7 +184,7 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
         self.data_model.setHorizontalHeaderLabels(self.headers_StudentList)
         # print(self.data_meminfo_search)
         for i, (mem_name, mem_phone, mem_type, mem_coa_name, mem_cls_left,
-                ctime, mem_signed,_) in enumerate(self.data_meminfo_search):
+                ctime, mem_signed,_,mem_cardtype) in enumerate(self.data_meminfo_search):
             if(mem_signed==0):
                 signed = '否'
             else:
@@ -189,6 +192,7 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
             self.data_model.appendRow([
                 QStandardItem(mem_name),
                 QStandardItem(mem_phone),
+                QStandardItem(mem_cardtype),
                 QStandardItem(self.type2card[mem_type]),
                 QStandardItem(self.int2dian[ctime]),
                 QStandardItem(signed),
@@ -213,7 +217,8 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
                   'mem_info.mem_cls_left,' \
                   'mem_class.ctime, ' \
                   'mem_class.mem_signed,' \
-                  'mem_info.mem_facefeature ' \
+                  'mem_info.mem_facefeature, ' \
+                  'mem_info.mem_cardtype ' \
                   ' FROM mem_info JOIN  mem_class WHERE ' \
                   'mem_class.mem_name = mem_info.mem_name ' \
                   ' AND mem_class.year={}  ' \
@@ -227,6 +232,61 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
             )
             print(sql)
             flag, self.data_meminfo_search = self.MySQL.SelectFromDataBse(sql)
+        except Exception as e:
+            print(e)
+
+    def on_bt_click_qiandao(self):
+        if(self.bt_qiandao_confrim.text()=='确认签到'):
+            self.confrim_qiandao()
+        elif(self.bt_qiandao_confrim.text()=='取消签到'):
+            self.cancel_qiandao()
+        else:
+            QMessageBox.information(self, '提示', '出现了一个问题！', QMessageBox.Ok, QMessageBox.Ok)
+
+
+    def cancel_qiandao(self):
+        try:
+            hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n上课时间：{}\n剩余次数：{}+1={}\n'.format(
+                self.meminfo_data['学生姓名'],
+                self.meminfo_data['联系方式'],
+                self.type2card[self.meminfo_data['课程种类']],
+                self.meminfo_data['上课时间'],
+                self.meminfo_data['剩余次数'],
+                int(self.meminfo_data['剩余次数'])+1,
+            )
+            reply = QMessageBox.warning(self, '确认删除？', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+            if reply == QMessageBox.Yes:
+                tm = time.gmtime()
+                week, weekday = timefunction.FromDatetoWeek(year=tm.tm_year,
+                                                            month=tm.tm_mon,
+                                                            day=tm.tm_mday)
+                sql_update_cishu = 'UPDATE  mem_info  SET mem_cls_left={} WHERE mem_name=\'{}\' and mem_phone=\'{}\' and mem_type={};'.format(
+                    int(self.meminfo_data['剩余次数']) + 1,
+                    self.meminfo_data['学生姓名'],
+                    self.meminfo_data['联系方式'],
+                    self.meminfo_data['课程种类']
+                )
+                sql_update_class = 'UPDATE  mem_class  SET mem_signed=0  WHERE mem_name=\'{}\' ' \
+                                   'and mem_phone=\'{}\' ' \
+                                   'and mem_type={} ' \
+                                   'and year={} and week ={} and cday={} and ctime = {};'.format(
+                    self.meminfo_data['学生姓名'],
+                    self.meminfo_data['联系方式'],
+                    self.meminfo_data['课程种类'],
+                    tm.tm_year,week,weekday,
+                    self.dian2int[self.meminfo_data['上课时间']]
+                )
+                print(sql_update_class)
+
+                flag1 = self.MySQL.UpdateFromDataBse(sql_update_cishu)
+                flag2 = self.MySQL.UpdateFromDataBse(sql_update_class)
+
+                if (flag1 and flag2):
+                    self.selectClassList()
+                    self.add_table()
+                    QMessageBox.information(self, '提示', '签到成功！', QMessageBox.Ok, QMessageBox.Ok)
+                else:
+                    QMessageBox.information(self, '提示', '签到失败！', QMessageBox.Ok, QMessageBox.Ok)
         except Exception as e:
             print(e)
 
@@ -254,10 +314,11 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
                     self.meminfo_data['联系方式'],
                     self.meminfo_data['课程种类']
                 )
-                sql_update_class = 'UPDATE  mem_class  SET mem_signed=1 WHERE mem_name=\'{}\' ' \
+                sql_update_class = 'UPDATE  mem_class  SET mem_signed=1, mem_coa_name=\'{}\' WHERE mem_name=\'{}\' ' \
                                    'and mem_phone=\'{}\' ' \
                                    'and mem_type={} ' \
                                    'and year={} and week ={} and cday={} and ctime = {};'.format(
+                    self.cb_coach.currentText(),
                     self.meminfo_data['学生姓名'],
                     self.meminfo_data['联系方式'],
                     self.meminfo_data['课程种类'],
@@ -275,9 +336,6 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
                     QMessageBox.information(self, '提示', '签到成功！', QMessageBox.Ok, QMessageBox.Ok)
                 else:
                     QMessageBox.information(self, '提示', '签到失败！', QMessageBox.Ok, QMessageBox.Ok)
-
-
-
         except Exception as e:
             print(e)
 

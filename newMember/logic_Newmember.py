@@ -43,7 +43,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
     def init(self):
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)
         #添加条目
-        card = ["年卡", "季卡", "月卡", '次卡']
+        card = ["无限", "年卡", "一季卡", '两季卡','一对一','一对二']
         classitem = ["轮滑","平衡车" ]
         self.cb_card_new.addItems(card)
         self.cb_classitem_new.addItems(classitem)
@@ -67,11 +67,12 @@ class LogicNewMember(Ui_NewMember,QDialog):
         }
 
         self.cardindex = {
-            '年卡': 0,
-            '季卡': 1,
-            '月卡': 2,
-            '次卡': 3,
-
+            '无限': 0,
+            '年卡': 1,
+            '一季卡': 2,
+            '两季卡': 3,
+            '一对一': 4,
+            '一对二': 5,
         }
 
         self.meminfo_data = {
@@ -185,9 +186,9 @@ class LogicNewMember(Ui_NewMember,QDialog):
         self.btn_confirm_old.clicked.connect(self.update_stuindo_confirm)
         #清空所有信息
         self.btn_clear__old.clicked.connect(self.clear_trans_initial_oldmember)
-
         #更新人脸信息
         self.pb_confrim_pic_old.clicked.connect(self.confrim_pic_old_update)
+
 
     #新学员性别选择
     def gender_new_man(self):
@@ -333,13 +334,18 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
     #老学生界面清空图像（如果摄像头打开，就关闭摄像头）
     def clearpic_old(self):
-        self.meminfo_data['人脸特征'] = ''
-        self.image = None
-        self.lb_cam_old.clear()
-        if self.timer_camera.isActive() == True:
-            self.timer_camera.stop()
-            self.cap.release()
-            self.bt_opencam_old.setText(u'打开摄像头')
+        try:
+            self.meminfo_data['人脸特征'] = ''
+            self.image = None
+            self.lb_cam_old.clear()
+            if self.timer_camera.isActive() == True:
+                self.timer_camera.stop()
+                self.cap.release()
+                self.pb_opencam_old.setText(u'打开摄像头')
+            self.pb_cutlpic_old.setEnabled(False)
+            self.pb_confrim_pic_old.setEnabled(False)
+        except Exception as e:
+            print(e)
 
 
     #新学员的摄像头截图
@@ -559,24 +565,28 @@ class LogicNewMember(Ui_NewMember,QDialog):
     #根据电话号码查询学生信息列表
     def search_for_studentinfo(self):
         phonenum = self.le_search_term.text()
-        if not (self.PhoneCheck(phonenum)):
-            QMessageBox.warning(self, u"Warning", u"请输入正确的11位电话号码格式",
+        if (phonenum ==''):
+            QMessageBox.warning(self, u"Warning", u"请输入信息",
                                             buttons=QMessageBox.Ok)
         else:
-            sql = 'SELECT * FROM mem_info WHERE  mem_phone=\'{}\''.format(phonenum)
+            sql = '''SELECT * FROM mem_info WHERE  (mem_phone like '%{}%' OR mem_name like '%{}%')'''.format(phonenum,phonenum)
             try:
                 flag, self.data_meminfo_search = self.MySQL.SelectFromDataBse(sql)
                 if(flag):
-                    self.data_model.clear()
-                    self.data_model.setHorizontalHeaderLabels(self.headers_OldMemberTable)
-                    self.lb_result.setText('共搜索到 {} 条记录'.format(len(self.data_meminfo_search)))
-                    for i, (mem_phone, mem_name, mem_type, mem_age, mem_parent,
-                            mem_gender,mem_cls_left,mem_cardtype,_) in enumerate(self.data_meminfo_search):
-                        self.data_model.appendRow([
-                            QStandardItem(mem_phone),
-                            QStandardItem(mem_name),
-                            QStandardItem(self.type2card[mem_type]),
-                        ])
+                    if(len(self.data_meminfo_search)>0):
+                        self.data_model.clear()
+                        self.data_model.setHorizontalHeaderLabels(self.headers_OldMemberTable)
+                        self.lb_result.setText('共搜索到 {} 条记录'.format(len(self.data_meminfo_search)))
+                        for i, (mem_phone, mem_name, mem_type, mem_age, mem_parent,
+                                mem_gender,mem_cls_left,mem_cardtype,_) in enumerate(self.data_meminfo_search):
+                            self.data_model.appendRow([
+                                QStandardItem(mem_phone),
+                                QStandardItem(mem_name),
+                                QStandardItem(self.type2card[mem_type]),
+                            ])
+                    else:
+                        QMessageBox.warning(self, u"Warning", u"未查询到有关学员",
+                                            buttons=QMessageBox.Ok)
 
                 else:
                     QMessageBox.information(self, '提示', '查询失败！', QMessageBox.Ok, QMessageBox.Ok)
@@ -678,11 +688,17 @@ class LogicNewMember(Ui_NewMember,QDialog):
 
     #还原基本信息
     def clear_trans_initial_oldmember(self):
-        self.clearEditAfterOldMemberUpdate()
-        self.data_model.clear()
-        self.data_model.setHorizontalHeaderLabels(self.headers_OldMemberTable)
-        self.le_search_term.clear()
-        self.lb_result.clear()
+        try:
+            self.clearEditAfterOldMemberUpdate()
+            self.data_model.clear()
+            self.data_model.setHorizontalHeaderLabels(self.headers_OldMemberTable)
+            self.le_search_term.clear()
+            self.lb_result.clear()
+            self.pb_confrim_pic_old.setEnabled(False)
+            self.pb_cutlpic_old.setEnabled(False)
+            self.data_meminfo_search = None
+        except Exception as e:
+            print(e)
 
 
     #更新学员的人脸信息
@@ -711,6 +727,8 @@ class LogicNewMember(Ui_NewMember,QDialog):
                             QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
                         else:
                             QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
+                        self.pb_confrim_pic_old.setEnabled(False)
+                        self.pb_cutlpic_old.setEnabled(False)
         except Exception as e:
             print(e)
 

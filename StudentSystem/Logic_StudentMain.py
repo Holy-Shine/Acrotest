@@ -190,21 +190,25 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
 
     # 根据电话号码查询学生信息列表
     def search_for_studentinfo(self):
-        phonenum = self.et_search.text()
-        if not (self.PhoneCheck(phonenum)):
-            QMessageBox.warning(self, u"Warning", u"请输入正确的11位电话号码格式",
-                                buttons=QMessageBox.Ok)
-        else:
-            sql = 'SELECT * FROM mem_info WHERE  mem_phone=\'{}\''.format(phonenum)
-            try:
+        try:
+            phonenum = self.et_search.text()
+            if (phonenum == ''):
+                QMessageBox.warning(self, u"Warning", u"请输入信息",
+                                    buttons=QMessageBox.Ok)
+            else:
+                sql = '''SELECT * FROM mem_info WHERE  (mem_phone like '%{}%' OR mem_name like '%{}%')'''.format(phonenum,phonenum)
+                print(sql)
                 flag, self.data_meminfo_search = self.MySQL.SelectFromDataBse(sql)
                 if (flag):
-                    self.add_table()
-                    self.et_search.clear()
+                    if(len(self.data_meminfo_search)>0):
+                        self.add_table()
+                        self.et_search.clear()
+                    else:
+                        QMessageBox.information(self, '提示', '未查询到有关学员！', QMessageBox.Ok, QMessageBox.Ok)
                 else:
                     QMessageBox.information(self, '提示', '查询失败！', QMessageBox.Ok, QMessageBox.Ok)
-            except Exception as e:
-                print(e)
+        except Exception as e:
+            print(e)
 
     #确认是电话号码
     def PhoneCheck(self,s):
