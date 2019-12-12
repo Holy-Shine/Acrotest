@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QTableView, QHeaderView
 from qtpy import QtCore
@@ -74,12 +75,14 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
 
     def slot_init(self):
         self.bt_flash.clicked.connect(self.frash_studentList)
+
         #表内选择
         self.table_studentList.selectionModel().selectionChanged.connect(self.row_sel_change)
         #修改信息，打开二级密码账户
         self.bt_modifyinfo.clicked.connect(self.modify_meminfo)
         #根据电话号码查询
         self.bt_search.clicked.connect(self.search_for_studentinfo)
+        self.bt_search.setShortcut(Qt.Key_Return)
         #删除学生信息
         self.bt_delete.clicked.connect(self.delete_member)
         #查询排课信息
@@ -183,8 +186,8 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
                 if reply == QMessageBox.Yes:
                     sql = '''DELETE FROM mem_info WHERE mem_phone=\'{}\' and mem_name=\'{}\' and mem_type={};
                                 '''.format(
-                        self.meminfo_data['学生姓名'],
                         self.meminfo_data['联系方式'],
+                        self.meminfo_data['学生姓名'],
                         self.meminfo_data['课程种类']
                     )
                     print(sql)

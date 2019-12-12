@@ -16,6 +16,11 @@ from Qiandao.logic_Qiandao_face import LogicQiandaoFace
 #统计系统
 from SummarySystem.logic_sysSum import logicSysSum
 
+
+#修改密码
+from MainTest.logic_ModefyPwd import LogicModifyPwd
+from MainTest.Logic_ModifyVerify import LogicModifyVerify
+#识别确认
 import Login.CheckDBandFace as ckdf
 
 
@@ -109,12 +114,44 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         # 统计系统
         self.pb_main_StatisticSystem.clicked.connect(self.on_pb_main_StatisticSystem_clicked)
         self.pb_main_StatisticSystem.clicked.connect(self.FormSumSys.myclear)
+
+        #菜单栏按钮
+        self.action_close.triggered.connect(self.close)
+        self.action_pwd.triggered.connect(self.change_currentusers_pwd)
+        self.action_verify.triggered.connect(self.change_Verify)
+
+
+    def change_currentusers_pwd(self):
+        try:
+            self.FormModifyPwd = LogicModifyPwd(username=self.username)
+            self.FormModifyPwd.setWindowModality(QtCore.Qt.ApplicationModal)
+            self.FormModifyPwd.show()
+        except Exception as e:
+            print(e)
+
+
+
+    def change_Verify(self):
+        try:
+            if(self.username=='Jessie' or self.username=='Wangan'):
+                self.stackedWidget.setCurrentWidget(self.FormStudentMain)
+                self.FormModifyVerify = LogicModifyVerify(username=self.username)
+                self.FormModifyVerify.setWindowModality(QtCore.Qt.ApplicationModal)
+                self.FormModifyVerify.show()
+            else:
+                QMessageBox.warning(self, '提示', '不是权限账户！', QMessageBox.Yes, QMessageBox.Yes)
+            # if (self.FormModifyVerify.accept()):
+            #     print(1)
+        except Exception as e:
+            print(e)
+
+
     def gottaUser(self):
         if(self.username =='Jessie'):
             self.lb_main_username.setText('当前用户：{}'.format('苏总'))
-        elif (self.username == 'WangAn'):
+        elif (self.username == 'Wangan'):
                 self.lb_main_username.setText('当前用户：{}'.format('王总'))
-        elif (self.username == 'WangLiPing'):
+        elif (self.username == 'Wangliping'):
                 self.lb_main_username.setText('当前用户：{}'.format('王力平'))
         else:
             self.lb_main_username.setText('当前用户：{}'.format('其他'))
@@ -144,17 +181,15 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
     # 统计系统
     def on_pb_main_StatisticSystem_clicked(self):
-        self.stackedWidget.setCurrentWidget(self.FormSumSys)
-
-
+        if (self.username == 'Jessie' or self.username == 'Wangan'):
+            self.stackedWidget.setCurrentWidget(self.FormSumSys)
+        else:
+            QMessageBox.warning(self, '提示', '不是权限账户！', QMessageBox.Yes, QMessageBox.Yes)
 
     #签到系统
     def on_pb_main_QiandaoSystem_clicked(self):
         # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
-
-
-
 
 
     def closeEvent(self, event):

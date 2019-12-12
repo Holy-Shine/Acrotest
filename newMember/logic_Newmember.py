@@ -44,7 +44,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)
         #添加条目
         card = ["无限", "年卡", "一季卡", '两季卡','三季卡','一对一','一对二']
-        classitem = ["轮滑","平衡车" ]
+        classitem = ["轮滑","滑步车" ]
         self.cb_card_new.addItems(card)
         self.cb_classitem_new.addItems(classitem)
         self.cb_card_old.addItems(card)
@@ -502,7 +502,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
                 facefeature = 'NULL'
             else:
                 facefeature = self.meminfo_data['人脸特征']
-            sql = 'INSERT INTO mem_info  VALUES(\'{}\', \'{}\', {},{},\'{}\',\'{}\',{},\'{}\',\'{}\')'.format(
+            sql = 'INSERT INTO mem_info  VALUES(\'{}\', \'{}\', {},\'{}岁\',\'{}\',\'{}\',{},\'{}\',\'{}\')'.format(
                 self.meminfo_data['联系方式'],
                 self.meminfo_data['学生姓名'],
                 self.meminfo_data['课程种类'],

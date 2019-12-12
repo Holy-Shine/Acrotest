@@ -156,9 +156,7 @@ class logicSysCoach(Ui_sysCoach, QDialog):
                                                     types[int(n_type)]
                                                 )
 
-            print(sql)
             reply = QMessageBox.warning(self, '更新确认信息',hint, QMessageBox.Yes|QMessageBox.No, QMessageBox.Yes)
-            print(sql)
             if reply == QMessageBox.Yes:
                 try:
                     # conn = pymysql.connect(
@@ -185,7 +183,6 @@ class logicSysCoach(Ui_sysCoach, QDialog):
 
     def row_sel_change(self):
         current_row = self.tv_search_coach.currentIndex().row()
-        print(current_row)
         ranks = ['助教','初级','中级','高级']
         
         if  current_row < len(self.data) and current_row!=-1:
