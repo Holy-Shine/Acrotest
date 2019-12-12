@@ -201,7 +201,10 @@ class logicSysSum(QMainWindow, Ui_sumSys):
             self.cur_month = dt.now().month
             self.bar_year = dt.now().year
             self.bar_month = dt.now().month
-            
+
+            self.cb_bar_year.setItemText(0, str(self.cur_year-2))
+            self.cb_bar_year.setItemText(1, str(self.cur_year-1))
+            self.cb_bar_year.setItemText(2, str(self.cur_year))
             # self.get_Bar_data(self.cur_year, self.cur_month)  #获取当月的bar数据
             # self.get_BX_line_data(self.cur_year, self.cur_month, self.BX_num_month) # 获取BX数据         
         # 营业额统计

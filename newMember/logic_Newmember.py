@@ -2,9 +2,10 @@
 import cv2
 import os,sys
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QMessageBox, QTableView, QHeaderView, QListWidget, QStackedWidget, QApplication
 from PyQt5 import QtCore,QtGui,QtWidgets
-from PyQt5.QtGui import QStandardItemModel,QStandardItem
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from newMember.UI_NewMember import Ui_NewMember
 from newMember.logic_MemberCAMChose import LogicMemberCAMChose
 
@@ -180,6 +181,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
         '''
         #老学员查询返回清单列表
         self.btn_search.clicked.connect(self.search_for_studentinfo)
+        self.btn_search.setShortcut(Qt.Key_Return)
         #表格点击操作
         self.tv_search_student.selectionModel().selectionChanged.connect(self.row_sel_change)  # 选中事件'
         #确认更新信息

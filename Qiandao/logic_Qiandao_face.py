@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QTableView, QHeaderView
 
@@ -123,7 +124,7 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
 
     def slot_init(self):
         self.bt_search.clicked.connect(self.searchlist)
-
+        self.bt_search.setShortcut(Qt.Key_Return)
         # 表内选择
         self.tv_student.selectionModel().selectionChanged.connect(self.row_sel_change)
 
