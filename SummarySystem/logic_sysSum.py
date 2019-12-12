@@ -96,7 +96,9 @@ class logicSysSum(QMainWindow, Ui_sumSys):
             flag &= flag_xk 
             
             if (flag):
-                self.bar_y = np.array([result_bk[0][0],result_xk[0][0]])
+                bk = result_bk[0][0] if result_bk[0][0]!=None else 0
+                xk = result_xk[0][0] if result_xk[0][0]!=None else 0
+                self.bar_y = np.array([bk,xk])
                 
             else:
                 QMessageBox.information(self, '提示', '查询失败！', QMessageBox.Ok, QMessageBox.Ok)
@@ -137,8 +139,10 @@ class logicSysSum(QMainWindow, Ui_sumSys):
                 flag &= flag_xkhi
 
                 if (flag):
-                    self.BX_line_ybk.append(result_bkhis[0][0])
-                    self.BX_line_yxk.append(result_xkhis[0][0])
+                    ybk = result_bkhis[0][0] if result_bkhis[0][0]!=None else 0
+                    yxk = result_xkhis[0][0] if result_xkhis[0][0]!=None else 0
+                    self.BX_line_ybk.append(ybk)
+                    self.BX_line_yxk.append(yxk)
                     self.BX_line_xticks.append('{}-{}'.format(year,month)) 
                     
                 else:
@@ -168,12 +172,14 @@ class logicSysSum(QMainWindow, Ui_sumSys):
                 '''.format(year, month)
 
                 flag1, result= self.MySQL.SelectFromDataBse(sql)
-                   
 
                 flag &= flag1
 
                 if (flag):
-                    self.line_y.append(int(result[0][0]))
+                    if result[0][0] == None:
+                        self.line_y.append(0)
+                    else:
+                        self.line_y.append(int(result[0][0]))
                     self.line_xticks.append('{}-{}'.format(year,month)) 
                     
                 else:
@@ -394,6 +400,7 @@ class logicSysSum(QMainWindow, Ui_sumSys):
     def BXLineUpdate(self):
         stride = self.time_limit // self.BX_num_month
 
+    
         if self.BXct%stride==0 and self.BXct//stride < self.BX_num_month:
             x = self.BXct//stride+1
             ybk = self.BX_line_ybk[self.BXct//stride]

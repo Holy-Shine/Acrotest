@@ -188,7 +188,7 @@ class logicSysCoach(Ui_sysCoach, QDialog):
         print(current_row)
         ranks = ['助教','初级','中级','高级']
         
-        if  current_row < len(self.data):
+        if  current_row < len(self.data) and current_row!=-1:
             phone = self.data[current_row][0]
             name = self.data[current_row][1]
             rank = ranks.index(self.data[current_row][3])
@@ -249,6 +249,7 @@ class logicSysCoach(Ui_sysCoach, QDialog):
                         ])
                 else:
                     QMessageBox.information(self, '提示', '查询失败！', QMessageBox.Ok, QMessageBox.Ok)
+
             except Exception as e:
                 print(e)
                 QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)            

@@ -97,8 +97,9 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pb_main_QiandaoSystem.clicked.connect(self.on_pb_main_QiandaoSystem_clicked)
         self.pb_main_QiandaoSystem.clicked.connect(self.FormLesson.myclear)
 
-        # 签到系统
+        # 学生
         self.pb_main_StudentSystem.clicked.connect(self.on_pb_main_StudentSystem_clicked)
+        self.pb_main_StudentSystem.clicked.connect(self.FormStudentMain.frash_studentList)
 
         # 教练系统
         self.pb_main_CoachSystem.clicked.connect(self.on_pb_main_CoachSystem_clicked)
