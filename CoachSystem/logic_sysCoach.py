@@ -249,7 +249,6 @@ class logicSysCoach(Ui_sysCoach, QDialog):
                         ])
                 else:
                     QMessageBox.information(self, '提示', '查询失败！', QMessageBox.Ok, QMessageBox.Ok)
-
             except Exception as e:
                 print(e)
                 QMessageBox.critical(self,'错误','数据库异常！',QMessageBox.Ok,QMessageBox.Ok)            

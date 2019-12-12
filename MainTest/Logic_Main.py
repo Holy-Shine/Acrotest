@@ -95,6 +95,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #签到系统
         self.pb_main_QiandaoSystem.clicked.connect(self.on_pb_main_QiandaoSystem_clicked)
+        self.pb_main_QiandaoSystem.clicked.connect(self.FormLesson.myclear)
 
         # 签到系统
         self.pb_main_StudentSystem.clicked.connect(self.on_pb_main_StudentSystem_clicked)

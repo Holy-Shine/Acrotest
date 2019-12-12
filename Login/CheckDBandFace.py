@@ -6,7 +6,7 @@ from FaceFunction.FaceUtil import FaceRecognition
 
 def CheckDB():
     try:
-        f = open('../BasicInfos/DBInfo.json', encoding='utf-8')
+        f = open('./BasicInfos/DBInfo.json', encoding='utf-8')
         user_dic = json.load(f)
 
         MySQL = MySQLBaseFunction(HostIP=user_dic['DB_info'][0]['ip'],
@@ -20,7 +20,7 @@ def CheckDB():
 
 def CheckFace():
     try:
-        f = open('../BasicInfos/FaceSDK.json', encoding='utf-8')
+        f = open('./BasicInfos/FaceSDK.json', encoding='utf-8')
         user_dic = json.load(f)
         Appkey = user_dic['FaceSDK'][0]['Appkey'].encode()
         SDKey = user_dic['FaceSDK'][0]['SDKey'].encode()

@@ -58,17 +58,17 @@ class LogicNewMember(Ui_NewMember,QDialog):
         '''
         self.cardtype = {
             '轮滑': 0,
-            '平衡车': 1
+            '滑步车': 1
         }
 
         self.type2card = {
             0:'轮滑',
-            1:'平衡车'
+            1:'滑步车'
         }
 
         self.cardindex = {
-            '无限': 0,
-            '年卡': 1,
+            '年卡无限': 0,
+            '年卡72': 1,
             '一季卡': 2,
             '两季卡': 3,
             '一对一': 4,

@@ -5,6 +5,7 @@ from qtpy import QtCore
 from StudentSystem.StudentMain import Ui_StudentMain
 from CoachSystem.logic_verify import logicVerify
 from StudentSystem.Logic_BasicInfoModify import LogicModifyInfo
+from StudentSystem.Logic_ClassInfoCheck import LogicClassInfoCheck
 import sys
 
 class LogicStudentMain(Ui_StudentMain,QDialog):
@@ -81,6 +82,8 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
         self.bt_search.clicked.connect(self.search_for_studentinfo)
         #删除学生信息
         self.bt_delete.clicked.connect(self.delete_member)
+        #查询排课信息
+        self.bt_checkclass.clicked.connect(self.check_class_item)
 
     #添加表格
     def add_table(self):
@@ -92,6 +95,9 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
                 face = '否'
             else:
                 face = '是'
+
+            if (mem_cls_left >1000):
+                mem_cls_left = '无限'
             self.data_model.appendRow([
                 QStandardItem(mem_phone),
                 QStandardItem(mem_name),
@@ -118,7 +124,7 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
         except Exception as e:
             print(e)
 
-    #
+    #表格点击
     def row_sel_change(self):
         try:
             current_row = self.table_studentList.currentIndex().row()
@@ -131,6 +137,7 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
         except Exception as e:
             print(e)
 
+    #往表格中添加信息
     def addtomeminfo_data(self,result):
         try:
             self.meminfo_data['联系方式'] = result[0]
@@ -144,6 +151,8 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
         except Exception as e:
             print(e)
 
+
+    #修改基本信息
     def modify_meminfo(self):
         try:
             self.FormVerify = logicVerify()
@@ -158,6 +167,7 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
         except Exception as e:
             print(e)
 
+    #删除学员
     def delete_member(self):
         try:
             self.FormVerify = logicVerify()
@@ -188,7 +198,7 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
         except Exception as e:
             print(e)
 
-    # 根据电话号码查询学生信息列表
+    # 查询学生信息列表
     def search_for_studentinfo(self):
         try:
             phonenum = self.et_search.text()
@@ -210,6 +220,17 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
         except Exception as e:
             print(e)
 
+    def check_class_item(self):
+        try:
+            self.ClassInfoCheck = LogicClassInfoCheck(MySQL=self.MySQL,
+                                                      mem_info=self.meminfo_data,
+                                                      cardtype=self.cardtype,
+                                                      type2card=self.type2card)
+            self.ClassInfoCheck.setWindowModality(QtCore.Qt.ApplicationModal)
+            self.ClassInfoCheck.show()
+        except Exception as e:
+            print(e)
+
     #确认是电话号码
     def PhoneCheck(self,s):
         # 检测号码是否长度是否合法。
@@ -225,15 +246,8 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
 
 if __name__ == '__main__':
     from ConnecMySQL.MySQLBase import MySQLBaseFunction
-
-    host = '121.199.17.205',  # IP
-    user = 'Jessie',  # 用户名
-    password = 'Jessie.121406',  # 密码
-    database = 'meminfo',
-    MySQL = MySQLBaseFunction(HostIP=host[0],
-                              Username=user[0],
-                              Password=password[0],
-                              DataBase=database[0])
+    import Login.CheckDBandFace as ckdf
+    f1, MySQL = ckdf.CheckDB()
     MySQL.ConnectMySQL()
     app = QApplication(sys.argv)
     login = LogicStudentMain(MySQL=MySQL)

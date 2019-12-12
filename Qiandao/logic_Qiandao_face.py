@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QStandardItemModel, QStandardItem, QBrush, QColor
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QTableView, QHeaderView
 
 from PyQt5 import QtCore,QtGui,QtWidgets
@@ -12,7 +12,6 @@ from Date2Week import DateAndWeek as timefunction
 from Qiandao.process_camera_info import Camera
 from newMember.logic_MemberCAMChose import LogicMemberCAMChose
 import cv2
-from  FaceFunction.FaceUtil import FaceRecognition
 
 import Login.CheckDBandFace as ckdf
 
@@ -55,19 +54,20 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
         }
 
         self.int2dian = {
-            10 :'10点',
-            11 :'11点',
-            12 :'12点',
-            13 :'13点',
-            14 :'14点',
-            15 :'15点',
-            16 :'16点',
-            17 :'17点',
-            18 :'18点',
-            19 :'19点',
-            20 :'20点',
-            21 :'21点',
+            10:'10点' ,
+            11:'11点' ,
+            12:'12点' ,
+            13:'13点' ,
+            14:'14点' ,
+            15:'15点' ,
+            16:'16点' ,
+            17:'17点' ,
+            18:'18点' ,
+            19:'19点' ,
+            20:'20点' ,
+            21:'21点' ,
         }
+
 
         self.week2day = { 1:"周一",
                      2:"周二",
@@ -89,12 +89,12 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
 
         self.cardtype = {
             '轮滑': 0,
-            '平衡车': 1
+            '滑步车': 1
         }
 
         self.type2card = {
             0:'轮滑',
-            1:'平衡车'
+            1:'滑步车'
         }
 
         self.init()
@@ -229,12 +229,14 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
                 signed = '否'
             else:
                 signed = '是'
+            if (mem_cls_left > 1000):
+                mem_cls_left = '无限'
             self.data_model.appendRow([
                 QStandardItem(mem_name),
                 QStandardItem(mem_phone),
                 QStandardItem(mem_cardtype),
                 QStandardItem(self.type2card[mem_type]),
-                QStandardItem(self.int2dian[ctime]),
+                QStandardItem('{}点'.format(ctime)),
                 QStandardItem(signed),
                 QStandardItem(mem_coa_name),
                 QStandardItem(str(mem_cls_left)),
@@ -305,15 +307,28 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
     #已经签到的取消签到
     def cancel_qiandao(self):
         try:
+
             if not(self.et_name==''):
-                hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n上课时间：{}\n剩余次数：{}+1={}\n'.format(
-                    self.meminfo_data['学生姓名'],
-                    self.meminfo_data['联系方式'],
-                    self.type2card[self.meminfo_data['课程种类']],
-                    self.meminfo_data['上课时间'],
-                    self.meminfo_data['剩余次数'],
-                    int(self.meminfo_data['剩余次数'])+1,
-                )
+                if (int(self.meminfo_data['剩余次数']) > 1000):
+                    mem_cls_left = '无限'
+                    hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n上课时间：{}\n剩余次数：{}+1={}\n'.format(
+                        self.meminfo_data['学生姓名'],
+                        self.meminfo_data['联系方式'],
+                        self.type2card[self.meminfo_data['课程种类']],
+                        self.meminfo_data['上课时间'],
+                        mem_cls_left,
+                        mem_cls_left,
+                    )
+                else:
+                    mem_cls_left = self.meminfo_data['剩余次数']
+                    hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n上课时间：{}\n剩余次数：{}+1={}\n'.format(
+                        self.meminfo_data['学生姓名'],
+                        self.meminfo_data['联系方式'],
+                        self.type2card[self.meminfo_data['课程种类']],
+                        self.meminfo_data['上课时间'],
+                        mem_cls_left,
+                        int(mem_cls_left)+1,
+                    )
                 reply = QMessageBox.warning(self, '确认删除？', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
                 if reply == QMessageBox.Yes:
                     tm = time.gmtime()
@@ -356,15 +371,28 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
     def confrim_qiandao(self):
         try:
             if not (self.et_name == ''):
-                hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n 教练姓名：{}\n上课时间：{}\n剩余次数：{}-1={}\n'.format(
-                    self.meminfo_data['学生姓名'],
-                    self.meminfo_data['联系方式'],
-                    self.type2card[self.meminfo_data['课程种类']],
-                    self.cb_coach.currentText(),
-                    self.meminfo_data['上课时间'],
-                    self.meminfo_data['剩余次数'],
-                    int(self.meminfo_data['剩余次数'])-1,
-                )
+                if (int(self.meminfo_data['剩余次数']) > 1000):
+                    mem_cls_left = '无限'
+                    hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n 教练姓名：{}\n上课时间：{}\n剩余次数：{}-1={}\n'.format(
+                        self.meminfo_data['学生姓名'],
+                        self.meminfo_data['联系方式'],
+                        self.type2card[self.meminfo_data['课程种类']],
+                        self.cb_coach.currentText(),
+                        self.meminfo_data['上课时间'],
+                        mem_cls_left,
+                        mem_cls_left,
+                    )
+                else:
+                    mem_cls_left = self.meminfo_data['剩余次数']
+                    hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n 教练姓名：{}\n上课时间：{}\n剩余次数：{}-1={}\n'.format(
+                        self.meminfo_data['学生姓名'],
+                        self.meminfo_data['联系方式'],
+                        self.type2card[self.meminfo_data['课程种类']],
+                        self.cb_coach.currentText(),
+                        self.meminfo_data['上课时间'],
+                        mem_cls_left,
+                        int(mem_cls_left)-1,
+                    )
                 reply = QMessageBox.warning(self, '确认删除？', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
                 if reply == QMessageBox.Yes:
                     tm = time.gmtime()
@@ -462,7 +490,6 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
 
     def recon_face(self):
         try:
-
             if not (len(self.image) == None and len(self.facefeature)>0):
                 res = self.faceFunction.mutifacerecon(facelist=self.facefeature,img = self.image)
                 if res == None and not res == self.tableflag:
@@ -536,7 +563,6 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
             self.lb_cam.clear()
 
 if __name__ == '__main__':
-    print(1)
     f1, MySQL = ckdf.CheckDB()
     f2, facefunction = ckdf.CheckFace()
     app = QtWidgets.QApplication(sys.argv)

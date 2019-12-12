@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ClassInfoCheck</class>
+ <widget class="QWidget" name="ClassInfoCheck">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>845</width>
+    <height>757</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>811</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>时间选择</string>
+   </property>
+   <widget class="QLabel" name="lb_year">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>54</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>选择年份</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_year">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>20</y>
+      <width>71</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_week">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>20</y>
+      <width>54</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>选择周</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_week">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>20</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bt_search">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>10</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>查询</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_weekday">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>20</y>
+      <width>41</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>周数</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_weekday">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>20</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_selectone">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>10</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>查询日期</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>120</y>
+     <width>811</width>
+     <height>621</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>排课信息</string>
+   </property>
+   <widget class="QTableWidget" name="tv_classlist">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>801</width>
+      <height>601</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>811</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>基础信息</string>
+   </property>
+   <widget class="QLabel" name="lb_student">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>20</y>
+      <width>421</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>当前学生</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_time">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>341</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>当前时间</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
