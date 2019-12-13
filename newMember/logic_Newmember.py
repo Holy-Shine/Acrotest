@@ -1,6 +1,6 @@
 
 import cv2
-import os,sys
+import os
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QMessageBox, QTableView, QHeaderView, QListWidget, QStackedWidget, QApplication

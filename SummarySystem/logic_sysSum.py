@@ -1,16 +1,10 @@
 from SummarySystem.Ui_sumSys import Ui_sumSys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGridLayout,QMessageBox, QTableView, QHeaderView, QFileDialog
-from PyQt5.QtGui import QStandardItemModel,QStandardItem
-from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-import sys, time
-import numpy as np 
+import time
+
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
-from matplotlib.lines import Line2D
-import matplotlib
-import matplotlib.cbook as cbook
+
 
 # 中文问题
 from pylab import *

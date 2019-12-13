@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QTabl
 from PyQt5 import QtCore,QtGui,QtWidgets
 
 from Qiandao.UI_Qiandao_face_Main import Ui_UIQiandaoFace
-import os,sys
+import sys
 import time
 from Date2Week import DateAndWeek as timefunction
 

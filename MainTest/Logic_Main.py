@@ -1,9 +1,9 @@
 from PyQt5.QtCore import QDateTime, QTimer
-from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QStackedWidget, QWidget
+from PyQt5.QtWidgets import  QMessageBox, QStackedWidget, QWidget
 
 from StudentSystem.Logic_StudentMain import LogicStudentMain
 from MainTest.UI_Main import Ui_MainWindow
-from PyQt5 import QtCore,QtGui,QtWidgets
+from PyQt5 import QtCore,QtWidgets
 
 from newMember.logic_Newmember import LogicNewMember
 #排课系统
@@ -24,10 +24,8 @@ from MainTest.Logic_ModifyVerify import LogicModifyVerify
 import Login.CheckDBandFace as ckdf
 
 
-#二级验证码
-from CoachSystem.logic_verify import logicVerify
 
-import os,sys
+import sys
 
 
 

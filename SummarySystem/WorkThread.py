@@ -1,6 +1,6 @@
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
 import xlwt
+from PyQt5.QtCore import QThread, pyqtSignal
+
 
 class MySQLThread(QThread):
     trigger = pyqtSignal(tuple)

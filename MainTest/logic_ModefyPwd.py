@@ -1,8 +1,7 @@
 
-from PyQt5.QtCore import QDateTime, QTimer
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QStackedWidget, QWidget
-from PyQt5 import QtCore,QtGui,QtWidgets
+from PyQt5.QtWidgets import  QMessageBox, QLineEdit
+from PyQt5 import QtWidgets
 from MainTest.ModifyPwd import Ui_Form
 
 import Login.CheckUserName as modify

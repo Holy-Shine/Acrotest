@@ -1,15 +1,13 @@
+from ctypes import string_at
 
 import FaceFunction.face_function as fun
 import FaceFunction.face_class as face_class
 
-from ctypes import *
 from io import BytesIO
 
 import os,cv2,pickle
 import base64
 
-Appkey=b'2FzzVsnbAkk9q8eLx2s1Q7tft3dY1NZXdnLN8xK6UtXf'
-SDKey=b'DAEJTcePD4TWaWKej3xRpPxBhCWGkFf4nxdYnooLWDuP'
 
 
 
