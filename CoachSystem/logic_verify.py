@@ -1,6 +1,5 @@
-
-from PyQt5.QtWidgets import QDialog,QMessageBox
 from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QDialog,QMessageBox
 from CoachSystem.Ui_verify import Ui_verify
 import json
 

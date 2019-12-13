@@ -1,8 +1,9 @@
 import os,json
+
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog,QMessageBox,QTableView,QHeaderView, QListWidget, QStackedWidget
 from PyQt5.QtGui import QStandardItemModel,QStandardItem
-from PyQt5.QtCore import *
-from PyQt5.QtGui import  *
+
 
 
 from CoachSystem.Ui_syscoach import Ui_sysCoach
