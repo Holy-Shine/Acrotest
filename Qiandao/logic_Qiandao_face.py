@@ -425,9 +425,9 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
                     if (flag1 and flag2):
                         self.selectClassList()
                         self.add_table()
-                        QMessageBox.information(self, '提示', '签到成功！', QMessageBox.Ok, QMessageBox.Ok)
+                        QMessageBox.information(self, '提示', '取消签到成功！', QMessageBox.Ok, QMessageBox.Ok)
                     else:
-                        QMessageBox.information(self, '提示', '签到失败！', QMessageBox.Ok, QMessageBox.Ok)
+                        QMessageBox.information(self, '提示', '取消签到失败！', QMessageBox.Ok, QMessageBox.Ok)
             else:
                 QMessageBox.information(self, '提示', '没有选择学生课程！', QMessageBox.Ok, QMessageBox.Ok)
         except Exception as e:
@@ -548,6 +548,7 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
         self.bt_qiandao_confrim.setEnabled(False)
         self.cb_dian.clear()
         self.bt_opencam.setEnabled(False)
+        self.bt_opencam.setText('打开摄像头')
         self.facefeature = []
         self.tableflag = None
 

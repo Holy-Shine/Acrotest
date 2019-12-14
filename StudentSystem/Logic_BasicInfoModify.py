@@ -16,14 +16,14 @@ class LogicModifyInfo(Ui_BasicInfoModify,QDialog):
         self.slot_init()
 
     def init(self):
-        classitem = ['轮滑','平衡车']
+        classitem = ['轮滑','滑步车']
         self.cb_classitem.addItems(classitem)
         self.init_PlaceHoder()
         self.et_name.setEnabled(False)
 
         self.type2card = {
             0:'轮滑',
-            1:'平衡车'
+            1:'滑步车'
         }
 
     def slot_init(self):
@@ -101,7 +101,8 @@ class LogicModifyInfo(Ui_BasicInfoModify,QDialog):
                 if reply == QMessageBox.Yes:
                     sql_update_meminfo = 'UPDATE  mem_info  SET ' \
                                          'mem_phone=\'{}\', ' \
-                                         'mem_gender={},' \
+                                         'men_age=' \
+                                         '\'{}\',' \
                                          'mem_type={},' \
                                          'mem_parent=\'{}\','\
                                          'mem_gender=\'{}\','\

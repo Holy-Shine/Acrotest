@@ -1,9 +1,9 @@
 from PyQt5.QtCore import QDateTime, QTimer
-from PyQt5.QtWidgets import  QMessageBox, QStackedWidget, QWidget
+from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QStackedWidget, QWidget
 
 from StudentSystem.Logic_StudentMain import LogicStudentMain
 from MainTest.UI_Main import Ui_MainWindow
-from PyQt5 import QtCore,QtWidgets
+from PyQt5 import QtCore,QtGui,QtWidgets
 
 from newMember.logic_Newmember import LogicNewMember
 #排课系统
@@ -16,16 +16,13 @@ from Qiandao.logic_Qiandao_face import LogicQiandaoFace
 #统计系统
 from SummarySystem.logic_sysSum import logicSysSum
 
-
-#修改密码
-from MainTest.logic_ModefyPwd import LogicModifyPwd
-from MainTest.Logic_ModifyVerify import LogicModifyVerify
-#识别确认
 import Login.CheckDBandFace as ckdf
 
 
+#二级验证码
+from CoachSystem.logic_verify import logicVerify
 
-import sys
+import os,sys
 
 
 
@@ -98,9 +95,9 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #签到系统
         self.pb_main_QiandaoSystem.clicked.connect(self.on_pb_main_QiandaoSystem_clicked)
-        self.pb_main_QiandaoSystem.clicked.connect(self.FormLesson.myclear)
+        self.pb_main_QiandaoSystem.clicked.connect(self.FormFaceQiandao.myclear)
 
-        # 学生
+        # 签到系统
         self.pb_main_StudentSystem.clicked.connect(self.on_pb_main_StudentSystem_clicked)
         self.pb_main_StudentSystem.clicked.connect(self.FormStudentMain.frash_studentList)
 
@@ -112,44 +109,12 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         # 统计系统
         self.pb_main_StatisticSystem.clicked.connect(self.on_pb_main_StatisticSystem_clicked)
         self.pb_main_StatisticSystem.clicked.connect(self.FormSumSys.myclear)
-
-        #菜单栏按钮
-        self.action_close.triggered.connect(self.close)
-        self.action_pwd.triggered.connect(self.change_currentusers_pwd)
-        self.action_verify.triggered.connect(self.change_Verify)
-
-
-    def change_currentusers_pwd(self):
-        try:
-            self.FormModifyPwd = LogicModifyPwd(username=self.username)
-            self.FormModifyPwd.setWindowModality(QtCore.Qt.ApplicationModal)
-            self.FormModifyPwd.show()
-        except Exception as e:
-            print(e)
-
-
-
-    def change_Verify(self):
-        try:
-            if(self.username=='Jessie' or self.username=='Wangan'):
-                self.stackedWidget.setCurrentWidget(self.FormStudentMain)
-                self.FormModifyVerify = LogicModifyVerify(username=self.username)
-                self.FormModifyVerify.setWindowModality(QtCore.Qt.ApplicationModal)
-                self.FormModifyVerify.show()
-            else:
-                QMessageBox.warning(self, '提示', '不是权限账户！', QMessageBox.Yes, QMessageBox.Yes)
-            # if (self.FormModifyVerify.accept()):
-            #     print(1)
-        except Exception as e:
-            print(e)
-
-
     def gottaUser(self):
         if(self.username =='Jessie'):
             self.lb_main_username.setText('当前用户：{}'.format('苏总'))
-        elif (self.username == 'Wangan'):
+        elif (self.username == 'WangAn'):
                 self.lb_main_username.setText('当前用户：{}'.format('王总'))
-        elif (self.username == 'Wangliping'):
+        elif (self.username == 'WangLiPing'):
                 self.lb_main_username.setText('当前用户：{}'.format('王力平'))
         else:
             self.lb_main_username.setText('当前用户：{}'.format('其他'))
@@ -179,15 +144,17 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
     # 统计系统
     def on_pb_main_StatisticSystem_clicked(self):
-        if (self.username == 'Jessie' or self.username == 'Wangan'):
-            self.stackedWidget.setCurrentWidget(self.FormSumSys)
-        else:
-            QMessageBox.warning(self, '提示', '不是权限账户！', QMessageBox.Yes, QMessageBox.Yes)
+        self.stackedWidget.setCurrentWidget(self.FormSumSys)
+
+
 
     #签到系统
     def on_pb_main_QiandaoSystem_clicked(self):
         # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
+
+
+
 
 
     def closeEvent(self, event):
