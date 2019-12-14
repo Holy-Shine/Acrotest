@@ -4,30 +4,8 @@ from PyQt5 import QtGui,QtCore,QtWidgets
 
 from FaceFunction import cameraui
 from FaceFunction.FaceUtil import FaceRecognition
-from multiprocessing import Process
 
-Appkey=b'2FzzVsnbAkk9q8eLx2s1Q7tft3dY1NZXdnLN8xK6UtXf'
-SDKey=b'DAEJTcePD4TWaWKej3xRpPxBhCWGkFf4nxdYnooLWDuP'
 
-#
-# class Savepkl(Process):
-#     def __init__(self):
-#         super(Savepkl, self).__init__()
-#         self.mem_data = None
-#         self.mem_phone = None
-#
-#     def getmsg(self,mem_data,mem_phone):
-#         self.mem_data = mem_data
-#         self.mem_phone = mem_phone
-#
-#     def saveinfo(self):
-#         try:
-#             pkf.SavePickle(data=self.mem_data, mem_phone=self.mem_phone)
-#         except Exception as e:
-#             print(e)
-#
-#     def run(self):
-#         self.saveinfo()
 
 class Uiwindow(QtWidgets.QMainWindow, cameraui.Ui_Form):
     def __init__(self, parent=None):

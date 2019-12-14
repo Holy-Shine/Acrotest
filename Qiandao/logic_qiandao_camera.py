@@ -1,9 +1,6 @@
-from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QApplication
 
 
 from Qiandao.UI_Qiandao_camera import UIQiandaoCamera
-from Qiandao.logic_Qiandao_face import LogicQiandaoFace
-import os,sys
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *

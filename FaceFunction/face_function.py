@@ -1,6 +1,8 @@
-import face_recognition.face_dll as face_dll
-import  face_recognition.face_class as face_class
-from ctypes import *
+from _ctypes import POINTER, byref
+from ctypes import c_void_p, c_ubyte, cast, string_at, c_float
+
+import FaceFunction.face_dll as face_dll
+import  FaceFunction.face_class as face_class
 import cv2
 from io import BytesIO
 

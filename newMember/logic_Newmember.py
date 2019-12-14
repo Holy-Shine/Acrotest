@@ -1,10 +1,11 @@
 
 import cv2
-import os,sys
+import os
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QMessageBox, QTableView, QHeaderView, QListWidget, QStackedWidget, QApplication
 from PyQt5 import QtCore,QtGui,QtWidgets
-from PyQt5.QtGui import QStandardItemModel,QStandardItem
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from newMember.UI_NewMember import Ui_NewMember
 from newMember.logic_MemberCAMChose import LogicMemberCAMChose
 
@@ -43,8 +44,8 @@ class LogicNewMember(Ui_NewMember,QDialog):
     def init(self):
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)
         #添加条目
-        card = ["无限", "年卡", "一季卡", '两季卡','一对一','一对二']
-        classitem = ["轮滑","平衡车" ]
+        card = ["无限", "年卡", "一季卡", '两季卡','三季卡','一对一','一对二']
+        classitem = ["轮滑","滑步车" ]
         self.cb_card_new.addItems(card)
         self.cb_classitem_new.addItems(classitem)
         self.cb_card_old.addItems(card)
@@ -58,17 +59,17 @@ class LogicNewMember(Ui_NewMember,QDialog):
         '''
         self.cardtype = {
             '轮滑': 0,
-            '平衡车': 1
+            '滑步车': 1
         }
 
         self.type2card = {
             0:'轮滑',
-            1:'平衡车'
+            1:'滑步车'
         }
 
         self.cardindex = {
-            '无限': 0,
-            '年卡': 1,
+            '年卡无限': 0,
+            '年卡72': 1,
             '一季卡': 2,
             '两季卡': 3,
             '一对一': 4,
@@ -180,6 +181,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
         '''
         #老学员查询返回清单列表
         self.btn_search.clicked.connect(self.search_for_studentinfo)
+        self.btn_search.setShortcut(Qt.Key_Return)
         #表格点击操作
         self.tv_search_student.selectionModel().selectionChanged.connect(self.row_sel_change)  # 选中事件'
         #确认更新信息
@@ -502,7 +504,7 @@ class LogicNewMember(Ui_NewMember,QDialog):
                 facefeature = 'NULL'
             else:
                 facefeature = self.meminfo_data['人脸特征']
-            sql = 'INSERT INTO mem_info  VALUES(\'{}\', \'{}\', {},{},\'{}\',\'{}\',{},\'{}\',\'{}\')'.format(
+            sql = 'INSERT INTO mem_info  VALUES(\'{}\', \'{}\', {},\'{}岁\',\'{}\',\'{}\',{},\'{}\',\'{}\')'.format(
                 self.meminfo_data['联系方式'],
                 self.meminfo_data['学生姓名'],
                 self.meminfo_data['课程种类'],
