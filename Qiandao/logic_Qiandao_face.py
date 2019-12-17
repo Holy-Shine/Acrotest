@@ -90,12 +90,14 @@ class LogicQiandaoFace(Ui_UIQiandaoFace,QDialog):
 
         self.cardtype = {
             '轮滑': 0,
-            '滑步车': 1
+            '滑步车': 1,
+            '体适能': 2
         }
 
         self.type2card = {
             0:'轮滑',
-            1:'滑步车'
+            1:'滑步车',
+            2:'体适能'
         }
 
         self.init()

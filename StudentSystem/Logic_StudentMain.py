@@ -40,12 +40,14 @@ class LogicStudentMain(Ui_StudentMain,QDialog):
 
         self.cardtype = {
             '轮滑': 0,
-            '平衡车': 1
+            '平衡车': 1,
+            '体适能': 2
         }
 
         self.type2card = {
             0:'轮滑',
-            1:'平衡车'
+            1:'平衡车',
+            2:'体适能'
         }
 
         self.meminfo_data = {

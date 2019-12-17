@@ -44,8 +44,8 @@ class LogicNewMember(Ui_NewMember,QDialog):
     def init(self):
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)
         #添加条目
-        card = ["无限", "年卡", "一季卡", '两季卡','三季卡','一对一','一对二']
-        classitem = ["轮滑","滑步车" ]
+        card = ["无限", "年卡", "一季卡", '两季卡','三季卡','一对一','一对二','寒假班', '暑假班']
+        classitem = ["轮滑","滑步车","体适能"]
         self.cb_card_new.addItems(card)
         self.cb_classitem_new.addItems(classitem)
         self.cb_card_old.addItems(card)
@@ -59,12 +59,14 @@ class LogicNewMember(Ui_NewMember,QDialog):
         '''
         self.cardtype = {
             '轮滑': 0,
-            '滑步车': 1
+            '滑步车': 1,
+            '体适能': 2
         }
 
         self.type2card = {
             0:'轮滑',
-            1:'滑步车'
+            1:'滑步车',
+            2:'体适能'
         }
 
         self.cardindex = {
@@ -74,6 +76,8 @@ class LogicNewMember(Ui_NewMember,QDialog):
             '两季卡': 3,
             '一对一': 4,
             '一对二': 5,
+            '寒假班': 5,
+            '暑假班': 5,
         }
 
         self.meminfo_data = {

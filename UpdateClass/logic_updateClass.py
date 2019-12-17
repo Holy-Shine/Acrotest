@@ -28,7 +28,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         # paletter.setBrush(QPalette.Background, QBrush(QPixmap('resource/paike_bg.png')))
         # self.setPalette(paletter)
         self.sql_thread_2 = None
-
+        self.types = ['轮滑', '平衡车', '体适能']
         self.weekdays = ['周一','周二','周三','周四','周五','周六','周日']
         self.headers = ['联系方式','姓名','类型']
         self.data_model = QStandardItemModel()
@@ -118,7 +118,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 # 插入数据库
                 if reply == QMessageBox.Yes:
                     try:
-                        types = ['轮滑','平衡车']
+                        types = self.types
                         flag = True
                         for i, cb in enumerate(self.cb_day_times):
                             if cb.isChecked():
@@ -163,7 +163,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
 
     def row_sel_change_2(self):
 
-        types = ['轮滑','平衡车']
+        types = self.types
         current_row = self.tv_show_mem_3.currentIndex().row()
         if current_row < len(self.data_2):
             dt_txt = self.data_2[current_row][3]
@@ -182,8 +182,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             self.cb_coach_2.clear() # 先清空
             self.cb_coach_2.addItem('未选择')
             for coch in self.coachs:
-                if coch[1]==selected_type or coch[1]==2:
-                    self.cb_coach_2.addItem(coch[0])      
+                self.cb_coach_2.addItem(coch[0])      
 
 
             # 重置当前cb和tb
@@ -218,8 +217,8 @@ class logicUpdateClass(Ui_updateClass, QDialog):
     def row_sel_change(self):
         current_row = self.tv_show_mem.currentIndex().row()
         print(current_row)
-        types = ['轮滑','平衡车']
-        if  current_row < len(self.data):
+        types = self.types
+        if  current_row < len(self.data) and current_row!=-1:
             selected_phone = str(self.data[current_row][0])
             selected_name = self.data[current_row][1]
             selected_type = self.data[current_row][4]
@@ -234,8 +233,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             self.cb_coach.clear() # 先清空
             self.cb_coach.addItem('未选择')
             for coch in self.coachs:
-                if coch[1]==selected_type or coch[1]==2:
-                    self.cb_coach.addItem(coch[0])
+                self.cb_coach.addItem(coch[0])
                     
         else:
             self.le_choose_name.setText('')
@@ -251,7 +249,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
             self.cb_day_times[i].setChecked(False)
 
     def setupItem(self):
-        sql = 'SELECT coa_name, coa_type FROM coach'
+
         from datetime import datetime as dt
         year = dt.now().year
         self.cb_year.clear()
@@ -259,15 +257,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         self.cb_year.addItems(['未选择',str(year),str(year+1)])
         self.cb_year_2.addItems(['未选择',str(year), str(year+1)])
 
-        try:
-            flag,result = self.MySQL.SelectFromDataBse(sql)
-            print(result)
-            for coa_name, ctype in (result):
-                self.cb_coach.addItem(coa_name)
-                self.coachs.append([coa_name, int(ctype)])
-        except Exception as e:
-            print(e)
-            QMessageBox.critical(self,'错误','数据库异常！无法连接到教练数据库',QMessageBox.Ok,QMessageBox.Ok)       
+      
 
 
 
@@ -318,7 +308,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
 
         else:
             # 拿到选中信息
-            types = ['轮滑', '平衡车']
+            types = self.types
             name = self.le_choose_name_3.text()
             phone = self.le_choose_phone_3.text()
             type = types.index(self.le_choose_type_3.text())
@@ -373,7 +363,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                         try:
                             # 先删除
                             self.MySQL.DeleteFromDataBse(dl_sql)
-                            types = ['轮滑','平衡车']
+                            types = self.types
                             flag = True
                             for i, cb in enumerate(self.cb_day_times2):
                                 if cb.isChecked():
@@ -429,7 +419,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 SELECT mc.mem_phone, mc.mem_name FROM mem_class mc WHERE mi.mem_phone=mc.mem_phone and mi.mem_name=mc.mem_name and week={}) and mem_cls_left>0'''.format(week)
             print(sql)
             try:
-                types = ['轮滑', '平衡车']
+                types = self.types
                 flag, result = self.MySQL.SelectFromDataBse(sql)
                 if (flag == True):
                     self.data = list(result)
@@ -508,13 +498,6 @@ class logicUpdateClass(Ui_updateClass, QDialog):
                 for i in range(int(weekday)+1,8):
                     eval('self.tb_{}_2'.format(i)).setEnabled(False)
 
-        
-
-
-
-
-
-
 
             text = '''{}-{}-{}至{}-{}-{}'''.format(year,begin_m,begin_d, year,end_m,end_d)
             self.lb_status_2.setText(text)    
@@ -569,7 +552,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         self.data_model_2.setHorizontalHeaderLabels(self.headers)
         if len(data)>0:
             weeks = ['周一','周二','周三','周四','周五','周六','周日']
-            types = ['轮滑', '平衡车']
+            types = self.types
             self.data_2 = []
             day_times = '{}年第{}周: '.format(self.cb_year_2.currentText(), self.cb_week_2.currentText())
 
@@ -620,6 +603,7 @@ class logicUpdateClass(Ui_updateClass, QDialog):
 
         # 页签2清空
         self.data_2 = []
+        self.coachs.clear()
         self.data_model_2.clear()
         self.data_model_2.setHorizontalHeaderLabels(self.headers)
         self.le_choose_name_3.clear()
@@ -634,6 +618,21 @@ class logicUpdateClass(Ui_updateClass, QDialog):
         self.lb_sch_status_2.setText('查找状态：当前找到0条记录')
 
         self.listFunc.setCurrentRow(0)  # 选中第一个页签
+        
+        # 更新教练
+        try:
+            self.cb_coach.addItem('未选择')
+            self.cb_coach_2.addItem('未选择')
+            sql = 'SELECT coa_name, coa_type FROM coach'
+            flag,result = self.MySQL.SelectFromDataBse(sql)
+            print(result)
+            for coa_name, ctype in (result):
+                self.cb_coach.addItem(coa_name)
+                self.cb_coach_2.addItem(coa_name)
+                self.coachs.append([coa_name, int(ctype)])
+        except Exception as e:
+            print(e)
+            QMessageBox.critical(self,'错误','数据库异常！无法连接到教练数据库',QMessageBox.Ok,QMessageBox.Ok) 
 
 
         

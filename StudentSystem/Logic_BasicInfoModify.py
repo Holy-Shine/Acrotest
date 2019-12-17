@@ -16,14 +16,15 @@ class LogicModifyInfo(Ui_BasicInfoModify,QDialog):
         self.slot_init()
 
     def init(self):
-        classitem = ['轮滑','滑步车']
+        classitem = ['轮滑','滑步车','体适能']
         self.cb_classitem.addItems(classitem)
         self.init_PlaceHoder()
         self.et_name.setEnabled(False)
 
         self.type2card = {
             0:'轮滑',
-            1:'滑步车'
+            1:'滑步车',
+            2: '体适能'
         }
 
     def slot_init(self):
