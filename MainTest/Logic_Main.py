@@ -16,6 +16,10 @@ from Qiandao.logic_Qiandao_face import LogicQiandaoFace
 #统计系统
 from SummarySystem.logic_sysSum import logicSysSum
 
+#修改密码和二级密码
+from MainTest.logic_ModefyPwd import LogicModifyPwd
+from MainTest.Logic_ModifyVerify import LogicModifyVerify
+
 import Login.CheckDBandFace as ckdf
 
 
@@ -109,12 +113,29 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         # 统计系统
         self.pb_main_StatisticSystem.clicked.connect(self.on_pb_main_StatisticSystem_clicked)
         self.pb_main_StatisticSystem.clicked.connect(self.FormSumSys.myclear)
+
+        self.action_pwd.triggered.connect(self.ModifyPwd)
+        self.action_verify.triggered.connect(self.ModifyVerify)
+
+    def ModifyPwd(self):
+        self.LogicModifyPwd = LogicModifyPwd(username=self.username)
+        self.LogicModifyPwd.setWindowModality(QtCore.Qt.ApplicationModal)
+        self.LogicModifyPwd.show()
+
+    def ModifyVerify(self):
+        if(self.username == 'Jessie' or self.username == 'WangAn'):
+            self.LogicModifyVerify = LogicModifyVerify(username=self.username)
+            self.LogicModifyVerify.setWindowModality(QtCore.Qt.ApplicationModal)
+            self.LogicModifyVerify.show()
+        else:
+            QMessageBox.information(self, '提示', '无权限！', QMessageBox.Ok, QMessageBox.Ok)
+
     def gottaUser(self):
         if(self.username =='Jessie'):
             self.lb_main_username.setText('当前用户：{}'.format('苏总'))
         elif (self.username == 'WangAn'):
                 self.lb_main_username.setText('当前用户：{}'.format('王总'))
-        elif (self.username == 'WangLiPing'):
+        elif (self.username == 'WangliPing'):
                 self.lb_main_username.setText('当前用户：{}'.format('王力平'))
         else:
             self.lb_main_username.setText('当前用户：{}'.format('其他'))
@@ -144,7 +165,11 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
     # 统计系统
     def on_pb_main_StatisticSystem_clicked(self):
-        self.stackedWidget.setCurrentWidget(self.FormSumSys)
+        if (self.username == 'Jessie' or self.username == 'WangAn'):
+            self.stackedWidget.setCurrentWidget(self.FormSumSys)
+        else:
+            QMessageBox.information(self, '提示', '无权限！', QMessageBox.Ok, QMessageBox.Ok)
+
 
 
 
