@@ -34,7 +34,7 @@
       <rect>
        <x>20</x>
        <y>10</y>
-       <width>181</width>
+       <width>161</width>
        <height>111</height>
       </rect>
      </property>
@@ -45,9 +45,9 @@
     <widget class="QPushButton" name="pb_main_NewMemberSystem">
      <property name="geometry">
       <rect>
-       <x>660</x>
+       <x>550</x>
        <y>10</y>
-       <width>181</width>
+       <width>161</width>
        <height>111</height>
       </rect>
      </property>
@@ -58,9 +58,9 @@
     <widget class="QPushButton" name="pb_main_LessonSystem">
      <property name="geometry">
       <rect>
-       <x>440</x>
+       <x>370</x>
        <y>10</y>
-       <width>181</width>
+       <width>161</width>
        <height>111</height>
       </rect>
      </property>
@@ -71,9 +71,9 @@
     <widget class="QPushButton" name="pb_main_QiandaoSystem">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>190</x>
        <y>10</y>
-       <width>181</width>
+       <width>161</width>
        <height>111</height>
       </rect>
      </property>
@@ -81,30 +81,43 @@
       <string>签到系统</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pb_main_QuerySystem">
+    <widget class="QPushButton" name="pb_main_CoachSystem">
      <property name="geometry">
       <rect>
-       <x>880</x>
+       <x>730</x>
        <y>10</y>
-       <width>181</width>
+       <width>161</width>
        <height>111</height>
       </rect>
      </property>
      <property name="text">
-      <string>查询系统</string>
+      <string>教练系统</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pb_main_StatisticSystem">
      <property name="geometry">
       <rect>
-       <x>1100</x>
+       <x>920</x>
        <y>10</y>
-       <width>181</width>
+       <width>161</width>
        <height>111</height>
       </rect>
      </property>
      <property name="text">
       <string>统计系统</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pb_main_CangkuSystem">
+     <property name="geometry">
+      <rect>
+       <x>1100</x>
+       <y>10</y>
+       <width>161</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>仓库管理</string>
      </property>
     </widget>
    </widget>
