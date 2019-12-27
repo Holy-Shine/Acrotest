@@ -8,7 +8,6 @@ def CheckDB():
     try:
         f = open('../BasicInfos/DBInfo.json', encoding='utf-8')
         user_dic = json.load(f)
-        print(user_dic)
         MySQL = MySQLBaseFunction(HostIP=user_dic['DB_info'][0]['ip'],
                                   Username=user_dic['DB_info'][0]['user'],
                                   Password=user_dic['DB_info'][0]['password'],
