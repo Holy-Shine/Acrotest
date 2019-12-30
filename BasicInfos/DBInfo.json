@@ -3,9 +3,9 @@
         "DB_info": [
                 {
                         "ip": "121.199.17.205",
-                        "user":"Jessie",
-                        "password": "Jessie.121406",
-                        "database": "meminfo"
+                        "user":"pig",
+                        "password": "Emmons.123",
+                        "database": "test"
                 }
         ]
 }

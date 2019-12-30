@@ -3,7 +3,7 @@ import json
 
 def user_exist(username):
     try:
-        f = open('./BasicInfos/user.json', encoding='utf-8')
+        f = open('../BasicInfos/user.json', encoding='utf-8')
         user_dic = json.load(f)
         for item in user_dic:
             if(username == item):
@@ -15,7 +15,7 @@ def user_exist(username):
 
 def login(password,username):
     try:
-        f = open('./BasicInfos/user.json', encoding='utf-8')
+        f = open('../BasicInfos/user.json', encoding='utf-8')
         user_dic = json.load(f)
         if username in user_dic:
             info = user_dic[username]
@@ -28,7 +28,7 @@ def login(password,username):
 #修改密码
 def Changpwd(newpwd,oldpwd,username):
     try:
-        f = open('./BasicInfos/user.json', encoding='utf-8')
+        f = open('../BasicInfos/user.json', encoding='utf-8')
         user_dic = json.load(f)
         if username in user_dic:
             info = user_dic[username]
@@ -44,7 +44,7 @@ def Changpwd(newpwd,oldpwd,username):
 #修改二级密码
 def ChangVerify(newve,oldve):
     try:
-        f = open('./BasicInfos/Verify.json', encoding='utf-8')
+        f = open('../BasicInfos/Verify.json', encoding='utf-8')
         user_dic = json.load(f)
         if user_dic['Verify'][0]['pwd'] == oldve:
             user_dic['Verify'][0]['pwd'] = newve

@@ -44,7 +44,8 @@ class LogicClassInfoCheck(Ui_ClassInfoCheck,QDialog):
 
         self.type2card = {
             0:'轮滑',
-            1:'滑步车'
+            1:'滑步车',
+            2:'体适能'
         }
 
         self.init()
