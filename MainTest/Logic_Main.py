@@ -11,13 +11,16 @@ from UpdateClass.logic_updateClass import logicUpdateClass
 
 #教练系统
 from  CoachSystem.logic_sysCoach import logicSysCoach
-#导入签到系统
+#签到系统
 from Qiandao.logic_Qiandao_face import LogicQiandaoFace
 #统计系统
 from SummarySystem.logic_sysSum import logicSysSum
-
-#评价系统
+#评价录入系统
 from EvaluationSystem.logic_Evaluation import LogicEvaluationMain
+
+# 仓库系统
+from GoodsSystem.logicGoods import logicGoods
+
 #修改密码和二级密码
 from MainTest.logic_ModefyPwd import LogicModifyPwd
 from MainTest.Logic_ModifyVerify import LogicModifyVerify
@@ -76,7 +79,9 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FormCoach = logicSysCoach(MySQL=self.MySQL)  # 教练系统
 
-        self.FromEval = LogicEvaluationMain(MySQL=self.MySQL)
+        self.Evaluation = LogicEvaluationMain(MySQL=self.MySQL) #评价系统
+
+        self.FromGoods = logicGoods(MySQL=self.MySQL)  # 仓库系统
 
         self.stackedWidget.addWidget(self.FormBlank)
         self.stackedWidget.addWidget(self.FormNewMember)
@@ -84,8 +89,10 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.stackedWidget.addWidget(self.FormFaceQiandao)
         self.stackedWidget.addWidget(self.FormStudentMain)
         self.stackedWidget.addWidget(self.FormCoach)
-        self.stackedWidget.addWidget(self.FromEval)
+        self.stackedWidget.addWidget(self.Evaluation)
         self.stackedWidget.addWidget(self.FormSumSys)
+
+        self.stackedWidget.addWidget(self.FromGoods)
 
         #初始设定为学生界面
         self.stackedWidget.setCurrentWidget(self.FormStudentMain)
@@ -117,11 +124,17 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pb_main_StatisticSystem.clicked.connect(self.on_pb_main_StatisticSystem)
         self.pb_main_StatisticSystem.clicked.connect(self.FormSumSys.myclear)
 
-        #评价系统
-        self.pb_main_EvaluationSystem.clicked.connect(self.on_pb_main_EvaluationSystem)
-
+        #密码修改
         self.action_pwd.triggered.connect(self.ModifyPwd)
         self.action_verify.triggered.connect(self.ModifyVerify)
+
+        #评价录入系统
+        self.pb_main_EvaluationSystem.clicked.connect(self.on_pb_main_EvaluationSystem)
+
+
+        # 仓库系统
+        self.pb_main_CangkuSystem.clicked.connect(self.on_pb_main_GoodsSystem)
+        self.pb_main_CangkuSystem.clicked.connect(self.FromGoods.myclear)
 
     def ModifyPwd(self):
         self.LogicModifyPwd = LogicModifyPwd(username=self.username)
@@ -176,15 +189,20 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             QMessageBox.information(self, '提示', '无权限！', QMessageBox.Ok, QMessageBox.Ok)
 
+
     #评价系统
     def on_pb_main_EvaluationSystem(self):
-        self.stackedWidget.setCurrentWidget(self.FromEval)
+        self.stackedWidget.setCurrentWidget(self.Evaluation)
+
 
     #签到系统
     def on_pb_main_QiandaoSystem(self):
         # self.FormFaceQiandao.getCamClose()
         self.stackedWidget.setCurrentWidget(self.FormFaceQiandao)
 
+    # 仓库系统
+    def on_pb_main_GoodsSystem(self):
+        self.stackedWidget.setCurrentWidget(self.FromGoods)
 
 
 
