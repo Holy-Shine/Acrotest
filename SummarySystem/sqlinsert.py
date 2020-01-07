@@ -86,10 +86,15 @@ def search():
 # items = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
 # self.cb_fluid_month = ComboCheckBox(items, self.widget)
 
-dic={}
-lis = [(1,2,3),(1,2,3),(4,5,6)]
-for li in lis:
-    if li not in dic:
-        dic[li]=0
-    dic[li]+=1
-print(dic)
+        from SummarySystem.myUI import ComboCheckBox
+        items = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+        self.cb_fluid_month = ComboCheckBox(items, self)
+
+        items = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+        self.cb_fluid_month_2 = ComboCheckBox(items, self)
+        self.cb_fluid_month_2.setObjectName("cb_fluid_month_2")
+        self.gridLayout_5.addWidget(self.cb_fluid_month_2, 0, 3, 1, 1)
+
+
+        items = ['出库','入库']
+        self.cb_fluid_inout = ComboCheckBox(items, self)

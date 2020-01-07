@@ -19,10 +19,13 @@ class MySQLThread(QThread):
 class WriteExcelThread(QThread):
     trigger = pyqtSignal()
 
-    def __init__(self, data, filepath,parent=None):
+    def __init__(self, data, filepath, header, labels,label_idx,parent=None):
         super(WriteExcelThread, self).__init__(parent)
         self.data = data
         self.filepath = filepath
+        self.header=header
+        self.labels = labels
+        self.label_idx = label_idx
 
     def run(self):
         if self.filepath=='':
@@ -33,16 +36,14 @@ class WriteExcelThread(QThread):
             sheet = wb.add_sheet('数据')
 
             # 写表头
-            hearder = ['联系方式','姓名','办/续卡','办/续卡金额','办/续卡日期']
-            for i in range(len(hearder)):
-                sheet.write(0, i, hearder[i])
+            for i in range(len(self.header)):
+                sheet.write(0, i, self.header[i])
             
             j=1
-            BX = ['办卡','续卡']
             for line in self.data:
-                for i in range(len(hearder)):
-                    if i==2:
-                        sheet.write(j, i, BX[line[i]])
+                for i in range(len(self.header)):
+                    if i==self.label_idx:
+                        sheet.write(j, i, self.labels[line[i]])
                     else:
                         sheet.write(j, i, line[i])
                 j+=1
