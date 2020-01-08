@@ -13,19 +13,24 @@ class logicGoods(Ui_sysGoods, QDialog):
         self.setupUi(self)  
         self.MySQL = MySQL
         self.listFunc.currentRowChanged.connect(self.stackedWidget.setCurrentIndex)   # list和右边窗口index绑定
-        self.listFunc.currentRowChanged.connect(self.myclear)
+        self.listFunc.currentRowChanged.connect(self.left_row_changed)
         
         # 货物增删查
         self.headers = ['货物名','货物简介','数目']
         self.data_model = QStandardItemModel()
-        self.data_model.setHorizontalHeaderLabels(self.headers)
+        self.data_model_2=QStandardItemModel()
         self.data = []
         self.tv_goods.setModel(self.data_model)
+        self.tv_goods_2.setModel(self.data_model_2)
         
-        self.tv_goods.selectionModel().selectionChanged.connect(self.row_sel_change) # 选中事件
+    
         self.tv_goods.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tv_goods.setEditTriggers(QTableView.NoEditTriggers) # 不可编辑
         self.tv_goods.setSelectionBehavior(QTableView.SelectRows) # 选中行
+
+        self.tv_goods_2.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tv_goods_2.setEditTriggers(QTableView.NoEditTriggers) # 不可编辑
+        self.tv_goods_2.setSelectionBehavior(QTableView.SelectRows) # 选中行
 
         self.onlyInt = QIntValidator()
         self.le_inout_price.setValidator(self.onlyInt)  # 限制只能为int
@@ -37,10 +42,11 @@ class logicGoods(Ui_sysGoods, QDialog):
 
 
         self.le_filter.textChanged.connect(self.on_le_filter_textChange)
+        self.le_inout_name.textChanged.connect(self.on_le_filter_textChange_2)
         self.cb_inout_year.currentIndexChanged.connect(self.inout_day_parser)
         self.cb_inout_month.currentIndexChanged.connect(self.inout_day_parser)
         ################################# 按钮事件 #############################################
-        self.btn_flush.clicked.connect(self.on_btn_connect_db)
+
         self.btn_confirm_add.clicked.connect(self.on_btn_add_goods)
         self.btn_remove_select.clicked.connect(self.on_btn_remove_goods)
         self.btn_inout_confirm.clicked.connect(self.on_btn_inout_confirm)
@@ -84,8 +90,7 @@ class logicGoods(Ui_sysGoods, QDialog):
     def myclear(self):
         self.btn_remove_select.setEnabled(False)
         self.le_filter.setText('')
-        self.btn_flush.setEnabled(True)
-        self.btn_flush.setText('连接数据库获取仓库货物信息')
+
 
 
         # 表刷新/后台缓存数据刷新
@@ -107,6 +112,26 @@ class logicGoods(Ui_sysGoods, QDialog):
         self.inout_date_clear()
 
 
+        # 后台数据刷新
+        self.btn_remove_select.setEnabled(True)
+        self.btn_confirm_add.setEnabled(True)
+        self.le_filter.clear()
+        self.btn_inout_confirm.setEnabled(True)
+        self.connect_db()
+
+        self.listFunc.setCurrentRow(0)
+        self.data_model_2.clear()
+        self.data_model_2.setHorizontalHeaderLabels(self.headers)
+        for i, (goods_name, goods_info, goods_num) in enumerate(self.data):
+            self.data_model_2.appendRow([
+                QStandardItem(goods_name),
+                QStandardItem(goods_info),
+                QStandardItem(str(goods_num))
+            ])
+        
+
+
+
 
 
 
@@ -124,8 +149,8 @@ class logicGoods(Ui_sysGoods, QDialog):
 
         else:
             goods_name = self.le_inout_name.text()
-            goods_price = self.le_inout_price.text()
-            goods_num = self.le_inout_num.text()
+            goods_price = int(self.le_inout_price.text())
+            goods_num = int(self.le_inout_num.text())
             year = int(self.cb_inout_year.currentText())
             month = int(self.cb_inout_month.currentText())
             day = int(self.cb_inout_day.currentText())
@@ -143,24 +168,54 @@ class logicGoods(Ui_sysGoods, QDialog):
 
                 # 插入数据库
                 if reply == QMessageBox.Yes:   
-                    veriSQL = '''SELECT goods_num FROM goods WHERE goods_name='{}' '''.format(goods_name)
-                    flag1, result1 = self.MySQL.SelectFromDataBse(veriSQL)
-
-                    if flag1 == True:
-                        if len(result1) == 0:
-                            QMessageBox.critical(self,'错误','仓库中未存在名为“{}”的货物！'.format(goods_name),QMessageBox.Ok, QMessageBox.Ok)
+                    find = False
+                    left = 0
+                    changed_idx = -1
+                    for i, (cache_goods_name, cache_goods_info, cache_goods_num) in enumerate(self.data):
+                        if goods_name==cache_goods_name:
+                            left = cache_goods_num
+                            find = True
+                            changed_idx=i
+                            break
+                    
+                    if find == True:
                         
-                        elif self.cb_inout.currentIndex()==1 and int(result1[0][0])<int(goods_num):
-                            QMessageBox.critical(self,'错误','当前仓库的“{}”的库存不足！\n当前库存：{}'.format(goods_name, result1[0][0]),QMessageBox.Ok, QMessageBox.Ok)
-                        
-                        else:
-                            flag = self.MySQL.InsertFromDataBse(sql)
+                        # 进出库登记，正确出库或者入库后才执行
+                        def inout_mark(MySQL,sql):
+                            flag = MySQL.InsertFromDataBse(sql)
                             if (flag == True):
                                 QMessageBox.information(self,'提示','{}成功'.format(self.cb_inout.currentText()),QMessageBox.Ok, QMessageBox.Ok)
+
+                            return flag
+                            
+                        # 入库
+                        if inout==1:
+                            flag = inout_mark(self.MySQL, sql)
+                            if flag==True:
+                                # 刷新缓存数据
+                                self.data[changed_idx][2]+=goods_num
+                                self.flush_data_model_2()
                             else:
-                                QMessageBox.critical(self, '错误', '连接数据库失败！\n考虑是否是以下原因引起：\n (1)网络连接出现问题', QMessageBox.Ok, QMessageBox.Ok)
+                                QMessageBox.critical(self, '错误', '连接数据库失败！\n考虑是否是以下原因引起：\n (1)网络连接出现问题', QMessageBox.Ok, QMessageBox.Ok)                        
+                        # 出库
+                        elif inout==0:
+                            if left<goods_num:
+                                QMessageBox.critical(self,'错误','当前仓库的“{}”的库存不足！\n当前库存：{}'.format(goods_name, left),QMessageBox.Ok, QMessageBox.Ok)
+                            else:
+                                flag = inout_mark(self.MySQL, sql)
+                                if flag==True:
+                                    # 刷新缓存数据
+                                    self.data[changed_idx][2]-=goods_num
+                                    self.flush_data_model_2()
+                                else:
+                                    QMessageBox.critical(self, '错误', '连接数据库失败！\n考虑是否是以下原因引起：\n (1)网络连接出现问题', QMessageBox.Ok, QMessageBox.Ok)
+                                
+
+                               
+
                     else:
-                        QMessageBox.critical(self, '错误', '连接数据库失败！\n考虑是否是以下原因引起：\n (1)网络连接出现问题', QMessageBox.Ok, QMessageBox.Ok)                    
+                        QMessageBox.critical(self,'错误','仓库中未存在名为“{}”的货物！'.format(goods_name),QMessageBox.Ok, QMessageBox.Ok)
+                    
             except Exception as e:
                 print(e)
     
@@ -224,30 +279,44 @@ class logicGoods(Ui_sysGoods, QDialog):
                         QStandardItem(goods_info),
                         QStandardItem(str(goods_num))
                     ])
+
+    def on_le_filter_textChange_2(self):
+        term = self.le_inout_name.text().strip()
+
+        # 清空数据模型
+        self.data_model_2.clear()
+        self.data_model_2.setHorizontalHeaderLabels(self.headers)  
+        # 备份缓存数据
+        if term == '':
+            for i, (goods_name, goods_info, goods_num) in enumerate(self.data):
+                self.data_model_2.appendRow([
+                    QStandardItem(goods_name),
+                    QStandardItem(goods_info),
+                    QStandardItem(str(goods_num))
+                ])
+        else:
+            for i, (goods_name, goods_info, goods_num) in enumerate(self.data):
+                if term in goods_name:
+                    self.data_model_2.appendRow([
+                        QStandardItem(goods_name),
+                        QStandardItem(goods_info),
+                        QStandardItem(str(goods_num))
+                    ])
         
-    def on_btn_connect_db(self):
+    def connect_db(self):
         self.data_model.clear()
         self.data_model.setHorizontalHeaderLabels(self.headers)
         try:
             sql = '''SELECT * FROM goods'''
             flag, result = self.MySQL.SelectFromDataBse(sql)
             if (flag == True):
-                self.data = list(result)
-                for i, (goods_name, goods_info, goods_num) in enumerate(self.data):
-                    self.data_model.appendRow([
-                        QStandardItem(goods_name),
-                        QStandardItem(goods_info),
-                        QStandardItem(str(goods_num))
-                    ])
-                
-                self.btn_flush.setText('刷新仓库货物信息')
-                self.btn_remove_select.setEnabled(True)
-                self.btn_confirm_add.setEnabled(True)
-                self.le_filter.clear()
+                for d in result:
+                    self.data.append(list(d))
             else:
                 QMessageBox.critical(self, '错误', '连接货物数据库失败', QMessageBox.Ok, QMessageBox.Ok)
                 self.btn_remove_select.setEnabled(False)
                 self.btn_confirm_add.setEnabled(False)
+                self.btn_inout_confirm.setEnabled(False)
         except Exception as e:
             print(e)
 
@@ -276,7 +345,7 @@ class logicGoods(Ui_sysGoods, QDialog):
                         QMessageBox.information(self,'提示','添加货物成功',QMessageBox.Ok, QMessageBox.Ok)
                         
                         # 更新缓存
-                        self.data.append((goods_name, goods_info, 0))
+                        self.data.append([goods_name, goods_info, 0])
 
                         self.data_model.appendRow([
                             QStandardItem(goods_name),
@@ -289,5 +358,40 @@ class logicGoods(Ui_sysGoods, QDialog):
                         self.te_goods_info.clear()
             except Exception as e:
                 print(e)
+
+    def left_row_changed(self):
+        row = self.listFunc.currentIndex().row()
+        print(row)
+
+        # 进出库登记
+        if row==0:
+            self.flush_data_model_2()
+
+        # 货物增删查
+        elif row==1:
+            self.data_model.clear()
+            self.data_model.setHorizontalHeaderLabels(self.headers)
+            for i, (goods_name, goods_info, goods_num) in enumerate(self.data):
+                self.data_model.appendRow([
+                    QStandardItem(goods_name),
+                    QStandardItem(goods_info),
+                    QStandardItem(str(goods_num))
+                ])    
+
+
+    def flush_data_model_2(self):
+        self.le_inout_name.clear()
+        self.le_inout_num.clear()
+        self.le_inout_price.clear()
+        self.cb_inout.setCurrentIndex(0)
+
+        self.data_model_2.clear()
+        self.data_model_2.setHorizontalHeaderLabels(self.headers)
+        for i, (goods_name, goods_info, goods_num) in enumerate(self.data):
+            self.data_model_2.appendRow([
+                QStandardItem(goods_name),
+                QStandardItem(goods_info),
+                QStandardItem(str(goods_num))
+            ])               
             
             
