@@ -146,112 +146,148 @@ QListWidget#listFunc::Item:selected {
       <string>进/出库登记</string>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
       <rect>
-       <x>231</x>
-       <y>91</y>
-       <width>461</width>
-       <height>311</height>
+       <x>30</x>
+       <y>70</y>
+       <width>531</width>
+       <height>341</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="4" column="3">
-       <widget class="QComboBox" name="cb_inout_month"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>进/出库：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="4">
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string>月</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QComboBox" name="cb_inout_year"/>
-      </item>
-      <item row="0" column="1" colspan="6">
-       <widget class="QLineEdit" name="le_inout_name"/>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>进/出库日期：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="5">
-       <widget class="QComboBox" name="cb_inout_day"/>
-      </item>
-      <item row="6" column="0" colspan="7">
-       <widget class="QPushButton" name="btn_inout_confirm">
-        <property name="text">
-         <string>登记确认</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="6">
-       <widget class="QComboBox" name="cb_inout">
-        <item>
+     <property name="title">
+      <string>库存剩余</string>
+     </property>
+     <widget class="QTableView" name="tv_goods_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>511</width>
+        <height>311</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>70</y>
+       <width>441</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>进出库操作</string>
+     </property>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>0</y>
+        <width>421</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="6" column="0" colspan="7">
+        <widget class="QPushButton" name="btn_inout_confirm">
          <property name="text">
-          <string>进库</string>
+          <string>登记确认</string>
          </property>
-        </item>
-        <item>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLabel" name="label_9">
          <property name="text">
-          <string>出库</string>
+          <string>年</string>
          </property>
-        </item>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>年</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="6">
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string>日</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>进/出库价格：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="6">
-       <widget class="QLineEdit" name="le_inout_price"/>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_13">
-        <property name="text">
-         <string>货物名：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_12">
-        <property name="text">
-         <string>进/出库数目：</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="6">
-       <widget class="QLineEdit" name="le_inout_num"/>
-      </item>
-     </layout>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="6">
+        <widget class="QLineEdit" name="le_inout_price"/>
+       </item>
+       <item row="4" column="5">
+        <widget class="QComboBox" name="cb_inout_day"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>进/出库：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>进/出库价格：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="3">
+        <widget class="QComboBox" name="cb_inout_month"/>
+       </item>
+       <item row="0" column="1" colspan="6">
+        <widget class="QLineEdit" name="le_inout_name"/>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="cb_inout_year"/>
+       </item>
+       <item row="1" column="1" colspan="6">
+        <widget class="QComboBox" name="cb_inout">
+         <item>
+          <property name="text">
+           <string>进库</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>出库</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="4" column="6">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>日</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>货物名：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>进/出库数目：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" colspan="6">
+        <widget class="QLineEdit" name="le_inout_num"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>进/出库日期：</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="4">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>月</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="page">
@@ -275,30 +311,17 @@ QListWidget#listFunc::Item:selected {
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>130</y>
+       <y>100</y>
        <width>641</width>
        <height>401</height>
       </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btn_flush">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>50</y>
-       <width>921</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>连接数据库获取仓库货物信息</string>
      </property>
     </widget>
     <widget class="QGroupBox" name="groupBox">
      <property name="geometry">
       <rect>
        <x>710</x>
-       <y>130</y>
+       <y>100</y>
        <width>271</width>
        <height>401</height>
       </rect>
@@ -319,7 +342,7 @@ QListWidget#listFunc::Item:selected {
        <string>确认添加</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -352,11 +375,11 @@ QListWidget#listFunc::Item:selected {
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>60</x>
-       <y>90</y>
+       <y>60</y>
        <width>921</width>
        <height>30</height>
       </rect>
