@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QTableView, QHeaderView
+from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QTableView, QHeaderView, QTreeWidgetItem
 from qtpy import QtCore
 
 
@@ -29,9 +29,10 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
 
         #列表初始化
         self.setTaleInit()
-
-
         self.listFunc.itemClicked.connect(self.refreshstu)
+
+
+        self.stu_eval_select()
 
     def refreshstu(self,item):
         try:
@@ -66,6 +67,28 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
         self.SearchStuList(flag= True,info = None)
         #查询刷新所有教练列表
         self.SearchCoaList(flag= True,info = None)
+
+        #学生评价树表的构造
+        self.headers_stu_eval = ['时间', '学生','教练','是否签到', '评价']
+        self.tv_eval_stu.setColumnCount(5)
+        self.tv_eval_stu.setHeaderLabels(self.headers_stu_eval)
+        self.tv_eval_stu.setColumnWidth(0,120)
+        self.tv_eval_stu.setColumnWidth(1, 100)
+        self.tv_eval_stu.setColumnWidth(2, 100)
+        self.tv_eval_stu.setColumnWidth(3, 100)
+        self.tv_eval_stu.setColumnWidth(4, 100)
+        self.tv_eval_stu.clicked.connect(self.stu_eval_tree_click)
+
+        #教练评价树表的构造
+        self.headers_stu_eval =['时间', '学生','教练','是否签到', '评价']
+        self.tv_eval_coa.setColumnCount(5)
+        self.tv_eval_coa.setHeaderLabels(self.headers_stu_eval)
+        self.tv_eval_coa.setColumnWidth(0, 120)
+        self.tv_eval_coa.setColumnWidth(1, 100)
+        self.tv_eval_coa.setColumnWidth(2, 100)
+        self.tv_eval_coa.setColumnWidth(3, 100)
+        self.tv_eval_coa.setColumnWidth(4, 100)
+
 
     # 查询刷新学生列表
     def SearchStuList(self,flag,info):
@@ -128,6 +151,44 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
                 QStandardItem(coa_name),
                 QStandardItem(coa_type),
             ])
+
+    #点击学生，显示评价列表
+    def stu_eval_select(self):
+        root1 = QTreeWidgetItem(self.tv_eval_stu)
+        root1.setText(0, '2020年1月')
+
+        child11 = QTreeWidgetItem(root1)
+        child11.setText(0, '9号 周四')
+        child12 = QTreeWidgetItem(root1)
+        child12.setText(0, '10号 周五')
+
+        child111 = QTreeWidgetItem(child11)
+        child111.setText(0,'10点')
+        child111.setText(1, '裴正蒙')
+        child111.setText(2, '王安')
+        child111.setText(3, '是')
+        child111.setText(4, '暂无评价')
+
+        child121 = QTreeWidgetItem(child12)
+        child121.setText(0, '10点')
+        child121.setText(1, '郑波')
+        child121.setText(2, '王安')
+        child121.setText(3, '是')
+        child121.setText(4, '暂无人大大时代阿萨德阿萨德阿萨德若群若啊我去评价')
+
+        root2 = QTreeWidgetItem(self.tv_eval_stu)
+        root2.setText(0, '2019年12月')
+        child21 = QTreeWidgetItem(root2)
+        child21.setText(0, '31号 周二')
+        root2.addChild(child21)
+
+    #显示评价
+    def stu_eval_tree_click(self):
+        try:
+            item = self.tv_eval_stu.currentItem()
+            self.te_eval_stu.setText(item.text(4))
+        except Exception as e:
+            print(e)
 
 if __name__ == '__main__':
     import Login.CheckDBandFace as ckdf
