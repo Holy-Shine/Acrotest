@@ -110,7 +110,7 @@ QListWidget#listFunc::Item:selected {
     <string notr="true"/>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QGroupBox" name="groupBox_2">
@@ -196,14 +196,40 @@ background-color: rgb(255, 255, 255);</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>20</y>
+        <y>40</y>
         <width>531</width>
-        <height>601</height>
+        <height>581</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(255, 255, 255);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lb_stu_eval_num">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>391</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>没有评价信息！</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="check_stu_openall">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>20</y>
+        <width>91</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>全部展开</string>
       </property>
      </widget>
     </widget>
@@ -319,14 +345,40 @@ background-color: rgb(255, 255, 255);</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>20</y>
+        <y>40</y>
         <width>531</width>
-        <height>601</height>
+        <height>581</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(255, 255, 255);</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="check_coa_openall">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>20</y>
+        <width>91</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>全部展开</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lb_coa_eval_num_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>391</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>没有评价信息！</string>
       </property>
      </widget>
     </widget>
@@ -357,10 +409,6 @@ background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
-    <zorder>groupBox_5</zorder>
-    <zorder>groupBox_7</zorder>
-    <zorder>groupBox_13</zorder>
-    <zorder>groupBox_14</zorder>
    </widget>
    <widget class="QWidget" name="page_5">
     <widget class="QGroupBox" name="groupBox_15">
@@ -381,99 +429,163 @@ background-color: rgb(255, 255, 255);</string>
         <x>10</x>
         <y>20</y>
         <width>351</width>
-        <height>81</height>
+        <height>91</height>
        </rect>
       </property>
       <property name="title">
        <string>日期</string>
       </property>
-      <widget class="QWidget" name="formLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>141</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="lb_year">
-          <property name="text">
-           <string>   年份  </string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="cb_year">
-          <property name="styleSheet">
-           <string notr="true">
-background-color: rgb(255, 255, 255);</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="formLayoutWidget_5">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>50</y>
-         <width>141</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <layout class="QFormLayout" name="formLayout_5">
-        <item row="0" column="0">
-         <widget class="QLabel" name="lb_week">
-          <property name="text">
-           <string>   周次  </string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="cb_weekj">
-          <property name="styleSheet">
-           <string notr="true">
-background-color: rgb(255, 255, 255);</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="formLayoutWidget_4">
+      <widget class="QFrame" name="frame">
        <property name="geometry">
         <rect>
          <x>180</x>
-         <y>50</y>
-         <width>135</width>
-         <height>22</height>
+         <y>20</y>
+         <width>141</width>
+         <height>21</height>
         </rect>
        </property>
-       <layout class="QFormLayout" name="formLayout_4">
-        <item row="0" column="1">
-         <widget class="QComboBox" name="cb_weekday">
-          <property name="styleSheet">
-           <string notr="true">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="lb_year">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>51</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>  年份  </string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="cb_year">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>-2</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
 background-color: rgb(255, 255, 255);</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="lb_weekday">
-          <property name="text">
-           <string>   周内  </string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="frame_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>99</y>
+         <width>120</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>60</y>
+         <width>141</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="lb_week">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>51</width>
+          <height>19</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>  周次</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="cb_weekj">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>0</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="frame_4">
+       <property name="geometry">
+        <rect>
+         <x>170</x>
+         <y>60</y>
+         <width>151</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="lb_weekday">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>41</width>
+          <height>19</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string> 周内  </string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="cb_weekday">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>-2</y>
+          <width>81</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+background-color: rgb(255, 255, 255);</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QLabel" name="lb_date">
        <property name="geometry">
         <rect>
-         <x>180</x>
-         <y>20</y>
-         <width>141</width>
+         <x>20</x>
+         <y>30</y>
+         <width>161</width>
          <height>16</height>
         </rect>
        </property>
@@ -481,19 +593,14 @@ background-color: rgb(255, 255, 255);</string>
         <string>日期</string>
        </property>
       </widget>
-      <zorder>formLayoutWidget</zorder>
-      <zorder>formLayoutWidget_5</zorder>
-      <zorder>formLayoutWidget_4</zorder>
-      <zorder>lb_date</zorder>
-      <zorder>lb_weekday</zorder>
      </widget>
      <widget class="QTableView" name="tv_classlist">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>110</y>
+        <y>120</y>
         <width>351</width>
-        <height>441</height>
+        <height>431</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -520,7 +627,7 @@ background-color: rgb(255, 255, 255);</string>
         <x>20</x>
         <y>20</y>
         <width>201</width>
-        <height>22</height>
+        <height>26</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_6">
@@ -542,7 +649,7 @@ background-color: rgb(255, 255, 255);</string>
         <x>260</x>
         <y>20</y>
         <width>201</width>
-        <height>22</height>
+        <height>26</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_7">
@@ -564,7 +671,7 @@ background-color: rgb(255, 255, 255);</string>
         <x>490</x>
         <y>20</y>
         <width>211</width>
-        <height>22</height>
+        <height>26</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_8">
@@ -599,7 +706,7 @@ background-color: rgb(255, 255, 255);</string>
         <x>20</x>
         <y>20</y>
         <width>201</width>
-        <height>22</height>
+        <height>26</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_9">
@@ -621,7 +728,7 @@ background-color: rgb(255, 255, 255);</string>
         <x>260</x>
         <y>20</y>
         <width>201</width>
-        <height>22</height>
+        <height>26</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_10">
@@ -643,7 +750,7 @@ background-color: rgb(255, 255, 255);</string>
         <x>490</x>
         <y>20</y>
         <width>211</width>
-        <height>22</height>
+        <height>26</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_11">

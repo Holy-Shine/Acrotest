@@ -33,7 +33,7 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
         self.setTaleInit()
         self.listFunc.itemClicked.connect(self.refreshstu)
 
-        # self.MyClear()
+        self.MyClear()
 
         # self.stu_eval_select()
 
@@ -45,11 +45,18 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
         self.bt_search_stu.clicked.connect(self.SearchStuSpecific)
 
         self.bt_search_coa.clicked.connect(self.SearchCoaSpecific)
+
+        self.check_stu_openall.stateChanged.connect(self.check_stu)
+        self.check_coa_openall.stateChanged.connect(self.check_coa)
+
     def MyClear(self):
         # 查询刷新所有学生列表
         self.SearchStuList(flag=True, info=None)
         # 查询刷新所有教练列表
         self.SearchCoaList(flag=True, info=None)
+
+        self.check_coa_openall.setEnabled(False)
+        self.check_stu_openall.setEnabled(False)
 
         self.te_eval_stu.clear()
         self.tv_eval_stu.clear()
@@ -58,6 +65,10 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
 
     def refreshstu(self,item):
         try:
+            self.lb_stu_eval_num.setText('暂无评价信息')
+            self.lb_stu_eval_num.setText('暂无评价信息')
+            self.check_coa_openall.setEnabled(False)
+            self.check_stu_openall.setEnabled(False)
             if(item.text()=='评价展示和查询(学生)'):
                 self.te_eval_stu.clear()
                 self.tv_eval_stu.clear()
@@ -150,6 +161,7 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
             if (flag):
                 if (len(self.coa_infodata) > 0):
                     self.add_coa_list()
+
                 else:
                     QMessageBox.information(self, '提示', '未查询到有关教练！', QMessageBox.Ok, QMessageBox.Ok)
             else:
@@ -195,6 +207,7 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
     #点击学生，显示评价列表
     def tv_stu_row_sel_change(self):
         self.tv_eval_stu.clear()
+        self.check_stu_openall.setChecked(False)
         try:
             current_row = self.tv_list_stu.currentIndex().row()
             if current_row < len(self.stu_infodata):
@@ -204,12 +217,15 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
                 print(sql)
                 flag, self.stu_class_item = self.MySQL.SelectFromDataBse(sql)
                 if(flag and len(self.stu_class_item)>0):
+                    self.lb_stu_eval_num.setText('一共找到{}条评价信息'.format(len(self.stu_class_item)))
                     self.stu_eval_select()
+                    self.check_stu_openall.setEnabled(True)
         except Exception as e:
             print(e)
 
     def tv_coa_row_sel_change(self):
         self.tv_eval_coa.clear()
+        self.check_coa_openall.setChecked(False)
         try:
             current_row = self.tv_list_coa.currentIndex().row()
             if current_row < len(self.coa_infodata):
@@ -218,7 +234,9 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
                 print(sql)
                 flag, self.coa_class_item = self.MySQL.SelectFromDataBse(sql)
                 if(flag and len(self.coa_class_item)>0):
+                    self.lb_coa_eval_num_2.setText('一共找到{}条评价信息'.format(len(self.coa_class_item)))
                     self.coa_eval_select()
+                    self.check_coa_openall.setEnabled(True)
         except Exception as e:
             print(e)
 
@@ -329,6 +347,19 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
         item = self.tv_eval_coa.currentItem()
         self.te_eval_coa.setText(item.text(4))
 
+
+    #全部展示or not
+    def check_stu(self):
+        if(self.check_stu_openall.isChecked()):
+            self.tv_eval_stu.expandAll()
+        else:
+            self.tv_eval_stu.collapseAll()
+
+    def check_coa(self):
+        if (self.check_coa_openall.isChecked()):
+            self.tv_eval_coa.expandAll()
+        else:
+            self.tv_eval_coa.collapseAll()
 if __name__ == '__main__':
     import Login.CheckDBandFace as ckdf
     f1, MySQL = ckdf.CheckDB()
