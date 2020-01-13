@@ -33,7 +33,10 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
         self.setTaleInit()
         self.listFunc.itemClicked.connect(self.refreshstu)
 
-        self.MyClear()
+
+        self.initUpdateForm()
+
+        # self.MyClear()
 
         # self.stu_eval_select()
 
@@ -41,6 +44,7 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
         #列表点击
         self.tv_list_stu.selectionModel().selectionChanged.connect(self.tv_stu_row_sel_change)
         self.tv_list_coa.selectionModel().selectionChanged.connect(self.tv_coa_row_sel_change)
+        self.tv_classlist.selectionModel().selectionChanged.connect(self.tv_lesson_row_sel_change)
 
         self.bt_search_stu.clicked.connect(self.SearchStuSpecific)
 
@@ -48,6 +52,56 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
 
         self.check_stu_openall.stateChanged.connect(self.check_stu)
         self.check_coa_openall.stateChanged.connect(self.check_coa)
+
+
+        #更改时间，刷新列表
+        self.cb_year.currentIndexChanged.connect(self.refresh_lesson_table)
+        self.cb_weekday.currentIndexChanged.connect(self.refresh_lesson_table)
+        self.cb_weekj.currentIndexChanged.connect(self.refresh_lesson_table)
+
+        self.bt_confrim.clicked.connect(self.UpdateEval)
+        self.bt_clear.clicked.connect(self.clearEvalInfo)
+
+
+    #初始化更新界面
+    def initUpdateForm(self):
+
+        #信息展示不可见修改
+        self.et_coaname.setEnabled(False)
+        self.et_classdate.setEnabled(False)
+        self.et_stuname.setEnabled(False)
+        self.et_stuphone.setEnabled(False)
+        self.et_classtime.setEnabled(False)
+        self.et_stuclasstype.setEnabled(False)
+        #初始化
+        weekday = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        year,mon,day =  weekfun.getCurrentYMD()
+        self.cb_year.addItems([str(year-1),str(year)])
+        self.cb_weekday.addItems(weekday)
+        for i in range(53):
+            self.cb_weekj.addItem('第{}周'.format(i+1))
+
+        #选定当前日期
+        self.cb_year.setCurrentIndex(1)
+        week, weekday = weekfun.FromDatetoWeek(year=year,month=mon,day=day)
+        self.cb_weekj.setCurrentIndex(int(week)-1)
+        self.cb_weekday.setCurrentIndex(int(weekday)-1)
+        self.lb_date.setText('{}年{}月{}日 周{}'.format(year,mon,day,weekday))
+
+        #初始化今天的任务
+
+
+        #课程列表表头初始化
+        self.headers_StudentList = ['姓名', '科目种类', '上课时间', '教练', '是否签到','是否评价']
+        self.class_data_model = QStandardItemModel()
+        # 学生表初始化
+        self.class_data_model.setHorizontalHeaderLabels(self.headers_StudentList)
+        self.tv_classlist.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+        self.tv_classlist.setSelectionBehavior(QTableView.SelectRows)  # 选中行
+        self.tv_classlist.setModel(self.class_data_model)
+        self.tv_classlist.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+
 
     def MyClear(self):
         # 查询刷新所有学生列表
@@ -63,7 +117,27 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
         self.te_eval_coa.clear()
         self.tv_eval_coa.clear()
 
+        self.clearinsertinfo()
+        #当前课表时间刷新
+        # year, mon, day = weekfun.getCurrentYMD()
+        # week, weekday = weekfun.FromDatetoWeek(year=year, month=mon, day=day)
+        # self.cb_weekj.setCurrentIndex(int(week) - 1)
+        # self.cb_weekday.setCurrentIndex(int(weekday) - 1)
+        # self.lb_date.setText('{}年{}月{}日 周{}'.format(year, mon, day, weekday))
+        # self.lb_date.setText('{}年{}月{}日 周{}'.format(year, mon, day, weekday))
+
+
+    def clearinsertinfo(self):
+        self.et_stuname.clear()
+        self.et_stuphone.clear()
+        self.et_stuclasstype.clear()
+        self.et_classdate.clear()
+        self.et_classtime.clear()
+        self.et_coaname.clear()
+        self.et_eval_insert.clear()
+
     def refreshstu(self,item):
+        self.clearinsertinfo()
         try:
             self.lb_stu_eval_num.setText('暂无评价信息')
             self.lb_stu_eval_num.setText('暂无评价信息')
@@ -141,8 +215,8 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
             if (flag):
                 if (len(self.stu_infodata) > 0):
                     self.add_stu_list()
-                else:
-                    QMessageBox.information(self, '提示', '未查询到有关学员！', QMessageBox.Ok, QMessageBox.Ok)
+                # else:
+                    # QMessageBox.information(self, '提示', '未查询到有关学员！', QMessageBox.Ok, QMessageBox.Ok)
             else:
                 QMessageBox.information(self, '提示', '查询失败！', QMessageBox.Ok, QMessageBox.Ok)
         except Exception as e:
@@ -162,8 +236,8 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
                 if (len(self.coa_infodata) > 0):
                     self.add_coa_list()
 
-                else:
-                    QMessageBox.information(self, '提示', '未查询到有关教练！', QMessageBox.Ok, QMessageBox.Ok)
+                # else:
+                    # QMessageBox.information(self, '提示', '未查询到有关教练！', QMessageBox.Ok, QMessageBox.Ok)
             else:
                 QMessageBox.information(self, '提示', '查询失败！', QMessageBox.Ok, QMessageBox.Ok)
         except Exception as e:
@@ -201,8 +275,6 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
                 QStandardItem(coa_name),
                 QStandardItem(coa_type),
             ])
-
-
 
     #点击学生，显示评价列表
     def tv_stu_row_sel_change(self):
@@ -360,6 +432,137 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
             self.tv_eval_coa.expandAll()
         else:
             self.tv_eval_coa.collapseAll()
+
+
+    #录入评价的界面
+    def refresh_lesson_table(self):
+
+        self.class_data_model.clear()
+        self.class_data_model.setHorizontalHeaderLabels(self.headers_StudentList)
+
+        year = self.cb_year.currentText()
+        week = self.cb_weekj.currentIndex()+1
+        weekday = self.cb_weekday.currentIndex()+1
+        _,mon,day = weekfun.FromWeektoDate(year,week-1,weekday)
+        self.lb_date.setText('{}年{}月{}日 周{}'.format(year, mon, day, weekday))
+        try:
+            sql = 'select * from mem_class where year={} and week = {} and cday = {}'\
+                                .format(year,week,weekday)
+            print(sql)
+            flag, self.lesson_item = self.MySQL.SelectFromDataBse(sql)
+            if (flag):
+                if (len(self.lesson_item) > 0):
+                    self.add_lesson()
+                # else:
+                #     print(None)
+        except Exception as e:
+            print(e)
+
+    # self.headers_StudentList = ['姓名', '科目种类', '上课时间', '教练', '是否签到']
+    def add_lesson(self):
+        for i, (_, mem_name, mem_type,mem_coa_name,_,_,_,ctime,eval, mem_signed) in enumerate(self.lesson_item):
+            #是否签到
+            if mem_signed == 0:
+                signed = '否'
+            else:
+                signed = '是'
+
+
+            #有评价
+            if eval == None:
+                e = '否'
+            else:
+                e = '是'
+
+
+            self.class_data_model.appendRow([
+                QStandardItem(mem_name),
+                QStandardItem(self.type2card[mem_type]),
+                QStandardItem('{}点'.format(ctime)),
+                QStandardItem(mem_coa_name),
+                QStandardItem(signed),
+                QStandardItem(e),
+            ])
+
+
+    def tv_lesson_row_sel_change(self):
+        try:
+            current_row = self.tv_classlist.currentIndex().row()
+            if current_row < len(self.lesson_item):
+                self.current_lesson = self.lesson_item[current_row]
+                self.et_stuname.setText(self.current_lesson[1])
+                self.et_stuphone.setText(self.current_lesson[0])
+                self.et_stuclasstype.setText(self.type2card[self.current_lesson[2]])
+                self.et_classdate.setText(self.lb_date.text())
+                self.et_classtime.setText('{}点'.format(self.current_lesson[7]))
+                self.et_coaname.setText(self.current_lesson[3])
+                #添加评价信息
+                if not self.current_lesson[8] == None:
+                    self.et_eval_insert.setPlainText(self.current_lesson[8])
+        except Exception as e:
+            print(e)
+
+    #评价录入按钮
+    def UpdateEval(self):
+        if(self.et_stuname.text()==''):
+            QMessageBox.information(self, '提示', '请选择学生！', QMessageBox.Ok, QMessageBox.Ok)
+        elif(self.et_eval_insert.toPlainText()==''):
+            QMessageBox.information(self, '提示', '请输入具体评价内容！', QMessageBox.Ok, QMessageBox.Ok)
+        else:
+            if(self.current_lesson[9]==1):
+                self.InsetEval()
+            else:
+                reply = QMessageBox.warning(self, '提示', '该课程显示未签到\n，是否继续录入?', QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+                if reply == QMessageBox.Yes:
+                    self.InsetEval()
+
+
+
+    def InsetEval(self):
+        hint = '学生姓名：{}\n联系方式：{}\n课程种类：{}\n上课时间：{}'.format(
+            self.current_lesson[1],
+            self.current_lesson[0],
+            self.type2card[self.current_lesson[2]],
+            '{} {}'.format(self.et_classdate.text(), self.et_classtime.text())
+        )
+        reply = QMessageBox.warning(self, '确认信息', hint, QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+        if reply == QMessageBox.Yes:
+            try:
+                sql = 'UPDATE  mem_class  SET coa_eval=\'{}\' WHERE ' \
+                      'mem_phone=\'{}\' ' \
+                      'and mem_name=\'{}\' ' \
+                      'and mem_type={} ' \
+                      'and mem_coa_name=\'{}\' ' \
+                      'and year={} ' \
+                      'and week={} ' \
+                      'and cday={} ' \
+                      'and ctime={}'.format(
+                    self.et_eval_insert.toPlainText(),
+                    self.current_lesson[0],
+                    self.current_lesson[1],
+                    self.current_lesson[2],
+                    self.current_lesson[3],
+                    self.current_lesson[4],
+                    self.current_lesson[5],
+                    self.current_lesson[6],
+                    self.current_lesson[7],
+                )
+                print(sql)
+                flag1 = self.MySQL.UpdateFromDataBse(sql)
+                if(flag1):
+                    self.clearinsertinfo()
+                    self.refresh_lesson_table()
+                    QMessageBox.information(self, '提示', '录入成功！', QMessageBox.Ok, QMessageBox.Ok)
+                else:
+                    QMessageBox.information(self, '提示', '录入失败！', QMessageBox.Ok, QMessageBox.Ok)
+            except Exception as e:
+                print(e)
+
+
+
+    def clearEvalInfo(self):
+        self.et_eval_insert.clear()
+
 if __name__ == '__main__':
     import Login.CheckDBandFace as ckdf
     f1, MySQL = ckdf.CheckDB()

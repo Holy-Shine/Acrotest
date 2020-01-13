@@ -1,12 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file '.\EvaluationMain.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -195,8 +186,7 @@ class Ui_Evaluation(object):
         self.lb_date.setObjectName("lb_date")
         self.tv_classlist = QtWidgets.QTableView(self.groupBox_15)
         self.tv_classlist.setGeometry(QtCore.QRect(10, 120, 351, 431))
-        self.tv_classlist.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(255, 255, 255);")
+        self.tv_classlist.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.tv_classlist.setObjectName("tv_classlist")
         self.groupBox_17 = QtWidgets.QGroupBox(self.page_5)
         self.groupBox_17.setGeometry(QtCore.QRect(380, 10, 711, 51))
@@ -234,9 +224,9 @@ class Ui_Evaluation(object):
         self.llv_stuclasstype = QtWidgets.QLabel(self.formLayoutWidget_8)
         self.llv_stuclasstype.setObjectName("llv_stuclasstype")
         self.formLayout_8.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.llv_stuclasstype)
-        self.et_ = QtWidgets.QLineEdit(self.formLayoutWidget_8)
-        self.et_.setObjectName("et_")
-        self.formLayout_8.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.et_)
+        self.et_stuclasstype = QtWidgets.QLineEdit(self.formLayoutWidget_8)
+        self.et_stuclasstype.setObjectName("et_stuclasstype")
+        self.formLayout_8.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.et_stuclasstype)
         self.groupBox_18 = QtWidgets.QGroupBox(self.page_5)
         self.groupBox_18.setGeometry(QtCore.QRect(380, 70, 721, 51))
         self.groupBox_18.setObjectName("groupBox_18")
@@ -281,8 +271,7 @@ class Ui_Evaluation(object):
         self.groupBox_19.setObjectName("groupBox_19")
         self.et_eval_insert = QtWidgets.QTextEdit(self.groupBox_19)
         self.et_eval_insert.setGeometry(QtCore.QRect(10, 20, 701, 471))
-        self.et_eval_insert.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(255, 255, 255);")
+        self.et_eval_insert.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.et_eval_insert.setObjectName("et_eval_insert")
         self.groupBox_20 = QtWidgets.QGroupBox(self.page_5)
         self.groupBox_20.setGeometry(QtCore.QRect(0, 570, 371, 51))
