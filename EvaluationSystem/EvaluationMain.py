@@ -18,7 +18,7 @@ class Ui_Evaluation(object):
         self.left_widget.setStyleSheet("background:#DDDDDD")
         self.left_widget.setObjectName("left_widget")
         self.listFunc = QtWidgets.QListWidget(self.left_widget)
-        self.listFunc.setGeometry(QtCore.QRect(10, 60, 141, 511))
+        self.listFunc.setGeometry(QtCore.QRect(10, 70, 141, 511))
         self.listFunc.setStyleSheet("QListWidget#listFunc{\n"
 "    outline: 0px;\n"
 "    border:0px;\n"
@@ -37,18 +37,25 @@ class Ui_Evaluation(object):
 "}\n"
 "")
         self.listFunc.setObjectName("listFunc")
+
         item = QtWidgets.QListWidgetItem()
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("SummarySystem/resource/card.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("resource/eval_stu.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon)
         self.listFunc.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.listFunc.addItem(item)
+
         item = QtWidgets.QListWidgetItem()
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("SummarySystem/resource/money.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("resource/eval_coa.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon1)
         self.listFunc.addItem(item)
+
+        item = QtWidgets.QListWidgetItem()
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("resource/edit.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        item.setIcon(icon3)
+        self.listFunc.addItem(item)
+
         self.label_13 = QtWidgets.QLabel(self.left_widget)
         self.label_13.setGeometry(QtCore.QRect(40, 20, 81, 21))
         self.label_13.setStyleSheet("font: 75 14pt \"黑体\";")
@@ -303,9 +310,9 @@ class Ui_Evaluation(object):
         __sortingEnabled = self.listFunc.isSortingEnabled()
         self.listFunc.setSortingEnabled(False)
         item = self.listFunc.item(0)
-        item.setText(_translate("Evaluation", "评价展示和查询(学生)"))
+        item.setText(_translate("Evaluation", "评价展示(学生)"))
         item = self.listFunc.item(1)
-        item.setText(_translate("Evaluation", "评价展示和查询(教练)"))
+        item.setText(_translate("Evaluation", "评价展示(教练)"))
         item = self.listFunc.item(2)
         item.setText(_translate("Evaluation", "评价录入和修改"))
         self.listFunc.setSortingEnabled(__sortingEnabled)

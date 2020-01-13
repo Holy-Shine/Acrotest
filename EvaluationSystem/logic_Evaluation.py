@@ -149,11 +149,11 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
             self.lb_stu_eval_num.setText('暂无评价信息')
             self.check_coa_openall.setEnabled(False)
             self.check_stu_openall.setEnabled(False)
-            if(item.text()=='评价展示和查询(学生)'):
+            if(item.text()=='评价展示(学生)'):
                 self.te_eval_stu.clear()
                 self.tv_eval_stu.clear()
 
-            elif (item.text() == '评价展示和查询(教练)'):
+            elif (item.text() == '评价展示(教练)'):
                 self.te_eval_coa.clear()
                 self.tv_eval_coa.clear()
 
