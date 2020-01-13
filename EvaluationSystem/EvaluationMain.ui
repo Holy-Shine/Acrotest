@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Evaluation</class>
+ <widget class="QWidget" name="Evaluation">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -147,8 +147,7 @@ QListWidget#listFunc::Item:selected {
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
       <widget class="QPushButton" name="bt_search_stu">
@@ -175,8 +174,7 @@ background-color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
@@ -202,8 +200,7 @@ background-color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
      <widget class="QLabel" name="lb_stu_eval_num">
@@ -255,8 +252,7 @@ background-color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
@@ -296,8 +292,7 @@ background-color: rgb(255, 255, 255);</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
        </property>
       </widget>
       <widget class="QPushButton" name="bt_search_coa">
@@ -324,8 +319,7 @@ background-color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
@@ -351,8 +345,7 @@ background-color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="check_coa_openall">
@@ -404,8 +397,7 @@ background-color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
@@ -473,8 +465,7 @@ background-color: rgb(255, 255, 255);</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">
-background-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
        </widget>
       </widget>
@@ -532,8 +523,7 @@ background-color: rgb(255, 255, 255);</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">
-background-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
        </widget>
       </widget>
@@ -575,8 +565,7 @@ background-color: rgb(255, 255, 255);</string>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">
-background-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
        </widget>
       </widget>
@@ -604,8 +593,7 @@ background-color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
@@ -789,8 +777,7 @@ background-color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(255, 255, 255);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
@@ -809,7 +796,7 @@ background-color: rgb(255, 255, 255);</string>
      <widget class="QPushButton" name="bt_confrim">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>140</x>
         <y>0</y>
         <width>101</width>
         <height>41</height>
@@ -822,7 +809,7 @@ background-color: rgb(255, 255, 255);</string>
      <widget class="QPushButton" name="bt_clear">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>250</x>
         <y>0</y>
         <width>111</width>
         <height>41</height>
@@ -830,6 +817,19 @@ background-color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>清空</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bt_verify">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>0</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>二级验证</string>
       </property>
      </widget>
     </widget>

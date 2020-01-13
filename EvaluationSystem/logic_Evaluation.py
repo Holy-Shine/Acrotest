@@ -3,7 +3,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QDialog, QMessageBox, QLineEdit, QApplication, QTableView, QHeaderView, QTreeWidgetItem
 from qtpy import QtCore
 from Date2Week import DateAndWeek as weekfun
-
+from CoachSystem.logic_verify import logicVerify
 from EvaluationSystem.EvaluationMain import Ui_Evaluation
 import sys
 
@@ -61,6 +61,8 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
 
         self.bt_confrim.clicked.connect(self.UpdateEval)
         self.bt_clear.clicked.connect(self.clearEvalInfo)
+
+        self.bt_verify.clicked.connect(self.verify)
 
 
     #初始化更新界面
@@ -125,6 +127,10 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
         # self.cb_weekday.setCurrentIndex(int(weekday) - 1)
         # self.lb_date.setText('{}年{}月{}日 周{}'.format(year, mon, day, weekday))
         # self.lb_date.setText('{}年{}月{}日 周{}'.format(year, mon, day, weekday))
+
+        #二级验证初始化
+        self.bt_confrim.setEnabled(False)
+        self.bt_verify.setEnabled(True)
 
 
     def clearinsertinfo(self):
@@ -559,6 +565,19 @@ class LogicEvaluationMain(Ui_Evaluation,QDialog):
                 print(e)
 
 
+    def verify(self):
+        try:
+            FormVerify = logicVerify()
+            FormVerify.setWindowModality(QtCore.Qt.ApplicationModal)
+            FormVerify.show()
+            if FormVerify.exec() == 1:
+                self.bt_verify.setEnabled(False)
+                self.bt_confrim.setEnabled(True)
+            else:
+                QMessageBox.information(self, '提示', '二级密码错误！', QMessageBox.Ok, QMessageBox.Ok)
+
+        except Exception as e:
+            print(e)
 
     def clearEvalInfo(self):
         self.et_eval_insert.clear()
