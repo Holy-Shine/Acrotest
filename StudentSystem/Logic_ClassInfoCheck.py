@@ -66,7 +66,7 @@ class LogicClassInfoCheck(Ui_ClassInfoCheck,QDialog):
 
     def cb_init(self):
         year = time.gmtime().tm_year
-        self.cb_year.addItems([str(year-2),str(year-1),str(year)])
+        self.cb_year.addItems([str(year-1),str(year),str(year+1)])
         for i in range(1,54):
             self.cb_week.addItem('{}'.format(i))
 
