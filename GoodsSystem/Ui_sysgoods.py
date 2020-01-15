@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'e:\waibaoTest\GoodsSystem\sysgoods.ui'
+# Form implementation generated from reading ui file 'sysgoods.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_sysGoods(object):
     def setupUi(self, sysGoods):
@@ -68,16 +66,16 @@ class Ui_sysGoods(object):
         self.label_3.setStyleSheet("font: 75 14pt \"黑体\";")
         self.label_3.setObjectName("label_3")
         self.groupBox_2 = QtWidgets.QGroupBox(self.page_2)
-        self.groupBox_2.setGeometry(QtCore.QRect(30, 70, 531, 341))
+        self.groupBox_2.setGeometry(QtCore.QRect(30, 70, 531, 471))
         self.groupBox_2.setObjectName("groupBox_2")
         self.tv_goods_2 = QtWidgets.QTableView(self.groupBox_2)
-        self.tv_goods_2.setGeometry(QtCore.QRect(10, 20, 511, 311))
+        self.tv_goods_2.setGeometry(QtCore.QRect(10, 20, 511, 441))
         self.tv_goods_2.setObjectName("tv_goods_2")
         self.groupBox_3 = QtWidgets.QGroupBox(self.page_2)
-        self.groupBox_3.setGeometry(QtCore.QRect(570, 70, 441, 341))
+        self.groupBox_3.setGeometry(QtCore.QRect(570, 70, 441, 471))
         self.groupBox_3.setObjectName("groupBox_3")
         self.layoutWidget = QtWidgets.QWidget(self.groupBox_3)
-        self.layoutWidget.setGeometry(QtCore.QRect(10, 0, 421, 361))
+        self.layoutWidget.setGeometry(QtCore.QRect(10, 0, 421, 451))
         self.layoutWidget.setObjectName("layoutWidget")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.layoutWidget)
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -140,16 +138,16 @@ class Ui_sysGoods(object):
         self.label_2.setStyleSheet("font: 75 14pt \"黑体\";")
         self.label_2.setObjectName("label_2")
         self.tv_goods = QtWidgets.QTableView(self.page)
-        self.tv_goods.setGeometry(QtCore.QRect(60, 100, 641, 401))
+        self.tv_goods.setGeometry(QtCore.QRect(60, 100, 641, 421))
         self.tv_goods.setObjectName("tv_goods")
         self.groupBox = QtWidgets.QGroupBox(self.page)
-        self.groupBox.setGeometry(QtCore.QRect(710, 100, 271, 401))
+        self.groupBox.setGeometry(QtCore.QRect(710, 100, 271, 421))
         self.groupBox.setObjectName("groupBox")
         self.btn_confirm_add = QtWidgets.QPushButton(self.groupBox)
-        self.btn_confirm_add.setGeometry(QtCore.QRect(20, 347, 241, 41))
+        self.btn_confirm_add.setGeometry(QtCore.QRect(20, 370, 241, 41))
         self.btn_confirm_add.setObjectName("btn_confirm_add")
         self.layoutWidget1 = QtWidgets.QWidget(self.groupBox)
-        self.layoutWidget1.setGeometry(QtCore.QRect(20, 20, 241, 321))
+        self.layoutWidget1.setGeometry(QtCore.QRect(20, 20, 241, 341))
         self.layoutWidget1.setObjectName("layoutWidget1")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.layoutWidget1)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -181,7 +179,7 @@ class Ui_sysGoods(object):
         self.stackedWidget.addWidget(self.page)
 
         self.retranslateUi(sysGoods)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(sysGoods)
 
     def retranslateUi(self, sysGoods):
@@ -217,3 +215,4 @@ class Ui_sysGoods(object):
         self.label_5.setText(_translate("sysGoods", "货物简介:"))
         self.btn_remove_select.setText(_translate("sysGoods", "删除选中货物"))
         self.le_filter.setPlaceholderText(_translate("sysGoods", "键入货物名关键词以过滤货物"))
+

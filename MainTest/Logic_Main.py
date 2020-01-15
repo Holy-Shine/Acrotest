@@ -83,6 +83,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.FromGoods = logicGoods(MySQL=self.MySQL)  # 仓库系统
 
+
         self.stackedWidget.addWidget(self.FormBlank)
         self.stackedWidget.addWidget(self.FormNewMember)
         self.stackedWidget.addWidget(self.FormLesson)
@@ -130,7 +131,7 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
         #评价录入系统
         self.pb_main_EvaluationSystem.clicked.connect(self.on_pb_main_EvaluationSystem)
-
+        self.pb_main_EvaluationSystem.clicked.connect(self.Evaluation.MyClear)
 
         # 仓库系统
         self.pb_main_CangkuSystem.clicked.connect(self.on_pb_main_GoodsSystem)
@@ -202,7 +203,10 @@ class LogicMain(QtWidgets.QMainWindow, Ui_MainWindow):
 
     # 仓库系统
     def on_pb_main_GoodsSystem(self):
-        self.stackedWidget.setCurrentWidget(self.FromGoods)
+        if (self.username == 'Jessie' or self.username == 'WangAn'):
+            self.stackedWidget.setCurrentWidget(self.FromGoods)
+        else:
+            QMessageBox.information(self, '提示', '无权限！', QMessageBox.Ok, QMessageBox.Ok)
 
 
 

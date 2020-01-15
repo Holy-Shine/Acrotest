@@ -159,3 +159,13 @@ dmypy.json
 /loadexcel/学生信息表.xls
 /loadexcel/loadExcel.py
 /loadexcel/无效数据.xls
+icon.jpg
+FaceFunction/3.jpg
+EvaluationSystem/test.py
+BasicInfos/DBInfos_true.json
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/Acrotest.iml
+.gitignore
